@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { DailyLesson, ExerciseItem } from '../types/lesson';
-import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers } from 'lucide-react';
+import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers, BookOpen } from 'lucide-react';
 import { updateLessonProgress } from '../services/storage';
 import confetti from 'canvas-confetti';
 
 interface ExerciseViewProps {
   lesson: DailyLesson;
   onUpdateLesson: (updated: DailyLesson) => void;
+  onOpenHandbook?: () => void;
 }
 
-export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLesson }) => {
+export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLesson, onOpenHandbook }) => {
   const [activeSession, setActiveSession] = useState<'all' | 's1' | 's2' | 's3' | 'wrong'>('s1');
   const [currentIdx, setCurrentIdx] = useState(0);
   const [fillInput, setFillInput] = useState('');
@@ -346,6 +347,18 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
               </button>
             )}
           </div>
+
+          {/* Nút Mở Sổ tay các thì */}
+          {onOpenHandbook && (
+            <button
+              onClick={onOpenHandbook}
+              className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 text-xs flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
+              title="Mở Sổ tay 12 thì Tiếng Anh"
+            >
+              <BookOpen size={14} />
+              <span className="hidden sm:inline">Sổ tay các thì</span>
+            </button>
+          )}
 
           {/* Nút Đổi chế độ xem */}
           <button

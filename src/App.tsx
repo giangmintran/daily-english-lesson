@@ -24,6 +24,8 @@ import { ExerciseView } from './components/ExerciseView';
 import { HistoryView } from './components/HistoryView';
 import { ImportModal } from './components/ImportModal';
 import { LoginView } from './components/LoginView';
+import { TenseHandbookModal } from './components/TenseHandbookModal';
+import { TenseHandbookButton } from './components/TenseHandbookButton';
 
 export function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => Boolean(getAuthToken()));
@@ -31,6 +33,7 @@ export function App() {
   const [activeDate, setActiveDateState] = useState<string>(() => getActiveDate());
   const [currentLesson, setCurrentLesson] = useState<DailyLesson | null>(() => getLessonByDate(getActiveDate()));
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isHandbookOpen, setIsHandbookOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem('theme') === 'dark' ||
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -175,6 +178,7 @@ export function App() {
               <ExerciseView
                 lesson={currentLesson}
                 onUpdateLesson={handleUpdateLesson}
+                onOpenHandbook={() => setIsHandbookOpen(true)}
               />
             )}
           </>
@@ -195,6 +199,18 @@ export function App() {
           </div>
         )}
       </main>
+
+      {/* Floating Tense Handbook Button (Góc dưới bên phải) */}
+      <TenseHandbookButton
+        onClick={() => setIsHandbookOpen(true)}
+        isOpen={isHandbookOpen}
+      />
+
+      {/* Tense Handbook Modal */}
+      <TenseHandbookModal
+        isOpen={isHandbookOpen}
+        onClose={() => setIsHandbookOpen(false)}
+      />
 
       {/* Import Modal */}
       <ImportModal

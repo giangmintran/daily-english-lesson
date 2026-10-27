@@ -90,3 +90,4 @@ All 28 automated security tests in `test/security.test.mjs` pass cleanly:
 npm run test:security
 # Results: 28 PASSED, 0 FAILED
 ```
+
