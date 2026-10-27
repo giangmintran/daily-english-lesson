@@ -303,20 +303,20 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
   const hasValidData = Boolean((parsedVocab && parsedVocab.length > 0) || (parsedExercises && parsedExercises.length > 0));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white dark:bg-zinc-900 border-0 sm:border border-zinc-200 dark:border-zinc-800 rounded-none sm:rounded-3xl w-full max-w-5xl h-full sm:h-auto sm:max-h-[92vh] shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs">
+            <div className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs shrink-0">
               <Layers size={16} />
             </div>
             <div>
-              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-base">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm sm:text-base">
                 Import Bài Học (2 Ô Riêng Biệt)
               </h3>
-              <p className="text-xs text-zinc-500">
-                Nhập độc lập Từ mới và Bài tập với 2 template mẫu tương ứng
+              <p className="text-[11px] sm:text-xs text-zinc-500">
+                Nhập độc lập Từ mới và Bài tập với 2 template mẫu
               </p>
             </div>
           </div>
@@ -324,7 +324,7 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
           <div className="flex items-center gap-2">
             <button
               onClick={handleLoadBothTemplates}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-medium transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-medium transition-colors cursor-pointer"
               title="Điền mẫu cho cả 2 ô"
             >
               <Sparkles size={13} className="text-amber-500" />
@@ -332,7 +332,7 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
             </button>
             <button
               onClick={onClose}
-              className="p-1 rounded-lg text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="p-1.5 rounded-xl text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               <X size={18} />
             </button>
@@ -340,26 +340,26 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
         </div>
 
         {/* Date & Topic Settings Bar */}
-        <div className="px-6 py-3 bg-zinc-50 dark:bg-zinc-950/60 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-3 text-xs">
+        <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-zinc-50 dark:bg-zinc-950/60 border-b border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 text-xs shrink-0">
           <div className="flex items-center gap-2">
-            <Calendar size={14} className="text-zinc-400" />
-            <span className="text-zinc-500 font-medium">Ngày học:</span>
+            <Calendar size={14} className="text-zinc-400 shrink-0" />
+            <span className="text-zinc-500 font-medium shrink-0">Ngày học:</span>
             <input
               type="date"
               value={lessonDate}
               onChange={(e) => setLessonDate(e.target.value)}
-              className="px-2 py-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-mono text-xs"
+              className="px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-mono text-xs"
             />
           </div>
 
-          <div className="flex items-center gap-2 flex-1 min-w-[200px]">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
             <span className="text-zinc-500 font-medium shrink-0">Chủ đề:</span>
             <input
               type="text"
               value={lessonTopic}
               onChange={(e) => setLessonTopic(e.target.value)}
               placeholder="Nhập chủ đề bài học..."
-              className="flex-1 px-2.5 py-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs"
+              className="flex-1 px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs"
             />
           </div>
         </div>
@@ -664,10 +664,10 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-3 bg-zinc-50/60 dark:bg-zinc-900/60">
-          <div className="text-xs text-zinc-500">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-zinc-50/80 dark:bg-zinc-900/80 shrink-0">
+          <div className="text-xs text-zinc-500 text-center sm:text-left">
             {hasValidData ? (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
                 <span>Sẵn sàng lưu:</span>
                 <strong className="text-blue-600 dark:text-blue-400 font-mono">
                   {parsedVocab ? `${parsedVocab.length} từ` : 'giữ từ cũ'}
@@ -682,20 +682,20 @@ export const ImportModal: React.FC<ImportModalProps> = ({ isOpen, onClose, onLes
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-end">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="flex-1 sm:flex-none px-4 py-2.5 text-xs font-medium rounded-xl text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200/60 dark:hover:bg-zinc-800 transition-colors cursor-pointer text-center"
             >
               Hủy
             </button>
             <button
               disabled={!hasValidData}
               onClick={handleSaveAndApply}
-              className={`px-4 py-2 text-xs font-medium rounded-lg transition-all shadow-xs ${
+              className={`flex-1 sm:flex-none px-5 py-2.5 text-xs font-semibold rounded-xl transition-all shadow-xs text-center cursor-pointer ${
                 hasValidData
-                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 cursor-pointer'
-                  : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed'
+                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 active:scale-95'
+                  : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed opacity-50'
               }`}
             >
               Lưu và Bắt đầu học

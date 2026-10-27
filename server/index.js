@@ -6,7 +6,7 @@ import { isSupabaseConfigured } from './supabase.js';
 
 const PORT = process.env.PORT || 5000;
 
-// Phục vụ frontend tĩnh khi chạy production độc lập bằng Node
+// Serve static frontend in standalone Node production
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const distPath = path.resolve(__dirname, '../dist');
@@ -32,6 +32,14 @@ app.listen(PORT, () => {
   console.log(`📡 Health Check: http://localhost:${PORT}/api/health`);
   console.log(`📚 Lessons API:  http://localhost:${PORT}/api/lessons`);
 
+  const configuredPassword = process.env.APP_PASSWORD;
+  if (!configuredPassword || !configuredPassword.trim()) {
+    console.warn(`🚨 [CẢNH BÁO BẢO MẬT] Biến môi trường APP_PASSWORD chưa được thiết lập!`);
+    console.warn(`   Mọi truy cập tới API bảo vệ sẽ bị chặn tự động (Fail-closed).`);
+  } else {
+    console.log(`🔒 Hệ thống xác thực bảo mật đã kích hoạt.`);
+  }
+
   if (!isSupabaseConfigured()) {
     console.warn(`⚠️  [Cảnh báo] Supabase CHƯA được cấu hình trong file .env!`);
     console.warn(`   Vui lòng điền SUPABASE_URL và SUPABASE_SECRET_KEY vào file .env.`);
@@ -40,4 +48,3 @@ app.listen(PORT, () => {
   }
   console.log(`==================================================\n`);
 });
-

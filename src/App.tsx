@@ -15,6 +15,7 @@ import {
   getAuthToken,
   clearAuthToken,
   verifyAuthApi,
+  logoutApi,
 } from './services/api';
 import { Navbar } from './components/Navbar';
 import { DailyOverview } from './components/DailyOverview';
@@ -117,7 +118,7 @@ export function App() {
   };
 
   const handleLogout = () => {
-    clearAuthToken();
+    logoutApi();
     setIsAuthenticated(false);
   };
 
@@ -143,7 +144,7 @@ export function App() {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-1 pb-16 md:pb-12">
+      <main className="flex-1 pb-20 md:pb-12">
         {currentTab === 'history' ? (
           <HistoryView
             onSelectDate={(date, selectedLesson) => {

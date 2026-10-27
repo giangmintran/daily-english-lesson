@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { DailyLesson, VocabularyExample } from '../types/lesson';
-import { Volume2, ChevronLeft, ChevronRight, Check, RotateCcw, AlertTriangle, BookOpen, Layers } from 'lucide-react';
+import { Volume2, ChevronLeft, ChevronRight, Check, RotateCcw, AlertTriangle, BookOpen, Layers, RefreshCw } from 'lucide-react';
 import { speakWord } from '../utils/speech';
 import { updateLessonProgress } from '../services/storage';
 
@@ -13,6 +13,10 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [autoPronounce, setAutoPronounce] = useState(true);
+
+  // Swipe detection refs
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const words = lesson.vocabulary;
   const currentWord = words[currentIndex] || words[0];
@@ -99,6 +103,29 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleFlip, handleNext, handlePrev, handleToggleMastered, currentWord]);
 
+  // Touch Swipe handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    // Trigger swipe if mostly horizontal and moved > 40px
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+      if (deltaX < 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   if (!currentWord) {
     return (
       <div className="text-center py-20 text-zinc-500">
@@ -124,29 +151,47 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
     });
   }
 
+  const masteredCount = masteredIds.size;
+  const progressPercent = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0;
+
   return (
-    <div className="max-w-2xl mx-auto py-6 px-4 animate-fade-in flex flex-col items-center">
+    <div
+      className="max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-4 animate-fade-in flex flex-col items-center"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Top Controls: Counter & Sound toggle */}
-      <div className="w-full flex items-center justify-between text-xs text-zinc-500 mb-4 px-1">
-        <div className="font-mono">
-          Từ <span className="font-semibold text-zinc-900 dark:text-zinc-100">{currentIndex + 1}</span> / {totalWords}
+      <div className="w-full flex items-center justify-between text-xs text-zinc-500 mb-3 px-1">
+        <div className="font-mono flex items-center gap-1.5">
+          <span>Từ</span>
+          <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100">
+            {currentIndex + 1}
+          </span>
+          <span>/</span>
+          <span>{totalWords}</span>
+          <span className="hidden sm:inline-block ml-2 text-[11px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+            {masteredCount} đã thuộc ({progressPercent}%)
+          </span>
         </div>
 
-        <div className="flex items-center gap-4">
-          <label className="flex items-center gap-1.5 cursor-pointer text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-1.5 cursor-pointer text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 select-none">
             <input
               type="checkbox"
               checked={autoPronounce}
               onChange={(e) => setAutoPronounce(e.target.checked)}
-              className="rounded border-zinc-300 text-zinc-900 focus:ring-0 cursor-pointer"
+              className="w-3.5 h-3.5 rounded border-zinc-300 dark:border-zinc-700 text-zinc-900 focus:ring-0 cursor-pointer"
             />
-            <span>Tự phát âm khi qua từ mới</span>
+            <span className="text-xs">
+              <span className="sm:hidden">Tự phát âm</span>
+              <span className="hidden sm:inline">Tự phát âm khi đổi từ</span>
+            </span>
           </label>
         </div>
       </div>
 
-      {/* Progress Dots */}
-      <div className="w-full flex gap-1 mb-6 overflow-x-auto pb-1">
+      {/* Progress Dots Bar */}
+      <div className="w-full flex gap-1 mb-4 overflow-x-auto pb-1 no-scrollbar">
         {words.map((w, idx) => {
           const isMastered = masteredIds.has(w.id);
           const isCurrent = idx === currentIndex;
@@ -157,9 +202,9 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
                 setCurrentIndex(idx);
                 setIsFlipped(false);
               }}
-              className={`h-1.5 flex-1 rounded-full transition-all cursor-pointer ${
+              className={`h-2 flex-1 min-w-[10px] rounded-full transition-all cursor-pointer ${
                 isCurrent
-                  ? 'bg-zinc-900 dark:bg-zinc-100 ring-2 ring-zinc-400 dark:ring-zinc-600'
+                  ? 'bg-zinc-900 dark:bg-zinc-100 ring-2 ring-zinc-400 dark:ring-zinc-500'
                   : isMastered
                   ? 'bg-emerald-500'
                   : 'bg-zinc-200 dark:bg-zinc-800'
@@ -170,84 +215,109 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
         })}
       </div>
 
-      {/* Minimalist Flashcard Container */}
+      {/* Flashcard Component */}
       <div
-        onClick={handleFlip}
-        className={`w-full min-h-[380px] p-6 sm:p-8 rounded-3xl border cursor-pointer select-none transition-all duration-300 flex flex-col justify-between relative shadow-xs ${
+        className={`w-full min-h-[340px] sm:min-h-[400px] p-5 sm:p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between relative shadow-sm ${
           isCurrentMastered
-            ? 'border-emerald-500/30 bg-white dark:bg-zinc-900'
+            ? 'border-emerald-500/40 bg-white dark:bg-zinc-900'
             : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700'
         }`}
       >
-        {/* Top card metadata */}
-        <div className="flex items-center justify-between text-xs pb-2">
-          <div className="flex items-center gap-2">
+        {/* Top card metadata & Flip toggle */}
+        <div className="flex items-center justify-between text-xs pb-3 border-b border-zinc-100 dark:border-zinc-800/80">
+          <div className="flex items-center gap-2 flex-wrap">
             {currentWord.partOfSpeech && (
               <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium">
                 {currentWord.partOfSpeech}
               </span>
             )}
             {isCurrentMastered && (
-              <span className="flex items-center gap-1 font-mono text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+              <span className="flex items-center gap-1 font-mono text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md font-medium">
                 <Check size={12} />
                 <span>Đã thuộc</span>
               </span>
             )}
           </div>
 
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              speakWord(currentWord.word);
-            }}
-            className="p-2 rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
-            title="Nghe phát âm (Phím R)"
-          >
-            <Volume2 size={18} />
-          </button>
+          <div className="flex items-center gap-1.5">
+            {/* Audio Pronunciation Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                speakWord(currentWord.word);
+              }}
+              className="p-2 sm:p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 transition-colors cursor-pointer active:scale-95"
+              title="Nghe phát âm (Phím R)"
+              aria-label="Phát âm từ"
+            >
+              <Volume2 size={18} />
+            </button>
+
+            {/* Flip Card Toggle Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFlip();
+              }}
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-medium transition-colors cursor-pointer active:scale-95"
+              title="Lật thẻ"
+            >
+              <RefreshCw size={13} className={isFlipped ? 'rotate-180 transition-transform' : 'transition-transform'} />
+              <span>{isFlipped ? 'Mặt từ' : 'Xem nghĩa'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Center Card Content */}
         {!isFlipped ? (
           /* FRONT SIDE */
-          <div className="text-center py-12 space-y-3">
-            <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+          <div
+            onClick={handleFlip}
+            className="text-center py-10 sm:py-16 space-y-3 cursor-pointer select-none flex-1 flex flex-col justify-center"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 break-words px-2">
               {currentWord.word}
             </h2>
             {currentWord.phonetic && (
-              <div className="text-sm font-mono text-zinc-500 dark:text-zinc-400">
+              <div className="text-sm sm:text-base font-mono text-zinc-500 dark:text-zinc-400">
                 IPA: {currentWord.phonetic}
               </div>
             )}
-            <p className="text-xs text-zinc-400 pt-8">
-              Bấm vào thẻ hoặc nhấn <kbd className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 font-mono">Space</kbd> để xem nghĩa & cách dùng
-            </p>
+            <div className="pt-6 sm:pt-8 text-xs text-zinc-400 dark:text-zinc-500">
+              <span className="sm:hidden">Chạm vào thẻ để lật xem nghĩa & ví dụ</span>
+              <span className="hidden sm:inline">
+                Bấm vào thẻ hoặc nhấn <kbd className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 font-mono text-[11px]">Space</kbd> để lật
+              </span>
+            </div>
           </div>
         ) : (
-          /* BACK SIDE: RICH DETAILS */
-          <div className="py-2 space-y-4 animate-fade-in text-left max-h-[520px] overflow-y-auto pr-1">
+          /* BACK SIDE: RICH DETAILS (With independent scroll, doesn't trigger flip) */
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="py-3 space-y-4 animate-fade-in text-left max-h-[360px] sm:max-h-[460px] overflow-y-auto overscroll-contain pr-1 flex-1"
+          >
             {/* Meaning */}
             <div className="border-b border-zinc-100 dark:border-zinc-800 pb-3">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-0.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-0.5">
                 Định nghĩa
               </span>
-              <h3 className="text-xl sm:text-2xl font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
+              <h3 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 leading-snug">
                 {currentWord.meaning}
               </h3>
             </div>
 
             {/* Natural Usage & Purpose */}
             {(currentWord.usage || currentWord.purpose) && (
-              <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-100 dark:border-zinc-800 text-xs space-y-1.5">
+              <div className="p-3 sm:p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-100 dark:border-zinc-800 text-xs space-y-1.5">
                 {currentWord.usage && (
                   <div>
-                    <span className="font-semibold text-zinc-800 dark:text-zinc-200">Cách dùng tự nhiên: </span>
+                    <span className="font-semibold text-zinc-800 dark:text-zinc-200">Cách dùng: </span>
                     <span className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{currentWord.usage}</span>
                   </div>
                 )}
                 {currentWord.purpose && (
                   <div>
-                    <span className="font-semibold text-zinc-800 dark:text-zinc-200">Dùng để làm gì: </span>
+                    <span className="font-semibold text-zinc-800 dark:text-zinc-200">Mục đích: </span>
                     <span className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{currentWord.purpose}</span>
                   </div>
                 )}
@@ -309,26 +379,41 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
                 </div>
               </div>
             )}
+
+            {/* Mobile quick flip back button */}
+            <div className="pt-2 text-center">
+              <button
+                onClick={handleFlip}
+                className="text-xs text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 font-medium underline underline-offset-4 py-1"
+              >
+                ← Quay lại mặt từ vựng
+              </button>
+            </div>
           </div>
         )}
 
-        {/* Bottom card hint */}
+        {/* Bottom card footer hint */}
         <div className="flex items-center justify-between text-[11px] text-zinc-400 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
           <span>Active Recall</span>
-          <span>{isFlipped ? 'Nhấn Space để ẩn' : 'Nhấn Space để lật'}</span>
+          <span className="hidden sm:inline">
+            {isFlipped ? 'Nhấn Space để ẩn' : 'Nhấn Space để lật'}
+          </span>
+          <span className="sm:hidden text-zinc-400">
+            Vuốt ngang để chuyển từ
+          </span>
         </div>
       </div>
 
       {/* Spaced Repetition Buttons: Review Again vs Mastered */}
-      <div className="w-full grid grid-cols-2 gap-3 mt-4">
+      <div className="w-full grid grid-cols-2 gap-2.5 sm:gap-3 mt-3.5 sm:mt-4">
         <button
           onClick={() => {
             handleToggleMastered(false);
             handleNext();
           }}
-          className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-amber-400 dark:hover:border-amber-600 transition-all text-xs font-medium cursor-pointer"
+          className="flex items-center justify-center gap-2 py-3 sm:py-3.5 px-3 sm:px-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-amber-400 dark:hover:border-amber-600 transition-all text-xs sm:text-sm font-medium cursor-pointer active:scale-95 shadow-xs"
         >
-          <RotateCcw size={14} className="text-amber-500" />
+          <RotateCcw size={15} className="text-amber-500 shrink-0" />
           <span>Cần ôn lại</span>
           <kbd className="hidden sm:inline px-1 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-[10px] text-zinc-400 font-mono">1</kbd>
         </button>
@@ -338,37 +423,39 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
             handleToggleMastered(true);
             handleNext();
           }}
-          className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border transition-all text-xs font-medium cursor-pointer ${
+          className={`flex items-center justify-center gap-2 py-3 sm:py-3.5 px-3 sm:px-4 rounded-2xl border transition-all text-xs sm:text-sm font-medium cursor-pointer active:scale-95 shadow-xs ${
             isCurrentMastered
-              ? 'border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+              ? 'border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-semibold'
               : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-emerald-400'
           }`}
         >
-          <Check size={14} className="text-emerald-500" />
+          <Check size={16} className="text-emerald-500 shrink-0" />
           <span>Đã thuộc từ này</span>
           <kbd className="hidden sm:inline px-1 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-[10px] text-zinc-400 font-mono">2</kbd>
         </button>
       </div>
 
       {/* Prev / Next Navigators */}
-      <div className="w-full flex items-center justify-between mt-4">
+      <div className="w-full flex items-center justify-between mt-3 sm:mt-4">
         <button
           onClick={handlePrev}
-          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg transition-colors cursor-pointer"
+          className="flex items-center gap-1 px-3 py-2 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
         >
           <ChevronLeft size={16} />
-          <span>Từ trước (←)</span>
+          <span>Từ trước</span>
+          <span className="hidden sm:inline font-mono text-[10px] text-zinc-400">(←)</span>
         </button>
 
-        <div className="text-[11px] text-zinc-400 font-mono">
-          Phím tắt: [Space] Lật | [R] Phát âm | [←/→] Chuyển từ
+        <div className="hidden sm:block text-[11px] text-zinc-400 font-mono text-center">
+          [Space] Lật • [R] Phát âm • [←/→] Chuyển từ
         </div>
 
         <button
           onClick={handleNext}
-          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg transition-colors cursor-pointer"
+          className="flex items-center gap-1 px-3 py-2 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
         >
-          <span>Từ tiếp theo (→)</span>
+          <span>Từ tiếp</span>
+          <span className="hidden sm:inline font-mono text-[10px] text-zinc-400">(→)</span>
           <ChevronRight size={16} />
         </button>
       </div>

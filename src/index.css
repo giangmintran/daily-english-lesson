@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
   :root {
     --background: 0 0% 98%;
     --foreground: 240 10% 3.9%;
@@ -46,5 +49,14 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(150, 150, 150, 0.4);
+}
+
+/* Hide scrollbar for clean horizontal swipe on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 

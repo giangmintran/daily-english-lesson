@@ -9,6 +9,7 @@
     "dev:client": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "test:security": "node test/security.test.mjs",
     "start": "node server/index.js"
   },
   "dependencies": {

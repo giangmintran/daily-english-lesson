@@ -27,11 +27,19 @@ export function clearAuthToken(): void {
   }
 }
 
+function handleUnauthorized(): void {
+  clearAuthToken();
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('auth_unauthorized'));
+  }
+}
+
 function getHeaders(customHeaders: Record<string, string> = {}): Record<string, string> {
   const token = getAuthToken();
   const headers: Record<string, string> = { ...customHeaders };
   if (token) {
     headers['x-access-token'] = token;
+    headers['Authorization'] = `Bearer ${token}`;
   }
   return headers;
 }
@@ -39,10 +47,11 @@ function getHeaders(customHeaders: Record<string, string> = {}): Record<string, 
 export interface HealthResponse {
   status: string;
   timestamp: string;
-  supabase: {
+  database?: string;
+  supabase?: {
     configured: boolean;
     connected: boolean;
-    message: string;
+    message?: string;
   };
 }
 
@@ -88,6 +97,10 @@ export async function verifyAuthApi(): Promise<boolean> {
     const res = await fetch(`${API_BASE}/auth/verify`, {
       headers: getHeaders(),
     });
+    if (res.status === 401) {
+      handleUnauthorized();
+      return false;
+    }
     return res.ok;
   } catch {
     return false;
@@ -95,7 +108,23 @@ export async function verifyAuthApi(): Promise<boolean> {
 }
 
 /**
- * Kiểm tra trạng thái kết nối backend và supabase
+ * Đăng xuất khỏi hệ thống
+ */
+export async function logoutApi(): Promise<void> {
+  try {
+    await fetch(`${API_BASE}/auth/logout`, {
+      method: 'POST',
+      headers: getHeaders(),
+    });
+  } catch {
+    // ignore
+  } finally {
+    clearAuthToken();
+  }
+}
+
+/**
+ * Kiểm tra trạng thái kết nối backend
  */
 export async function getBackendHealth(): Promise<HealthResponse | null> {
   try {
@@ -117,8 +146,7 @@ export async function fetchLessonsFromApi(): Promise<DailyLesson[] | null> {
     });
 
     if (res.status === 401) {
-      clearAuthToken();
-      window.dispatchEvent(new Event('auth_unauthorized'));
+      handleUnauthorized();
       return null;
     }
 
@@ -145,6 +173,12 @@ export async function fetchLessonByDateFromApi(date: string): Promise<DailyLesso
     const res = await fetch(`${API_BASE}/lessons/${date}`, {
       headers: getHeaders(),
     });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return null;
+    }
+
     if (!res.ok) return null;
     const data = await res.json();
     return data.success ? data.data : null;
@@ -166,6 +200,11 @@ export async function saveLessonToApi(lesson: DailyLesson): Promise<{ success: b
       }),
       body: JSON.stringify({ lesson }),
     });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' };
+    }
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.success) {
@@ -200,6 +239,11 @@ export async function updateProgressToApi(
       body: JSON.stringify({ progress }),
     });
 
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' };
+    }
+
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.success) {
       return {
@@ -226,6 +270,11 @@ export async function deleteLessonFromApi(date: string): Promise<{ success: bool
       method: 'DELETE',
       headers: getHeaders(),
     });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' };
+    }
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.success) {
