@@ -15,6 +15,7 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
 }) => {
   const [revealedMeanings, setRevealedMeanings] = useState<Record<string, boolean>>({});
   const [showAllMeanings, setShowAllMeanings] = useState(false);
+  const [playingWordId, setPlayingWordId] = useState<string | null>(null);
 
   const masteredWordIds = lesson.progress?.wordsMastered || [];
   const exerciseResults = lesson.progress?.exerciseResults || {};
@@ -223,12 +224,23 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        speakWord(v.word);
+                        setPlayingWordId(v.id);
+                        speakWord(
+                          v.word,
+                          0.9,
+                          () => setPlayingWordId(null),
+                          () => setPlayingWordId(v.id)
+                        );
                       }}
-                      className="p-1.5 sm:p-2 rounded-lg text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                      className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer ${
+                        playingWordId === v.id
+                          ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/40 ring-1 ring-blue-400'
+                          : 'text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                      }`}
                       title="Nghe phát âm"
+                      aria-label={`Phát âm từ ${v.word}`}
                     >
-                      <Volume2 size={16} />
+                      <Volume2 size={16} className={playingWordId === v.id ? 'animate-pulse text-blue-600' : ''} />
                     </button>
                   </div>
                 </div>

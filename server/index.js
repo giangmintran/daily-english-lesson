@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import { isSupabaseConfigured } from './supabase.js';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 // Serve static frontend in standalone Node production
 const __filename = fileURLToPath(import.meta.url);

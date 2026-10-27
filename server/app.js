@@ -20,30 +20,29 @@ app.use((_req, res, next) => {
 });
 
 // Restrictive CORS configuration (F-07)
-const defaultAllowedOrigins = [
-  'https://dailyenglishlesson.vercel.app',
-  'http://localhost:5174',
-  'http://localhost:5000',
-  'http://localhost:3000',
-  'http://127.0.0.1:5174',
-  'http://127.0.0.1:5000',
-];
-
-const envAllowed = (process.env.ALLOWED_ORIGINS || '')
+// Nguồn gốc được phép (origins) được cấu hình tập trung qua biến môi trường ALLOWED_ORIGINS
+const envAllowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'https://dailyenglishlesson.vercel.app,http://localhost:5173,http://localhost:5050,http://127.0.0.1:5173,http://127.0.0.1:5050'
+)
   .split(',')
   .map((o) => o.trim())
   .filter(Boolean);
 
 if (process.env.APP_URL) {
-  envAllowed.push(process.env.APP_URL.trim());
+  envAllowedOrigins.push(process.env.APP_URL.trim());
 }
 
-const allowedOriginsSet = new Set([...defaultAllowedOrigins, ...envAllowed]);
+const allowedOriginsSet = new Set(envAllowedOrigins);
 
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow server-to-server, mobile, or requests without Origin header
     if (!origin || allowedOriginsSet.has(origin)) {
+      return callback(null, true);
+    }
+    // Allow any localhost / 127.0.0.1 development origin
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
       return callback(null, true);
     }
     // Allow vercel preview deployments for the project

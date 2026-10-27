@@ -13,6 +13,7 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [autoPronounce, setAutoPronounce] = useState(true);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   // Swipe detection refs
   const touchStartX = useRef<number | null>(null);
@@ -24,6 +25,17 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   const isCurrentMastered = currentWord ? masteredIds.has(currentWord.id) : false;
 
   const totalWords = words.length;
+
+  const handlePlayAudio = useCallback(() => {
+    if (!currentWord) return;
+    setIsPlayingAudio(true);
+    speakWord(
+      currentWord.word,
+      0.9,
+      () => setIsPlayingAudio(false),
+      () => setIsPlayingAudio(true)
+    );
+  }, [currentWord]);
 
   const handleNext = useCallback(() => {
     setIsFlipped(false);
@@ -64,11 +76,11 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   useEffect(() => {
     if (autoPronounce && currentWord) {
       const timer = setTimeout(() => {
-        speakWord(currentWord.word);
+        handlePlayAudio();
       }, 150);
       return () => clearTimeout(timer);
     }
-  }, [currentIndex, autoPronounce, currentWord]);
+  }, [currentIndex, autoPronounce, handlePlayAudio]);
 
   // Global Keyboard Navigation
   useEffect(() => {
@@ -95,13 +107,13 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
         handleNext();
       } else if (e.key === 'r' || e.key === 'R') {
         e.preventDefault();
-        if (currentWord) speakWord(currentWord.word);
+        handlePlayAudio();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleFlip, handleNext, handlePrev, handleToggleMastered, currentWord]);
+  }, [handleFlip, handleNext, handlePrev, handleToggleMastered, handlePlayAudio]);
 
   // Touch Swipe handlers
   const onTouchStart = (e: React.TouchEvent) => {
@@ -244,13 +256,17 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                speakWord(currentWord.word);
+                handlePlayAudio();
               }}
-              className="p-2 sm:p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 transition-colors cursor-pointer active:scale-95"
+              className={`p-2 sm:p-2.5 rounded-xl transition-all cursor-pointer active:scale-95 ${
+                isPlayingAudio
+                  ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-400 scale-105'
+                  : 'bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200'
+              }`}
               title="Nghe phát âm (Phím R)"
               aria-label="Phát âm từ"
             >
-              <Volume2 size={18} />
+              <Volume2 size={18} className={isPlayingAudio ? 'animate-pulse' : ''} />
             </button>
 
             {/* Flip Card Toggle Button */}
@@ -275,12 +291,31 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
             onClick={handleFlip}
             className="text-center py-10 sm:py-16 space-y-3 cursor-pointer select-none flex-1 flex flex-col justify-center"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 break-words px-2">
-              {currentWord.word}
-            </h2>
+            <div className="flex items-center justify-center gap-2.5 flex-wrap">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 break-words px-2">
+                {currentWord.word}
+              </h2>
+            </div>
             {currentWord.phonetic && (
-              <div className="text-sm sm:text-base font-mono text-zinc-500 dark:text-zinc-400">
-                IPA: {currentWord.phonetic}
+              <div className="inline-flex items-center justify-center gap-2 mx-auto">
+                <span className="text-sm sm:text-base font-mono text-zinc-500 dark:text-zinc-400">
+                  IPA: {currentWord.phonetic}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePlayAudio();
+                  }}
+                  className={`p-1.5 rounded-full transition-all cursor-pointer active:scale-90 ${
+                    isPlayingAudio
+                      ? 'bg-blue-600 text-white ring-2 ring-blue-300 shadow-xs'
+                      : 'text-zinc-400 hover:text-blue-600 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  }`}
+                  title="Nghe phát âm"
+                  aria-label="Nghe phát âm"
+                >
+                  <Volume2 size={16} className={isPlayingAudio ? 'animate-pulse' : ''} />
+                </button>
               </div>
             )}
             <div className="pt-6 sm:pt-8 text-xs text-zinc-400 dark:text-zinc-500">
@@ -366,9 +401,21 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
                       key={eIdx}
                       className="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-100 dark:border-zinc-800 text-xs space-y-1"
                     >
-                      <p className="text-zinc-800 dark:text-zinc-200 font-medium italic">
-                        {eIdx + 1}. "{ex.en}"
-                      </p>
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-zinc-800 dark:text-zinc-200 font-medium italic">
+                          {eIdx + 1}. "{ex.en}"
+                        </p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            speakWord(ex.en);
+                          }}
+                          className="p-1 rounded-md text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 transition-colors cursor-pointer shrink-0"
+                          title="Nghe câu ví dụ"
+                        >
+                          <Volume2 size={13} />
+                        </button>
+                      </div>
                       {ex.vi && (
                         <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">
                           → {ex.vi}
