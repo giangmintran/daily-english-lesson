@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-27",
+  "topic": "Rest, Mental Health & Workplace Habits",
+  "vocabulary": [
+    {
+      "id": "v1",
+      "word": "unwind",
+      "phonetic": "/ˌʌnˈwaɪnd/",
+      "partOfSpeech": "Động từ",
+      "meaning": "Thư giãn, thả lỏng sau khi làm việc hoặc trải qua căng thẳng.",
+      "usage": "Dùng khi nói về việc nghỉ ngơi để giải tỏa căng thẳng sau một ngày dài.",
+      "purpose": "Miêu tả hoạt động giúp bạn thoải mái về tinh thần sau công việc.",
+      "structures": [
+        "unwind after work — thư giãn sau giờ làm",
+        "unwind by + V-ing — thư giãn bằng cách làm gì",
+        "take time to unwind — dành thời gian để thư giãn"
+      ],
+      "commonMistakes": "Trong nghĩa thư giãn, trọng âm rơi vào âm tiết thứ hai: un-WIND. Quá khứ của động từ này là unwound.",
+      "examples": [
+        {
+          "en": "I like to unwind by listening to music after work.",
+          "vi": "Tôi thích thư giãn bằng cách nghe nhạc sau giờ làm."
+        },
+        {
+          "en": "She needs some time to unwind after a stressful day.",
+          "vi": "Cô ấy cần chút thời gian để thư giãn sau một ngày căng thẳng."
+        },
+        {
+          "en": "We spent the evening unwinding at home.",
+          "vi": "Chúng tôi dành buổi tối thư giãn ở nhà."
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "type": "fill_in_blank",
+      "question": "I usually _______ by reading a book before bed.",
+      "answer": "unwind",
+      "explanation": "Cấu trúc 'unwind by + V-ing': thư giãn bằng cách làm gì."
+    },
+    {
+      "id": 2,
+      "type": "fill_in_blank",
+      "question": "They _______ (unwind) at home last night.",
+      "answer": "unwound",
+      "explanation": "Quá khứ của động từ 'unwind' là 'unwound'."
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "After a stressful 10-hour shift, doctors often take time to _______ before heading home.",
+      "options": ["unwind", "procrastinate", "scrutinize", "fluctuate"],
+      "answer": "unwind",
+      "explanation": "'Unwind' nghĩa là thư giãn, thả lỏng tinh thần sau áp lực công việc."
+    }
+  ]
+}

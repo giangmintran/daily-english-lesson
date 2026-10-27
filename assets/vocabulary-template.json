@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-27",
+  "topic": "Daily Routine & Morning Habits",
+  "vocabulary": [
+    {
+      "id": "v1",
+      "word": "wake up",
+      "phonetic": "/weɪk ʌp/",
+      "partOfSpeech": "Cụm động từ",
+      "meaning": "Thức giấc.",
+      "usage": "Dùng khi nói về thời điểm bạn tỉnh giấc sau khi ngủ.",
+      "purpose": "Kể về lịch sinh hoạt và thói quen buổi sáng.",
+      "structures": [
+        "wake up at + giờ — thức giấc lúc nào",
+        "wake someone up — đánh thức ai",
+        "wake up early/late — thức giấc sớm/muộn"
+      ],
+      "commonMistakes": "wake up là thức giấc; get up là ra khỏi giường.",
+      "examples": [
+        {
+          "en": "I usually wake up at 6:30 on weekdays.",
+          "vi": "Tôi thường thức giấc lúc 6 giờ 30 vào các ngày trong tuần."
+        },
+        {
+          "en": "My alarm didn't wake me up this morning.",
+          "vi": "Chuông báo thức sáng nay đã không đánh thức được tôi."
+        }
+      ]
+    },
+    {
+      "id": "v2",
+      "word": "oversleep",
+      "phonetic": "/ˌoʊvərˈsliːp/",
+      "partOfSpeech": "Động từ",
+      "meaning": "Ngủ quên, ngủ quá giờ dự định.",
+      "usage": "Dùng khi bạn ngủ lâu hơn dự kiến, thường dẫn đến việc thức dậy muộn.",
+      "purpose": "Giải thích vì sao bạn thức dậy muộn hoặc đến muộn.",
+      "structures": [
+        "oversleep and miss something — ngủ quên và bỏ lỡ việc gì",
+        "oversleep by + khoảng thời gian — ngủ quá giờ bao lâu"
+      ],
+      "commonMistakes": "Quá khứ của oversleep là overslept, không phải oversleeped.",
+      "examples": [
+        {
+          "en": "I overslept and missed the first bus.",
+          "vi": "Tôi ngủ quên và lỡ chuyến xe buýt đầu tiên."
+        }
+      ]
+    },
+    {
+      "id": "v3",
+      "word": "unwind",
+      "phonetic": "/ˌʌnˈwaɪnd/",
+      "partOfSpeech": "Động từ",
+      "meaning": "Thư giãn, thả lỏng sau khi làm việc hoặc trải qua căng thẳng.",
+      "usage": "Dùng khi nói về việc nghỉ ngơi để giải tỏa căng thẳng sau một ngày dài.",
+      "purpose": "Miêu tả hoạt động giúp bạn thoải mái về tinh thần sau công việc.",
+      "structures": [
+        "unwind after work — thư giãn sau giờ làm",
+        "unwind by + V-ing — thư giãn bằng cách làm gì",
+        "take time to unwind — dành thời gian để thư giãn"
+      ],
+      "commonMistakes": "Trọng âm rơi vào âm tiết thứ hai: un-WIND. Quá khứ của động từ này là unwound.",
+      "examples": [
+        {
+          "en": "I like to unwind by listening to music after work.",
+          "vi": "Tôi thích thư giãn bằng cách nghe nhạc sau giờ làm."
+        },
+        {
+          "en": "She needs some time to unwind after a stressful day.",
+          "vi": "Cô ấy cần chút thời gian để thư giãn sau một ngày căng thẳng."
+        }
+      ]
+    }
+  ]
+}
+

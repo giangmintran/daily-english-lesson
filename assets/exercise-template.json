@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-27",
+  "topic": "Daily Routine & Morning Habits",
+  "exercises": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "If you stay in bed after your alarm rings, you might _______ and arrive late for work.",
+      "options": ["oversleep", "unwind", "wake up", "streamline"],
+      "answer": "oversleep",
+      "explanation": "'Oversleep' có nghĩa là ngủ quên, ngủ quá giờ dự định."
+    },
+    {
+      "id": 2,
+      "type": "fill_in_blank",
+      "question": "I usually _______ (thức giấc) at 6:30 on weekdays, but I get up at 6:45.",
+      "answer": "wake up",
+      "explanation": "'Wake up' là thức giấc, còn 'get up' là rời khỏi giường."
+    },
+    {
+      "id": 3,
+      "type": "fill_in_blank",
+      "question": "They were so exhausted that they _______ (unwind) at home all evening.",
+      "answer": "unwound",
+      "explanation": "Động từ bất quy tắc 'unwind' có dạng quá khứ là 'unwound'."
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "Listening to soft instrumental music is a great way to _______ after a stressful shift.",
+      "options": ["unwind", "oversleep", "procrastinate", "scrutinize"],
+      "answer": "unwind",
+      "explanation": "'Unwind' nghĩa là thư giãn, thả lỏng sau khi trải qua căng thẳng."
+    }
+  ]
+}
+
