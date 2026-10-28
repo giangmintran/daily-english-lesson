@@ -1,12 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { DailyLesson } from '../types/lesson';
-import { Volume2, ArrowRight, BookOpen, CheckCircle, BrainCircuit, Sparkles, Eye, EyeOff } from 'lucide-react';
+import {
+  Volume2,
+  ArrowRight,
+  BookOpen,
+  CheckCircle,
+  BrainCircuit,
+  Sparkles,
+  Eye,
+  EyeOff,
+  CheckCircle2,
+} from 'lucide-react';
 import { speakWord } from '../utils/speech';
 import { normalizeExerciseResults } from '../services/storage';
 
 interface DailyOverviewProps {
   lesson: DailyLesson;
-  onNavigateTab: (tab: 'vocabulary' | 'exercises') => void;
+  onNavigateTab: (tab: 'vocabulary' | 'exercises', subMode?: 'flashcards' | 'quiz') => void;
   onSelectExerciseSession?: (sessionIndex: number) => void;
 }
 
@@ -101,13 +111,22 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
             </div>
           </div>
 
-          <button
-            onClick={() => onNavigateTab('vocabulary')}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 font-semibold text-xs sm:text-sm transition-all shadow-xs group cursor-pointer active:scale-95"
-          >
-            <span>{masteredWordsCount > 0 ? 'Tiếp tục học từ mới' : 'Bắt đầu học từ mới'}</span>
-            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button
+              onClick={() => onNavigateTab('vocabulary', 'flashcards')}
+              className="w-full flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 font-semibold text-xs sm:text-sm transition-all shadow-xs group cursor-pointer active:scale-95"
+            >
+              <span>{masteredWordsCount > 0 ? 'Học thẻ từ mới' : 'Bắt đầu học từ'}</span>
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            </button>
+            <button
+              onClick={() => onNavigateTab('vocabulary', 'quiz')}
+              className="w-full flex items-center justify-center gap-2 py-3 px-3 rounded-2xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-semibold text-xs sm:text-sm transition-all shadow-xs group cursor-pointer active:scale-95"
+            >
+              <CheckCircle2 size={15} className="text-emerald-500 shrink-0" />
+              <span>Kiểm tra từ mới</span>
+            </button>
+          </div>
         </div>
 
         {/* Module 2: Exercises */}

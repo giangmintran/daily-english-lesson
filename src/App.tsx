@@ -31,6 +31,7 @@ import { TenseHandbookButton } from './components/TenseHandbookButton';
 export function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => Boolean(getAuthToken()));
   const [currentTab, setCurrentTab] = useState<'overview' | 'vocabulary' | 'exercises' | 'history'>('overview');
+  const [vocabInitialMode, setVocabInitialMode] = useState<'flashcards' | 'quiz'>('flashcards');
   const [activeDate, setActiveDateState] = useState<string>(() => getActiveDate());
   const [currentLesson, setCurrentLesson] = useState<DailyLesson | null>(() => getLessonByDate(getActiveDate()));
   const [isImportOpen, setIsImportOpen] = useState(false);
@@ -165,7 +166,12 @@ export function App() {
             {currentTab === 'overview' && (
               <DailyOverview
                 lesson={currentLesson}
-                onNavigateTab={(tab) => setCurrentTab(tab)}
+                onNavigateTab={(tab, subMode) => {
+                  if (tab === 'vocabulary' && subMode) {
+                    setVocabInitialMode(subMode);
+                  }
+                  setCurrentTab(tab);
+                }}
               />
             )}
 
@@ -173,6 +179,7 @@ export function App() {
               <VocabularyView
                 lesson={currentLesson}
                 onUpdateLesson={handleUpdateLesson}
+                initialMode={vocabInitialMode}
               />
             )}
 

@@ -1,25 +1,50 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { DailyLesson, VocabularyExample } from '../types/lesson';
-import { Volume2, ChevronLeft, ChevronRight, Check, RotateCcw, AlertTriangle, BookOpen, Layers, RefreshCw } from 'lucide-react';
+import {
+  Volume2,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  RotateCcw,
+  AlertTriangle,
+  BookOpen,
+  Layers,
+  RefreshCw,
+  CheckCircle2,
+} from 'lucide-react';
 import { speakWord } from '../utils/speech';
 import { updateLessonProgress } from '../services/storage';
+import { VocabQuiz } from './VocabQuiz';
 
 interface VocabularyViewProps {
   lesson: DailyLesson;
   onUpdateLesson: (updated: DailyLesson) => void;
+  initialMode?: 'flashcards' | 'quiz';
 }
 
-export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdateLesson }) => {
+export const VocabularyView: React.FC<VocabularyViewProps> = ({
+  lesson,
+  onUpdateLesson,
+  initialMode = 'flashcards',
+}) => {
+  const [viewMode, setViewMode] = useState<'flashcards' | 'quiz'>(initialMode);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [autoPronounce, setAutoPronounce] = useState(true);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
+  // Sync initialMode if changed by parent
+  useEffect(() => {
+    if (initialMode) {
+      setViewMode(initialMode);
+    }
+  }, [initialMode]);
+
   // Swipe detection refs
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
-  const words = lesson.vocabulary;
+  const words = lesson.vocabulary || [];
   const currentWord = words[currentIndex] || words[0];
   const masteredIds = new Set(lesson.progress?.wordsMastered || []);
   const isCurrentMastered = currentWord ? masteredIds.has(currentWord.id) : false;
@@ -78,16 +103,19 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
 
   // Pronounce word when navigating if autoPronounce is true
   useEffect(() => {
+    if (viewMode !== 'flashcards') return;
     if (autoPronounce && currentWord) {
       const timer = setTimeout(() => {
         handlePlayAudio();
       }, 150);
       return () => clearTimeout(timer);
     }
-  }, [currentIndex, autoPronounce, handlePlayAudio]);
+  }, [viewMode, currentIndex, autoPronounce, handlePlayAudio, currentWord]);
 
-  // Global Keyboard Navigation
+  // Global Keyboard Navigation for Flashcards
   useEffect(() => {
+    if (viewMode !== 'flashcards') return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if user is typing in an input
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
@@ -117,15 +145,17 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleFlip, handleNext, handlePrev, handleToggleMastered, handlePlayAudio]);
+  }, [viewMode, handleFlip, handleNext, handlePrev, handleToggleMastered, handlePlayAudio]);
 
   // Touch Swipe handlers
   const onTouchStart = (e: React.TouchEvent) => {
+    if (viewMode !== 'flashcards') return;
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
+    if (viewMode !== 'flashcards') return;
     if (touchStartX.current === null || touchStartY.current === null) return;
     const deltaX = e.changedTouches[0].clientX - touchStartX.current;
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
@@ -171,13 +201,49 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   const progressPercent = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0;
 
   return (
-    <div
-      className="max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-4 animate-fade-in flex flex-col items-center"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
-      {/* Top Controls: Counter & Sound toggle */}
-      <div className="w-full flex items-center justify-between text-xs text-zinc-500 mb-3 px-1">
+    <div className="w-full">
+      {/* Top Mode Selector: Flashcards vs Quiz */}
+      <div className="flex items-center justify-center pt-2 sm:pt-4 mb-2">
+        <div className="inline-flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/80 shadow-xs">
+          <button
+            onClick={() => setViewMode('flashcards')}
+            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+              viewMode === 'flashcards'
+                ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
+                : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+            }`}
+          >
+            <BookOpen size={15} />
+            <span>Thẻ ghi nhớ</span>
+          </button>
+          <button
+            onClick={() => setViewMode('quiz')}
+            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+              viewMode === 'quiz'
+                ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
+                : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
+            }`}
+          >
+            <CheckCircle2 size={15} className="text-emerald-500" />
+            <span>Kiểm tra từ mới</span>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === 'quiz' ? (
+        <VocabQuiz
+          lesson={lesson}
+          onUpdateLesson={onUpdateLesson}
+          onBackToFlashcards={() => setViewMode('flashcards')}
+        />
+      ) : (
+        <div
+          className="max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-4 animate-fade-in flex flex-col items-center"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          {/* Top Controls: Counter & Sound toggle */}
+          <div className="w-full flex items-center justify-between text-xs text-zinc-500 mb-3 px-1">
         <div className="font-mono flex items-center gap-1.5">
           <span>Từ</span>
           <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100">
@@ -510,6 +576,8 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
           <ChevronRight size={16} />
         </button>
       </div>
+    </div>
+      )}
     </div>
   );
 };
