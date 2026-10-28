@@ -1,590 +1,810 @@
-[
-  {
-    "id": "v1",
-    "word": "wake up",
-    "phonetic": "/weɪk ʌp/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Thức giấc.",
-    "usage": "Dùng khi nói về thời điểm bạn tỉnh giấc sau khi ngủ.",
-    "purpose": "Kể về lịch sinh hoạt và thói quen buổi sáng.",
-    "structures": [
-      "wake up at + giờ — thức giấc lúc nào",
-      "wake someone up — đánh thức ai",
-      "wake up early/late — thức giấc sớm/muộn"
-    ],
-    "commonMistakes": "wake up là thức giấc; get up là ra khỏi giường. Bạn có thể thức giấc lúc 6 giờ nhưng nằm trên giường thêm 10 phút.",
-    "examples": [
-      {
-        "en": "I usually wake up at 6:30 on weekdays.",
-        "vi": "Tôi thường thức giấc lúc 6 giờ 30 vào các ngày trong tuần."
-      },
-      {
-        "en": "My alarm didn't wake me up this morning.",
-        "vi": "Chuông báo thức sáng nay đã không đánh thức được tôi."
-      },
-      {
-        "en": "She woke up early because she had a job interview.",
-        "vi": "Cô ấy thức dậy sớm vì có buổi phỏng vấn xin việc."
-      }
-    ]
-  },
-  {
-    "id": "v2",
-    "word": "oversleep",
-    "phonetic": "/ˌoʊvərˈsliːp/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Ngủ quên, ngủ quá giờ dự định.",
-    "usage": "Dùng khi bạn ngủ lâu hơn dự kiến, thường dẫn đến việc thức dậy muộn.",
-    "purpose": "Giải thích vì sao bạn thức dậy muộn hoặc đến muộn.",
-    "structures": [
-      "oversleep and miss something — ngủ quên và bỏ lỡ việc gì",
-      "oversleep by + khoảng thời gian — ngủ quá giờ bao lâu",
-      "oversleep and be late for work — ngủ quên và đi làm muộn"
-    ],
-    "commonMistakes": "Quá khứ của oversleep là overslept, không phải oversleeped.",
-    "examples": [
-      {
-        "en": "I overslept and missed the first bus.",
-        "vi": "Tôi ngủ quên và lỡ chuyến xe buýt đầu tiên."
-      },
-      {
-        "en": "She overslept by twenty minutes this morning.",
-        "vi": "Sáng nay cô ấy ngủ quá giờ 20 phút."
-      },
-      {
-        "en": "If I don't set an alarm, I sometimes oversleep.",
-        "vi": "Nếu không đặt báo thức, đôi khi tôi ngủ quên."
-      }
-    ]
-  },
-  {
-    "id": "v3",
-    "word": "get dressed",
-    "phonetic": "/ɡet drest/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Mặc quần áo, thay đồ.",
-    "usage": "Dùng khi nói về việc mặc quần áo để chuẩn bị đi làm, đi học hoặc ra ngoài.",
-    "purpose": "Mô tả các bước trong thói quen buổi sáng.",
-    "structures": [
-      "get dressed for work — mặc đồ đi làm",
-      "get dressed quickly — thay đồ nhanh",
-      "get dressed in + quần áo — mặc trang phục gì"
-    ],
-    "commonMistakes": "get dressed nói chung về việc mặc quần áo; put on nhấn mạnh hành động mặc một món cụ thể, chẳng hạn put on a jacket.",
-    "examples": [
-      {
-        "en": "I get dressed before making breakfast.",
-        "vi": "Tôi mặc quần áo trước khi chuẩn bị bữa sáng."
-      },
-      {
-        "en": "He got dressed in a hurry because he was late.",
-        "vi": "Anh ấy thay quần áo vội vàng vì sắp muộn."
-      },
-      {
-        "en": "She usually gets dressed for work in about ten minutes.",
-        "vi": "Cô ấy thường mất khoảng 10 phút để mặc đồ đi làm."
-      }
-    ]
-  },
-  {
-    "id": "v4",
-    "word": "brush",
-    "phonetic": "/brʌʃ/",
-    "partOfSpeech": "Động từ, danh từ",
-    "meaning": "Chải, đánh (răng); bàn chải.",
-    "usage": "Trong thói quen hằng ngày, từ này thường đi với teeth hoặc hair.",
-    "purpose": "Miêu tả vệ sinh cá nhân hoặc chăm sóc tóc.",
-    "structures": [
-      "brush your teeth — đánh răng",
-      "brush your hair — chải tóc",
-      "brush something off — phủi thứ gì đi; cũng có thể mang nghĩa bóng là gạt bỏ điều gì"
-    ],
-    "commonMistakes": "Nói brush my teeth, không nói wash my teeth khi muốn diễn đạt “đánh răng”.",
-    "examples": [
-      {
-        "en": "I brush my teeth twice a day.",
-        "vi": "Tôi đánh răng hai lần mỗi ngày."
-      },
-      {
-        "en": "He brushed his hair before the interview.",
-        "vi": "Anh ấy chải tóc trước buổi phỏng vấn."
-      },
-      {
-        "en": "Don't forget to brush your teeth before bed.",
-        "vi": "Đừng quên đánh răng trước khi đi ngủ."
-      }
-    ]
-  },
-  {
-    "id": "v5",
-    "word": "pack",
-    "phonetic": "/pæk/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Đóng gói, chuẩn bị và cho đồ vào túi hoặc hành lý.",
-    "usage": "Dùng khi chuẩn bị đồ để đi làm, đi du lịch hoặc mang theo khi ra ngoài.",
-    "purpose": "Nói về việc chuẩn bị những thứ cần mang theo.",
-    "structures": [
-      "pack a bag — chuẩn bị đồ vào túi",
-      "pack lunch — chuẩn bị đồ ăn mang theo",
-      "pack something for a trip — chuẩn bị đồ cho chuyến đi",
-      "pack something into a bag — xếp thứ gì vào túi"
-    ],
-    "commonMistakes": "pack lunch thường mang nghĩa chuẩn bị bữa trưa mang đi, không phải đóng gói một bữa trưa đã mua sẵn trong mọi ngữ cảnh.",
-    "examples": [
-      {
-        "en": "I packed my laptop and charger before leaving.",
-        "vi": "Tôi đã cho máy tính xách tay và bộ sạc vào túi trước khi đi."
-      },
-      {
-        "en": "She packs her lunch every night for the next day.",
-        "vi": "Tối nào cô ấy cũng chuẩn bị bữa trưa cho ngày hôm sau."
-      },
-      {
-        "en": "Have you packed everything for the trip?",
-        "vi": "Bạn đã chuẩn bị đủ mọi thứ cho chuyến đi chưa?"
-      }
-    ]
-  },
-  {
-    "id": "v6",
-    "word": "grab",
-    "phonetic": "/ɡræb/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Chộp lấy, lấy nhanh; dùng để chỉ việc mua hoặc ăn/uống nhanh trong một số cụm từ.",
-    "usage": "Trong giao tiếp đời thường, grab thường diễn tả việc lấy nhanh một món đồ hoặc tranh thủ ăn/uống thứ gì.",
-    "purpose": "Diễn đạt một hành động nhanh, tiện lợi và không quá trang trọng.",
-    "structures": [
-      "grab a coffee — tranh thủ uống/mua một ly cà phê",
-      "grab a bite — ăn nhanh một chút",
-      "grab something to eat — kiếm gì đó ăn",
-      "grab your bag — lấy túi của bạn"
-    ],
-    "commonMistakes": "grab a coffee không nhất thiết có nghĩa là chộp lấy ly cà phê bằng tay; đây là cách nói thông dụng về việc mua hoặc uống cà phê nhanh.",
-    "examples": [
-      {
-        "en": "I'll grab a coffee before the meeting.",
-        "vi": "Tôi sẽ tranh thủ uống một ly cà phê trước cuộc họp."
-      },
-      {
-        "en": "We grabbed a quick bite after work.",
-        "vi": "Chúng tôi ăn nhanh một chút sau giờ làm."
-      },
-      {
-        "en": "Grab your jacket. It's cold outside.",
-        "vi": "Lấy áo khoác đi. Ngoài trời lạnh đấy."
-      }
-    ]
-  },
-  {
-    "id": "v7",
-    "word": "commute",
-    "phonetic": "/kəˈmjuːt/",
-    "partOfSpeech": "Động từ, danh từ",
-    "meaning": "Đi lại thường xuyên giữa nhà và nơi làm việc hoặc học tập; quãng đường đi làm.",
-    "usage": "Dùng khi nói về việc di chuyển hằng ngày đến công ty, trường học hoặc nơi làm việc.",
-    "purpose": "Mô tả việc đi làm hằng ngày và thời gian di chuyển.",
-    "structures": [
-      "commute to work — đi làm hằng ngày",
-      "commute by bus/train — đi làm bằng xe buýt/tàu",
-      "a long commute — quãng đường đi làm dài",
-      "commute for an hour — mất một giờ để đi lại"
-    ],
-    "commonMistakes": "commute thường chỉ việc đi lại định kỳ, không phải một chuyến đi chơi đơn lẻ.",
-    "examples": [
-      {
-        "en": "I commute to work by motorbike every day.",
-        "vi": "Tôi đi làm bằng xe máy mỗi ngày."
-      },
-      {
-        "en": "Her commute takes about forty minutes.",
-        "vi": "Cô ấy mất khoảng 40 phút để đi làm."
-      },
-      {
-        "en": "He used to commute by train before switching to remote work.",
-        "vi": "Anh ấy từng đi làm bằng tàu trước khi chuyển sang làm việc từ xa."
-      }
-    ]
-  },
-  {
-    "id": "v8",
-    "word": "settle in",
-    "phonetic": "/ˈsetl ɪn/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Ổn định, làm quen và cảm thấy thoải mái ở một nơi hoặc trong một hoàn cảnh mới.",
-    "usage": "Dùng khi bắt đầu công việc mới, chuyển đến nhà mới hoặc dần quen với môi trường mới.",
-    "purpose": "Nói về quá trình thích nghi với một môi trường hoặc lịch sinh hoạt mới.",
-    "structures": [
-      "settle in at + địa điểm — ổn định, làm quen tại một nơi",
-      "settle into + môi trường/công việc — thích nghi với môi trường/công việc",
-      "take time to settle in — cần thời gian để làm quen"
-    ],
-    "commonMistakes": "settle in không chỉ có nghĩa là ngồi xuống. Khi nói settle into a new job, ý là dần thích nghi với công việc mới.",
-    "examples": [
-      {
-        "en": "It took me a few weeks to settle into my new job.",
-        "vi": "Tôi mất vài tuần để làm quen với công việc mới."
-      },
-      {
-        "en": "Make yourself comfortable and settle in.",
-        "vi": "Cứ tự nhiên và ổn định chỗ ngồi nhé."
-      },
-      {
-        "en": "She's settling in well at her new office.",
-        "vi": "Cô ấy đang thích nghi tốt với văn phòng mới."
-      }
-    ]
-  },
-  {
-    "id": "v9",
-    "word": "focus on",
-    "phonetic": "/ˈfoʊkəs ɑːn/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Tập trung vào.",
-    "usage": "Dùng khi dành sự chú ý hoặc nỗ lực cho một công việc, mục tiêu hay vấn đề cụ thể.",
-    "purpose": "Nói về ưu tiên công việc hoặc hướng sự chú ý vào một nhiệm vụ.",
-    "structures": [
-      "focus on + danh từ — tập trung vào điều gì",
-      "focus on + V-ing — tập trung vào việc làm gì",
-      "focus your attention on something — tập trung sự chú ý vào điều gì"
-    ],
-    "commonMistakes": "Sau focus on, nếu dùng động từ thì thường dùng dạng V-ing. Ví dụ: focus on improving, không phải focus on improve.",
-    "examples": [
-      {
-        "en": "I need to focus on finishing this report.",
-        "vi": "Tôi cần tập trung hoàn thành báo cáo này."
-      },
-      {
-        "en": "She finds it hard to focus when the office is noisy.",
-        "vi": "Cô ấy thấy khó tập trung khi văn phòng ồn ào."
-      },
-      {
-        "en": "Let's focus on the main problem first.",
-        "vi": "Hãy tập trung vào vấn đề chính trước."
-      }
-    ]
-  },
-  {
-    "id": "v10",
-    "word": "get distracted",
-    "phonetic": "/ɡet dɪˈstræktɪd/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Bị phân tâm.",
-    "usage": "Dùng khi sự chú ý bị kéo khỏi công việc bởi điện thoại, tiếng ồn hoặc các yếu tố khác.",
-    "purpose": "Giải thích vì sao khó tập trung hoặc hoàn thành công việc.",
-    "structures": [
-      "get distracted by + danh từ — bị phân tâm bởi điều gì",
-      "get distracted while + V-ing — bị phân tâm khi đang làm gì",
-      "easily distracted — dễ bị phân tâm"
-    ],
-    "commonMistakes": "distract là làm ai phân tâm; get distracted là bị phân tâm.",
-    "examples": [
-      {
-        "en": "I get distracted by notifications on my phone.",
-        "vi": "Tôi bị phân tâm bởi các thông báo trên điện thoại."
-      },
-      {
-        "en": "She got distracted while working on the report.",
-        "vi": "Cô ấy bị phân tâm khi đang làm báo cáo."
-      },
-      {
-        "en": "Try not to get distracted by small problems.",
-        "vi": "Hãy cố gắng đừng để những vấn đề nhỏ làm bạn phân tâm."
-      }
-    ]
-  },
-  {
-    "id": "v11",
-    "word": "prioritize",
-    "phonetic": "/praɪˈɔːrətaɪz/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Ưu tiên, sắp xếp theo mức độ quan trọng.",
-    "usage": "Dùng khi quyết định việc nào cần làm trước, việc nào có thể làm sau.",
-    "purpose": "Nói về quản lý thời gian và phân bổ nguồn lực.",
-    "structures": [
-      "prioritize tasks — ưu tiên các nhiệm vụ",
-      "prioritize something over something else — ưu tiên cái này hơn cái kia",
-      "prioritize doing something — ưu tiên làm việc gì"
-    ],
-    "commonMistakes": "prioritize không chỉ có nghĩa là lập danh sách. Nó nhấn mạnh việc quyết định mức độ quan trọng tương đối của từng việc.",
-    "examples": [
-      {
-        "en": "I need to prioritize my tasks for today.",
-        "vi": "Tôi cần ưu tiên các nhiệm vụ của ngày hôm nay."
-      },
-      {
-        "en": "She prioritizes spending time with her family.",
-        "vi": "Cô ấy ưu tiên dành thời gian cho gia đình."
-      },
-      {
-        "en": "We should prioritize urgent issues over minor improvements.",
-        "vi": "Chúng ta nên ưu tiên các vấn đề khẩn cấp hơn những cải tiến nhỏ."
-      }
-    ]
-  },
-  {
-    "id": "v12",
-    "word": "set aside",
-    "phonetic": "/set əˈsaɪd/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Dành riêng, để dành.",
-    "usage": "Dùng khi dành một khoảng thời gian, một khoản tiền hoặc nguồn lực cho một mục đích cụ thể.",
-    "purpose": "Nói về việc chủ động dành thời gian hoặc tiền cho một mục tiêu.",
-    "structures": [
-      "set aside time for something — dành thời gian cho việc gì",
-      "set aside time to do something — dành thời gian để làm gì",
-      "set aside money for something — để dành tiền cho việc gì"
-    ],
-    "commonMistakes": "Quá khứ và phân từ hai của set vẫn là set, không phải setted.",
-    "examples": [
-      {
-        "en": "I set aside thirty minutes every day to study English.",
-        "vi": "Tôi dành riêng 30 phút mỗi ngày để học tiếng Anh."
-      },
-      {
-        "en": "We should set aside some money for emergencies.",
-        "vi": "Chúng ta nên để dành một ít tiền cho những trường hợp khẩn cấp."
-      },
-      {
-        "en": "She set aside her phone so she could concentrate.",
-        "vi": "Cô ấy để điện thoại sang một bên để có thể tập trung."
-      }
-    ]
-  },
-  {
-    "id": "v13",
-    "word": "stretch",
-    "phonetic": "/stretʃ/",
-    "partOfSpeech": "Động từ, danh từ",
-    "meaning": "Duỗi, vươn người; động tác kéo giãn cơ.",
-    "usage": "Dùng khi duỗi tay chân, kéo giãn cơ thể hoặc thực hiện các động tác giúp cơ thể bớt căng cứng.",
-    "purpose": "Nói về hoạt động vận động nhẹ, đặc biệt khi ngồi làm việc lâu.",
-    "structures": [
-      "stretch your legs — duỗi chân",
-      "stretch your arms — duỗi tay",
-      "stretch before exercising — kéo giãn trước khi tập",
-      "take a moment to stretch — dành chút thời gian để duỗi người"
-    ],
-    "commonMistakes": "stretch your legs đôi khi cũng được dùng với nghĩa đi bộ một chút để thư giãn sau khi ngồi lâu.",
-    "examples": [
-      {
-        "en": "I stretch for five minutes after sitting at my desk for hours.",
-        "vi": "Tôi duỗi người trong năm phút sau khi ngồi ở bàn làm việc nhiều giờ."
-      },
-      {
-        "en": "Let's stop here and stretch our legs.",
-        "vi": "Hãy dừng ở đây và đi lại duỗi chân một chút."
-      },
-      {
-        "en": "She stretched her arms above her head.",
-        "vi": "Cô ấy vươn hai tay lên trên đầu."
-      }
-    ]
-  },
-  {
-    "id": "v14",
-    "word": "hydrate",
-    "phonetic": "/ˈhaɪdreɪt/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Bổ sung nước cho cơ thể; cung cấp độ ẩm.",
-    "usage": "Trong ngữ cảnh sức khỏe, từ này thường dùng khi nói về việc uống đủ nước, đặc biệt khi vận động hoặc trong thời tiết nóng.",
-    "purpose": "Nói về thói quen uống nước và chăm sóc sức khỏe.",
-    "structures": [
-      "stay hydrated — duy trì đủ nước cho cơ thể",
-      "keep yourself hydrated — giữ cho cơ thể đủ nước",
-      "hydrate before and after exercise — bổ sung nước trước và sau khi tập"
-    ],
-    "commonMistakes": "Trong giao tiếp hằng ngày, drink enough water thường đơn giản và tự nhiên hơn. Stay hydrated phổ biến trong lời khuyên về sức khỏe.",
-    "examples": [
-      {
-        "en": "Remember to stay hydrated throughout the day.",
-        "vi": "Hãy nhớ uống đủ nước trong suốt cả ngày."
-      },
-      {
-        "en": "I keep a water bottle on my desk to remind myself to hydrate.",
-        "vi": "Tôi để một chai nước trên bàn làm việc để nhắc mình uống nước."
-      },
-      {
-        "en": "It's important to hydrate after a long workout.",
-        "vi": "Bổ sung nước sau một buổi tập dài là điều quan trọng."
-      }
-    ]
-  },
-  {
-    "id": "v15",
-    "word": "skip",
-    "phonetic": "/skɪp/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Bỏ qua, bỏ lỡ hoặc không thực hiện một việc theo dự kiến.",
-    "usage": "Dùng khi không ăn một bữa, bỏ qua một bước hoặc không tham gia một hoạt động.",
-    "purpose": "Nói về việc không thực hiện một hoạt động thường lệ hoặc một phần của quy trình.",
-    "structures": [
-      "skip breakfast — bỏ bữa sáng",
-      "skip a meeting — bỏ buổi họp",
-      "skip a step — bỏ qua một bước",
-      "skip doing something — bỏ qua việc gì"
-    ],
-    "commonMistakes": "skip có thể mang nghĩa chủ động bỏ qua, nhưng miss thường nhấn mạnh việc bỏ lỡ vì đến muộn, quên hoặc không kịp.",
-    "examples": [
-      {
-        "en": "I sometimes skip breakfast when I'm in a hurry.",
-        "vi": "Đôi khi tôi bỏ bữa sáng khi vội."
-      },
-      {
-        "en": "Don't skip this step when installing the software.",
-        "vi": "Đừng bỏ qua bước này khi cài đặt phần mềm."
-      },
-      {
-        "en": "He skipped the meeting because he was sick.",
-        "vi": "Anh ấy không tham dự cuộc họp vì bị ốm."
-      }
-    ]
-  },
-  {
-    "id": "v16",
-    "word": "recharge",
-    "phonetic": "/ˌriːˈtʃɑːrdʒ/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Sạc lại; nạp lại năng lượng.",
-    "usage": "Ngoài việc sạc pin, recharge còn được dùng theo nghĩa bóng để nói về việc nghỉ ngơi và lấy lại năng lượng.",
-    "purpose": "Nói về việc phục hồi sức lực hoặc tinh thần sau khi làm việc nhiều.",
-    "structures": [
-      "recharge your phone — sạc điện thoại",
-      "recharge your batteries — nạp lại năng lượng",
-      "take time to recharge — dành thời gian để hồi phục năng lượng"
-    ],
-    "commonMistakes": "recharge your batteries là thành ngữ; không nhất thiết nói về pin thật.",
-    "examples": [
-      {
-        "en": "I need a quiet weekend to recharge my batteries.",
-        "vi": "Tôi cần một cuối tuần yên tĩnh để nạp lại năng lượng."
-      },
-      {
-        "en": "She went for a walk during lunch to recharge.",
-        "vi": "Cô ấy đi dạo trong giờ nghỉ trưa để lấy lại năng lượng."
-      },
-      {
-        "en": "Don't forget to recharge your phone before leaving.",
-        "vi": "Đừng quên sạc điện thoại trước khi ra ngoài."
-      }
-    ]
-  },
-  {
-    "id": "v17",
-    "word": "catch up on",
-    "phonetic": "/kætʃ ʌp ɑːn/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Làm bù, cập nhật hoặc hoàn thành những việc còn tồn đọng.",
-    "usage": "Dùng khi bạn cần hoàn thành việc chưa làm, xem lại thông tin đã bỏ lỡ hoặc bù lại thời gian ngủ.",
-    "purpose": "Nói về việc bắt kịp những thứ bạn chưa hoàn thành hoặc chưa cập nhật.",
-    "structures": [
-      "catch up on work — làm bù công việc",
-      "catch up on emails — xử lý email còn tồn đọng",
-      "catch up on sleep — ngủ bù",
-      "catch up on the latest news — cập nhật tin tức mới nhất"
-    ],
-    "commonMistakes": "catch up on something thường đi với danh từ. Khi muốn nói bắt kịp một người, thường dùng catch up with someone.",
-    "examples": [
-      {
-        "en": "I need to catch up on my emails after the holiday.",
-        "vi": "Tôi cần xử lý các email còn tồn đọng sau kỳ nghỉ."
-      },
-      {
-        "en": "She slept in on Sunday to catch up on sleep.",
-        "vi": "Cô ấy ngủ muộn vào Chủ nhật để ngủ bù."
-      },
-      {
-        "en": "Let's catch up on the latest project updates before the meeting.",
-        "vi": "Hãy cập nhật những thông tin mới nhất của dự án trước cuộc họp."
-      }
-    ]
-  },
-  {
-    "id": "v18",
-    "word": "stick to",
-    "phonetic": "/stɪk tuː/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Bám sát, tuân thủ hoặc kiên trì với một kế hoạch, quy tắc hay thói quen.",
-    "usage": "Dùng khi bạn cố gắng làm theo kế hoạch đã đặt ra thay vì thay đổi liên tục.",
-    "purpose": "Diễn đạt tính kỷ luật hoặc việc giữ đúng cam kết.",
-    "structures": [
-      "stick to a schedule — tuân thủ lịch trình",
-      "stick to a budget — bám sát ngân sách",
-      "stick to a plan — kiên trì với kế hoạch",
-      "stick to doing something — tiếp tục duy trì một hoạt động"
-    ],
-    "commonMistakes": "to trong stick to là giới từ. Khi theo sau bởi động từ, hãy dùng V-ing: stick to exercising. Quá khứ của stick là stuck.",
-    "examples": [
-      {
-        "en": "I'm trying to stick to a regular sleep schedule.",
-        "vi": "Tôi đang cố gắng duy trì lịch ngủ đều đặn."
-      },
-      {
-        "en": "We need to stick to the budget this month.",
-        "vi": "Chúng ta cần bám sát ngân sách trong tháng này."
-      },
-      {
-        "en": "She stuck to her study plan even when work got busy.",
-        "vi": "Cô ấy vẫn kiên trì với kế hoạch học tập ngay cả khi công việc trở nên bận rộn."
-      }
-    ]
-  },
-  {
-    "id": "v19",
-    "word": "cut down on",
-    "phonetic": "/kʌt daʊn ɑːn/",
-    "partOfSpeech": "Cụm động từ",
-    "meaning": "Cắt giảm, giảm bớt việc sử dụng hoặc tiêu thụ thứ gì.",
-    "usage": "Dùng khi muốn giảm cà phê, đường, chi tiêu, thời gian sử dụng điện thoại hoặc một thói quen nào đó.",
-    "purpose": "Nói về việc giảm mức độ hoặc tần suất của một hành vi.",
-    "structures": [
-      "cut down on coffee — giảm uống cà phê",
-      "cut down on sugar — giảm đường",
-      "cut down on spending — giảm chi tiêu",
-      "cut down on + V-ing — giảm việc thực hiện một hoạt động"
-    ],
-    "commonMistakes": "cut down on thường đi với danh từ hoặc V-ing. Đừng nhầm với cut out, thường có nghĩa là loại bỏ hoàn toàn.",
-    "examples": [
-      {
-        "en": "I'm trying to cut down on coffee in the afternoon.",
-        "vi": "Tôi đang cố gắng giảm uống cà phê vào buổi chiều."
-      },
-      {
-        "en": "We need to cut down on unnecessary expenses.",
-        "vi": "Chúng ta cần giảm những khoản chi không cần thiết."
-      },
-      {
-        "en": "He has cut down on spending since he started saving for a car.",
-        "vi": "Anh ấy đã giảm chi tiêu kể từ khi bắt đầu tiết kiệm mua ô tô."
-      }
-    ]
-  },
-  {
-    "id": "v20",
-    "word": "unwind",
-    "phonetic": "/ˌʌnˈwaɪnd/",
-    "partOfSpeech": "Động từ",
-    "meaning": "Thư giãn, thả lỏng sau khi làm việc hoặc trải qua căng thẳng.",
-    "usage": "Dùng khi nói về việc nghỉ ngơi để giải tỏa căng thẳng sau một ngày dài.",
-    "purpose": "Miêu tả hoạt động giúp bạn thoải mái về tinh thần sau công việc.",
-    "structures": [
-      "unwind after work — thư giãn sau giờ làm",
-      "unwind by + V-ing — thư giãn bằng cách làm gì",
-      "take time to unwind — dành thời gian để thư giãn"
-    ],
-    "commonMistakes": "Trong nghĩa thư giãn, trọng âm rơi vào âm tiết thứ hai: un-WIND. Quá khứ của động từ này là unwound.",
-    "examples": [
-      {
-        "en": "I like to unwind by listening to music after work.",
-        "vi": "Tôi thích thư giãn bằng cách nghe nhạc sau giờ làm."
-      },
-      {
-        "en": "She needs some time to unwind after a stressful day.",
-        "vi": "Cô ấy cần chút thời gian để thư giãn sau một ngày căng thẳng."
-      },
-      {
-        "en": "We spent the evening unwinding at home.",
-        "vi": "Chúng tôi dành buổi tối thư giãn ở nhà."
-      }
-    ]
-  }
-]
+{
+  "date": "2026-10-28",
+  "topic": "Appointments, Travel & Shopping Vocabulary - Bài tập tổng hợp & Ôn tập cách quãng",
+  "word_bank_2A": [
+    "arrange",
+    "confirm",
+    "reschedule",
+    "postpone",
+    "cancel",
+    "book",
+    "reserve",
+    "available",
+    "convenient",
+    "attend",
+    "prepare",
+    "arrive",
+    "delay",
+    "miss",
+    "pick up",
+    "drop off",
+    "return",
+    "exchange",
+    "refund",
+    "receipt"
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Could you ______ the appointment by email?",
+      "answer": "confirm",
+      "explanation": "'Confirm' nghĩa là xác nhận."
+    },
+    {
+      "id": 2,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I need to ______ my flight because my plans have changed.",
+      "answer": "reschedule",
+      "explanation": "'Reschedule' nghĩa là đổi lịch sang thời gian khác."
+    },
+    {
+      "id": 3,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "We decided to ______ the event until next month.",
+      "answer": "postpone",
+      "explanation": "'Postpone' nghĩa là hoãn lại sang thời điểm sau."
+    },
+    {
+      "id": 4,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "The airline had to ______ our flight.",
+      "answer": "cancel",
+      "explanation": "'Cancel' nghĩa là hủy."
+    },
+    {
+      "id": 5,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can I ______ a table for four at seven?",
+      "answer": "book",
+      "explanation": "'Book a table' nghĩa là đặt bàn."
+    },
+    {
+      "id": 6,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to ______ a hotel room for two nights.",
+      "answer": "reserve",
+      "explanation": "'Reserve' nghĩa là đặt trước (phòng, chỗ)."
+    },
+    {
+      "id": 7,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Are you ______ to meet tomorrow morning?",
+      "answer": "available",
+      "explanation": "'Available' nghĩa là rảnh, có thể gặp."
+    },
+    {
+      "id": 8,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Would Friday afternoon be ______ for you?",
+      "answer": "convenient",
+      "explanation": "'Convenient' nghĩa là thuận tiện."
+    },
+    {
+      "id": 9,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I have to ______ a training session this afternoon.",
+      "answer": "attend",
+      "explanation": "'Attend' nghĩa là tham dự."
+    },
+    {
+      "id": 10,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Please ______ your documents before the interview.",
+      "answer": "prepare",
+      "explanation": "'Prepare' nghĩa là chuẩn bị."
+    },
+    {
+      "id": 11,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "What time did you ______ at the station?",
+      "answer": "arrive",
+      "explanation": "'Arrive at' + địa điểm: đến nơi nào đó."
+    },
+    {
+      "id": 12,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Our train was ______ by an hour.",
+      "answer": "delayed",
+      "explanation": "Câu bị động 'was delayed': bị chậm, trễ."
+    },
+    {
+      "id": 13,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I don't want to ______ the last bus home.",
+      "answer": "miss",
+      "explanation": "'Miss' nghĩa là lỡ (chuyến xe)."
+    },
+    {
+      "id": 14,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can you ______ me up at the airport?",
+      "answer": "pick",
+      "explanation": "'Pick + đại từ + up': đón ai đó."
+    },
+    {
+      "id": 15,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'll ______ the package off at the office.",
+      "answer": "drop",
+      "explanation": "'Drop something off': giao, để lại cái gì đó tại một nơi."
+    },
+    {
+      "id": 16,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to ______ this item because it's damaged.",
+      "answer": "return",
+      "explanation": "'Return' nghĩa là trả lại sản phẩm."
+    },
+    {
+      "id": 17,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can I ______ these shoes for a larger size?",
+      "answer": "exchange",
+      "explanation": "'Exchange something for something else': đổi cái này lấy cái khác."
+    },
+    {
+      "id": 18,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to request a ______ for my order.",
+      "answer": "refund",
+      "explanation": "'Refund' (danh từ) nghĩa là khoản hoàn tiền."
+    },
+    {
+      "id": 19,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Please keep your ______ in case you need to return the product.",
+      "answer": "receipt",
+      "explanation": "'Receipt' nghĩa là hóa đơn, biên lai."
+    },
+    {
+      "id": 20,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'll ______ a meeting with the team for Monday.",
+      "answer": "arrange",
+      "explanation": "'Arrange a meeting' nghĩa là sắp xếp một cuộc họp."
+    },
+    {
+      "id": 21,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ sắp xếp một cuộc họp vào thứ Sáu.",
+      "answer": "I'll arrange a meeting for Friday.",
+      "explanation": "Dùng 'arrange a meeting'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 22,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có thể xác nhận cuộc hẹn qua email không?",
+      "answer": "Could you confirm the appointment by email?",
+      "explanation": "'Could you...?' là cách hỏi lịch sự. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 23,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chúng ta có thể đổi lịch sang tuần sau không?",
+      "answer": "Can we reschedule for next week?",
+      "explanation": "'Reschedule for' + thời gian mới. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 24,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Họ đã hoãn chuyến đi vì thời tiết xấu.",
+      "answer": "They postponed the trip because of the bad weather.",
+      "explanation": "Quá khứ đơn 'postponed'; 'because of' + cụm danh từ. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 25,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi cần hủy đặt phòng khách sạn.",
+      "answer": "I need to cancel my hotel reservation.",
+      "explanation": "'Cancel a reservation': hủy đặt chỗ. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 26,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn đặt bàn cho hai người lúc bảy giờ.",
+      "answer": "I'd like to book a table for two at seven.",
+      "explanation": "'I'd like to' là cách nói lịch sự. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 27,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có rảnh vào chiều mai không?",
+      "answer": "Are you available tomorrow afternoon?",
+      "explanation": "'Available' dùng để hỏi ai đó có rảnh không. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 28,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Thời gian này có thuận tiện cho bạn không?",
+      "answer": "Is this time convenient for you?",
+      "explanation": "'Convenient for + người'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 29,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi phải tham dự một cuộc họp vào ngày mai.",
+      "answer": "I have to attend a meeting tomorrow.",
+      "explanation": "'Attend' đi thẳng với tân ngữ, không cần 'to'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 30,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi cần chuẩn bị cho buổi phỏng vấn.",
+      "answer": "I need to prepare for the interview.",
+      "explanation": "'Prepare for' + sự kiện. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 31,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chúng tôi đến sân bay sớm hai tiếng.",
+      "answer": "We arrived at the airport two hours early.",
+      "explanation": "'Arrive at' + sân bay/nhà ga. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 32,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chuyến tàu bị chậm 30 phút.",
+      "answer": "The train was delayed by thirty minutes.",
+      "explanation": "'Delayed by' + khoảng thời gian. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 33,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi đã lỡ chuyến xe buýt cuối cùng.",
+      "answer": "I missed the last bus.",
+      "explanation": "'Miss' + phương tiện: lỡ chuyến. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 34,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có thể đón tôi ở nhà ga không?",
+      "answer": "Could you pick me up at the station?",
+      "explanation": "Pick + đại từ + up. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 35,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ giao tài liệu tại văn phòng.",
+      "answer": "I'll drop the documents off at the office.",
+      "explanation": "'Drop off' có thể tách: drop + tân ngữ + off. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 36,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn trả lại chiếc áo này.",
+      "answer": "I'd like to return this shirt.",
+      "explanation": "'Return' nghĩa là trả lại sản phẩm. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 37,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi có thể đổi đôi giày sang cỡ lớn hơn không?",
+      "answer": "Can I exchange these shoes for a larger size?",
+      "explanation": "Exchange something for something else. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 38,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn yêu cầu hoàn tiền.",
+      "answer": "I'd like to request a refund.",
+      "explanation": "'Request a refund': yêu cầu hoàn tiền. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 39,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Vui lòng giữ hóa đơn.",
+      "answer": "Please keep the receipt.",
+      "explanation": "'Receipt' là hóa đơn, biên lai. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 40,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ sắp xếp lại lịch hẹn.",
+      "answer": "I'll reschedule the appointment.",
+      "explanation": "'Reschedule' = sắp xếp lại lịch. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 41,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (arrange) a meeting yesterday.",
+      "answer": "arranged",
+      "explanation": "Quá khứ đơn (yesterday): thêm -ed."
+    },
+    {
+      "id": 42,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (confirm) the booking last night.",
+      "answer": "confirmed",
+      "explanation": "Quá khứ đơn (last night): confirm → confirmed."
+    },
+    {
+      "id": 43,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "We ______ (reschedule) the appointment last week.",
+      "answer": "rescheduled",
+      "explanation": "Quá khứ đơn (last week): reschedule → rescheduled."
+    },
+    {
+      "id": 44,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "They ______ (postpone) the trip because of the storm.",
+      "answer": "postponed",
+      "explanation": "Quá khứ đơn: postpone → postponed."
+    },
+    {
+      "id": 45,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The company ______ (cancel) the event yesterday.",
+      "answer": "canceled",
+      "explanation": "Quá khứ đơn: cancel → canceled (Anh-Anh: cancelled)."
+    },
+    {
+      "id": 46,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (book) the tickets two days ago.",
+      "answer": "booked",
+      "explanation": "'Two days ago' → quá khứ đơn: booked."
+    },
+    {
+      "id": 47,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (reserve) a table for four last night.",
+      "answer": "reserved",
+      "explanation": "Quá khứ đơn: reserve → reserved."
+    },
+    {
+      "id": 48,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (be) available yesterday afternoon.",
+      "answer": "was",
+      "explanation": "'Be' ở quá khứ với 'I' là 'was'."
+    },
+    {
+      "id": 49,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The meeting time ______ (be) convenient for everyone yesterday.",
+      "answer": "was",
+      "explanation": "Chủ ngữ số ít 'The meeting time' → 'was'."
+    },
+    {
+      "id": 50,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "We ______ (attend) the workshop last Friday.",
+      "answer": "attended",
+      "explanation": "Quá khứ đơn: attend → attended."
+    },
+    {
+      "id": 51,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (prepare) all the documents before the interview.",
+      "answer": "prepared",
+      "explanation": "Quá khứ đơn: prepare → prepared."
+    },
+    {
+      "id": 52,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The train ______ (arrive) ten minutes late yesterday.",
+      "answer": "arrived",
+      "explanation": "Quá khứ đơn: arrive → arrived."
+    },
+    {
+      "id": 53,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "Our flight ______ (be) delayed by bad weather.",
+      "answer": "was",
+      "explanation": "Bị động quá khứ: was delayed; chủ ngữ 'Our flight' số ít."
+    },
+    {
+      "id": 54,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (miss) the bus this morning.",
+      "answer": "missed",
+      "explanation": "Quá khứ đơn: miss → missed."
+    },
+    {
+      "id": 55,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (pick up) her friend at the airport yesterday.",
+      "answer": "picked up",
+      "explanation": "Quá khứ đơn của 'pick up' là 'picked up'."
+    },
+    {
+      "id": 56,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "They ______ (drop off) the package yesterday.",
+      "answer": "dropped off",
+      "explanation": "Quá khứ đơn của 'drop off' là 'dropped off' (gấp đôi p)."
+    },
+    {
+      "id": 57,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (return) the product last week.",
+      "answer": "returned",
+      "explanation": "Quá khứ đơn: return → returned."
+    },
+    {
+      "id": 58,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (exchange) the shirt for a larger size yesterday.",
+      "answer": "exchanged",
+      "explanation": "Quá khứ đơn: exchange → exchanged."
+    },
+    {
+      "id": 59,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The store ______ (refund) my money last Friday.",
+      "answer": "refunded",
+      "explanation": "Quá khứ đơn: refund → refunded."
+    },
+    {
+      "id": 60,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The cashier ______ (give) me a receipt after the payment.",
+      "answer": "gave",
+      "explanation": "'Give' là động từ bất quy tắc: give → gave."
+    },
+    {
+      "id": 61,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Consider",
+      "answer": "Cân nhắc",
+      "explanation": "'Consider' nghĩa là: cân nhắc."
+    },
+    {
+      "id": 62,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Afford",
+      "answer": "Có đủ khả năng chi trả hoặc làm gì",
+      "explanation": "'Afford' nghĩa là: có đủ khả năng chi trả hoặc làm gì."
+    },
+    {
+      "id": 63,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Remind",
+      "answer": "Nhắc nhở",
+      "explanation": "'Remind' nghĩa là: nhắc nhở."
+    },
+    {
+      "id": 64,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Recommend",
+      "answer": "Đề xuất, khuyên dùng",
+      "explanation": "'Recommend' nghĩa là: đề xuất, khuyên dùng."
+    },
+    {
+      "id": 65,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Focus on",
+      "answer": "Tập trung vào",
+      "explanation": "'Focus on' nghĩa là: tập trung vào."
+    },
+    {
+      "id": 66,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Prioritize",
+      "answer": "Ưu tiên",
+      "explanation": "'Prioritize' nghĩa là: ưu tiên."
+    },
+    {
+      "id": 67,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Set aside",
+      "answer": "Dành riêng, để dành",
+      "explanation": "'Set aside' nghĩa là: dành riêng, để dành."
+    },
+    {
+      "id": 68,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Catch up on",
+      "answer": "Cập nhật hoặc xử lý việc còn tồn đọng",
+      "explanation": "'Catch up on' nghĩa là: cập nhật hoặc xử lý việc còn tồn đọng."
+    },
+    {
+      "id": 69,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Stick to",
+      "answer": "Tuân thủ, kiên trì với",
+      "explanation": "'Stick to' nghĩa là: tuân thủ, kiên trì với."
+    },
+    {
+      "id": 70,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Cut down on",
+      "answer": "Cắt giảm",
+      "explanation": "'Cut down on' nghĩa là: cắt giảm."
+    },
+    {
+      "id": 71,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I'm ______ changing jobs.",
+      "answer": "considering",
+      "explanation": "'Consider' + V-ing; ở đây dùng dạng V-ing sau 'I'm'."
+    },
+    {
+      "id": 72,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I can't ______ to buy that laptop.",
+      "answer": "afford",
+      "explanation": "'Afford to + V': đủ khả năng làm gì."
+    },
+    {
+      "id": 73,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "Can you ______ me to send the email?",
+      "answer": "remind",
+      "explanation": "'Remind someone to + V': nhắc ai làm gì."
+    },
+    {
+      "id": 74,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "She ______ taking a short break.",
+      "answer": "recommended",
+      "explanation": "'Recommend + V-ing' (quá khứ: recommended)."
+    },
+    {
+      "id": 75,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I need to focus ______ finishing this report.",
+      "answer": "on",
+      "explanation": "'Focus on + V-ing'."
+    },
+    {
+      "id": 76,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "We should ______ the most urgent tasks first.",
+      "answer": "prioritize",
+      "explanation": "'Prioritize' nghĩa là ưu tiên."
+    },
+    {
+      "id": 77,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I ______ aside thirty minutes for English every day.",
+      "answer": "set",
+      "explanation": "'Set aside': dành riêng thời gian (thì hiện tại, đi với 'I')."
+    },
+    {
+      "id": 78,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I need to catch up ______ my emails.",
+      "answer": "on",
+      "explanation": "'Catch up on' + việc tồn đọng."
+    },
+    {
+      "id": 79,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I'm trying to stick ______ my study schedule.",
+      "answer": "to",
+      "explanation": "'Stick to': tuân thủ, kiên trì với."
+    },
+    {
+      "id": 80,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "He wants to cut down ______ sugary drinks.",
+      "answer": "on",
+      "explanation": "'Cut down on' + thứ cần giảm."
+    },
+    {
+      "id": 81,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I decided to postpone...",
+      "options": [
+        "to book the hotel.",
+        "booking the hotel.",
+        "book the hotel."
+      ],
+      "answer": "booking the hotel.",
+      "explanation": "Postpone + V-ing."
+    },
+    {
+      "id": 82,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "She arrived...",
+      "options": [
+        "to the airport at eight.",
+        "at the airport at eight.",
+        "in the airport at eight."
+      ],
+      "answer": "at the airport at eight.",
+      "explanation": "Dùng 'arrive at' với địa điểm cụ thể như sân bay hoặc nhà ga."
+    },
+    {
+      "id": 83,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "Could you pick...",
+      "options": [
+        "up me at six?",
+        "me up at six?",
+        "me at six up?"
+      ],
+      "answer": "me up at six?",
+      "explanation": "Pick + đại từ + up."
+    },
+    {
+      "id": 84,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I would like to exchange this shirt...",
+      "options": [
+        "with a larger size.",
+        "for a larger size.",
+        "to a larger size."
+      ],
+      "answer": "for a larger size.",
+      "explanation": "Exchange something for something else."
+    },
+    {
+      "id": 85,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I'm looking forward to...",
+      "options": [
+        "meet you tomorrow.",
+        "meeting you tomorrow.",
+        "met you tomorrow."
+      ],
+      "answer": "meeting you tomorrow.",
+      "explanation": "Look forward to + V-ing. Trong cấu trúc này, 'to' là giới từ."
+    },
+    {
+      "id": 86,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "She recommended...",
+      "options": [
+        "taking a taxi.",
+        "to take a taxi.",
+        "take a taxi."
+      ],
+      "answer": "taking a taxi.",
+      "explanation": "Recommend + V-ing."
+    },
+    {
+      "id": 87,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng arrange để sắp xếp một cuộc họp.",
+      "answer": "I'll arrange a meeting with my manager tomorrow.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 88,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng reschedule để đổi lịch hẹn.",
+      "answer": "Could we reschedule our appointment for Friday?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 89,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng available để hỏi một người có rảnh không.",
+      "answer": "Are you available this afternoon?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 90,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng postpone để nói về việc hoãn chuyến đi.",
+      "answer": "We had to postpone our trip because of the storm.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 91,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng pick up để nhờ ai đó đón mình.",
+      "answer": "Could you pick me up at the station?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 92,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng return để nói về việc trả một sản phẩm.",
+      "answer": "I'd like to return this product because it's damaged.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 93,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng refund để yêu cầu hoàn tiền.",
+      "answer": "I'd like to request a refund for my order.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 94,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng consider để nói về việc cân nhắc đổi công việc.",
+      "answer": "I'm considering changing jobs.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    }
+  ]
+}

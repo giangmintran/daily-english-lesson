@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { DailyLesson } from '../types/lesson';
 import { Volume2, ArrowRight, BookOpen, CheckCircle, BrainCircuit, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { speakWord } from '../utils/speech';
+import { normalizeExerciseResults } from '../services/storage';
 
 interface DailyOverviewProps {
   lesson: DailyLesson;
@@ -18,7 +19,8 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
   const [playingWordId, setPlayingWordId] = useState<string | null>(null);
 
   const masteredWordIds = lesson.progress?.wordsMastered || [];
-  const exerciseResults = lesson.progress?.exerciseResults || {};
+  const rawExerciseResults = lesson.progress?.exerciseResults || {};
+  const exerciseResults = useMemo(() => normalizeExerciseResults(rawExerciseResults), [rawExerciseResults]);
 
   const totalWords = lesson.vocabulary.length;
   const masteredWordsCount = masteredWordIds.length;

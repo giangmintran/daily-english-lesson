@@ -1,6 +1,7 @@
 import http from 'http';
 import app from '../server/app.js';
 import { generateSignedToken, verifySignedToken } from '../server/routes/auth.js';
+import { validateProgressPayload } from '../server/utils/validation.js';
 
 let server;
 const PORT = 5099;
@@ -179,6 +180,24 @@ async function runTests() {
       body: JSON.stringify(bigBatch),
     });
     assert(resBigBatch.status === 400, 'F-08: POST /api/lessons/batch rejects > 50 items with 400');
+
+    // Progress payload preservation & validation
+    const progressCheck = validateProgressPayload({
+      wordsMastered: ['v1', 'v2'],
+      exerciseResults: {
+        '1': { userAnswer: 'went', isCorrect: true },
+        '2': { userAnswer: 'goes', isCorrect: false },
+        '3': true,
+      },
+    });
+    assert(
+      progressCheck.progress.exerciseResults['1'].userAnswer === 'went' &&
+      progressCheck.progress.exerciseResults['1'].isCorrect === true &&
+      progressCheck.progress.exerciseResults['2'].userAnswer === 'goes' &&
+      progressCheck.progress.exerciseResults['2'].isCorrect === false &&
+      progressCheck.progress.exerciseResults['3'].isCorrect === true,
+      'Progress validation preserves exerciseResults { userAnswer, isCorrect } and handles legacy boolean'
+    );
   }
 
   // TEST 7: CORS Policy (F-07)

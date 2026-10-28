@@ -5,8 +5,9 @@ import {
   getActiveDate,
   setActiveDate,
   getUserStats,
-  saveUserStats,
   saveLesson,
+  updateStreakWithDate,
+  syncStreakFromLessons,
 } from './services/storage';
 import {
   fetchLessonsFromApi,
@@ -86,6 +87,10 @@ export function App() {
         setActiveDate(target.date);
         setActiveDateState(target.date);
         setCurrentLesson(target);
+
+        // Đồng bộ chuỗi ngày học từ toàn bộ bài học trên Supabase
+        const updatedStats = syncStreakFromLessons(apiLessons);
+        setUserStats(updatedStats);
       }
     }
     loadBackendLessons();
@@ -99,16 +104,9 @@ export function App() {
 
     saveLessonToApi(lesson).catch((e) => console.warn('Backend lesson auto-save failed', e));
 
-    const today = new Date().toISOString().split('T')[0];
-    if (lesson.date === today) {
-      const stats = getUserStats();
-      if (stats.lastActiveDate !== today) {
-        stats.streak += 1;
-        stats.lastActiveDate = today;
-        saveUserStats(stats);
-        setUserStats(stats);
-      }
-    }
+    // Tự động tăng chuỗi với mỗi ngày học được import
+    const updatedStats = updateStreakWithDate(lesson.date);
+    setUserStats(updatedStats);
   };
 
   const handleUpdateLesson = (updated: DailyLesson) => {
@@ -156,6 +154,10 @@ export function App() {
               setActiveDateState(date);
               setCurrentLesson(selectedLesson);
               setCurrentTab('overview');
+            }}
+            onLessonsChanged={(remaining) => {
+              const updatedStats = syncStreakFromLessons(remaining);
+              setUserStats(updatedStats);
             }}
           />
         ) : currentLesson ? (

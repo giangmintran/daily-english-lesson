@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getActiveDate, setActiveDate, clearCurrentLesson } from '../services/storage';
+import { getActiveDate, setActiveDate, clearCurrentLesson, normalizeExerciseResults } from '../services/storage';
 import { fetchLessonsFromApi, deleteLessonFromApi } from '../services/api';
 import { DailyLesson } from '../types/lesson';
 import { Calendar, Download, Trash2, ArrowRight, Flame, CheckCircle, BookOpen, RefreshCw, AlertCircle } from 'lucide-react';
@@ -7,9 +7,10 @@ import { Calendar, Download, Trash2, ArrowRight, Flame, CheckCircle, BookOpen, R
 interface HistoryViewProps {
   onSelectDate: (date: string, lesson: DailyLesson) => void;
   onRefresh?: () => void;
+  onLessonsChanged?: (lessons: DailyLesson[]) => void;
 }
 
-export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
+export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate, onLessonsChanged }) => {
   const [lessons, setLessons] = useState<DailyLesson[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +43,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
 
   lessons.forEach((l) => {
     const wordsCount = l.progress?.wordsMastered?.length || 0;
-    const exResults = l.progress?.exerciseResults || {};
+    const exResults = normalizeExerciseResults(l.progress?.exerciseResults);
     const exDone = Object.keys(exResults).length;
 
     totalMasteredWords += wordsCount;
@@ -62,7 +63,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
 
   const handleDeleteDate = async (date: string) => {
     if (confirm(`Bạn có chắc muốn xóa vĩnh viễn bài học ngày ${date} trên Supabase?`)) {
-      setLessons((prev) => prev.filter((l) => l.date !== date));
+      const remaining = lessons.filter((l) => l.date !== date);
+      setLessons(remaining);
       if (activeDate === date) {
         clearCurrentLesson();
       }
@@ -70,6 +72,8 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
       if (!res.success) {
         alert(res.error || 'Lỗi khi xóa bài học trên Supabase');
         loadHistory();
+      } else if (onLessonsChanged) {
+        onLessonsChanged(remaining);
       }
     }
   };
@@ -173,8 +177,18 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
           lessons.map((item) => {
             const isCurrentActive = item.date === activeDate;
             const wordsMastered = item.progress?.wordsMastered?.length || 0;
-            const exResults = item.progress?.exerciseResults || {};
+            const exResults = normalizeExerciseResults(item.progress?.exerciseResults);
             const exDone = Object.keys(exResults).length;
+            const exCorrect = Object.values(exResults).filter((r) => r.isCorrect).length;
+
+            const totalWords = item.vocabulary.length;
+            const totalExercises = item.exercises.length;
+            const totalItems = totalWords + totalExercises;
+            const totalDone = wordsMastered + exDone;
+
+            const totalPercent = totalItems > 0 ? Math.round((totalDone / totalItems) * 100) : 0;
+            const wordPercent = totalWords > 0 ? Math.round((wordsMastered / totalWords) * 100) : 0;
+            const exPercent = totalExercises > 0 ? Math.round((exDone / totalExercises) * 100) : 0;
 
             return (
               <div
@@ -183,49 +197,103 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate }) => {
                   setActiveDate(item.date);
                   onSelectDate(item.date, item);
                 }}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 sm:gap-4 shadow-xs ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 shadow-xs group ${
                   isCurrentActive
-                    ? 'border-zinc-900 dark:border-zinc-100 bg-zinc-50 dark:bg-zinc-800/40'
+                    ? 'border-zinc-900 dark:border-zinc-100 bg-zinc-50/80 dark:bg-zinc-800/40 ring-1 ring-zinc-900 dark:ring-zinc-100'
                     : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700'
                 }`}
               >
-                <div className="space-y-1 min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={14} className="text-zinc-400 shrink-0" />
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-                      {item.date}
-                    </span>
-                    {isCurrentActive && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-medium shrink-0">
-                        Đang chọn
+                <div className="space-y-1.5 min-w-0 flex-1">
+                  {/* Header: Date + Badges + Progress % */}
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <Calendar size={14} className="text-zinc-400 shrink-0" />
+                      <span className="font-mono text-xs font-bold text-zinc-900 dark:text-zinc-100">
+                        {item.date}
                       </span>
-                    )}
+                      {isCurrentActive && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-semibold shrink-0">
+                          Đang chọn
+                        </span>
+                      )}
+                    </div>
+
+                    {/* % Progress Badge */}
+                    <div className="flex items-center gap-1.5">
+                      {totalPercent === 100 ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                          <CheckCircle size={12} className="text-emerald-600 dark:text-emerald-400" />
+                          <span>100% Hoàn thành</span>
+                        </span>
+                      ) : totalPercent > 0 ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/20">
+                          <span>{totalPercent}% đã học</span>
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
+                          0% Chưa học
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-medium truncate">
+                  {/* Topic name */}
+                  <div className="text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 font-medium truncate">
                     {item.topic}
                   </div>
 
-                  <div className="flex items-center gap-2 sm:gap-3 text-[11px] text-zinc-400 font-mono pt-0.5">
-                    <span>{wordsMastered}/{item.vocabulary.length} từ</span>
-                    <span>•</span>
-                    <span>{exDone}/{item.exercises.length} bài tập</span>
+                  {/* Visual Progress Bar */}
+                  <div className="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        totalPercent === 100
+                          ? 'bg-emerald-500'
+                          : totalPercent > 0
+                          ? 'bg-blue-600 dark:bg-blue-500'
+                          : 'bg-transparent'
+                      }`}
+                      style={{ width: `${totalPercent}%` }}
+                    />
+                  </div>
+
+                  {/* Detailed metrics */}
+                  <div className="flex items-center gap-2 sm:gap-3 text-[11px] text-zinc-500 dark:text-zinc-400 font-mono pt-0.5 flex-wrap">
+                    {totalWords > 0 && (
+                      <span>
+                        Từ vựng: <strong className="text-zinc-700 dark:text-zinc-300">{wordsMastered}/{totalWords}</strong> ({wordPercent}%)
+                      </span>
+                    )}
+                    {totalWords > 0 && totalExercises > 0 && <span>•</span>}
+                    {totalExercises > 0 && (
+                      <span>
+                        Bài tập: <strong className="text-zinc-700 dark:text-zinc-300">{exDone}/{totalExercises}</strong> ({exPercent}%)
+                      </span>
+                    )}
+                    {exDone > 0 && (
+                      <>
+                        <span>•</span>
+                        <span className="text-emerald-600 dark:text-emerald-400">
+                          Đúng: {exCorrect}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                {/* Right actions */}
+                <div className="flex items-center justify-end sm:justify-center gap-1.5 sm:gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-zinc-100 dark:border-zinc-800/60">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDeleteDate(item.date);
                     }}
-                    className="p-2 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                    className="p-2 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors cursor-pointer"
                     title="Xóa vĩnh viễn bài này trên Supabase"
                   >
                     <Trash2 size={16} />
                   </button>
 
-                  <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300">
+                  <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300 group-hover:bg-zinc-900 group-hover:text-white dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-900 transition-colors">
                     <ArrowRight size={14} />
                   </div>
                 </div>

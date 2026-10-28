@@ -54,23 +54,27 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({ lesson, onUpdate
   const handleToggleMastered = useCallback((mastered: boolean) => {
     if (!currentWord) return;
 
-    const updated = updateLessonProgress(lesson.date, (prev) => {
-      const currentMastered = new Set(prev?.wordsMastered || []);
-      if (mastered) {
-        currentMastered.add(currentWord.id);
-      } else {
-        currentMastered.delete(currentWord.id);
-      }
-      return {
-        wordsMastered: Array.from(currentMastered),
-        exerciseResults: prev?.exerciseResults || {},
-      };
-    });
+    const updated = updateLessonProgress(
+      lesson.date,
+      (prev) => {
+        const currentMastered = new Set(prev?.wordsMastered || []);
+        if (mastered) {
+          currentMastered.add(currentWord.id);
+        } else {
+          currentMastered.delete(currentWord.id);
+        }
+        return {
+          wordsMastered: Array.from(currentMastered),
+          exerciseResults: prev?.exerciseResults || {},
+        };
+      },
+      lesson
+    );
 
     if (updated) {
       onUpdateLesson(updated);
     }
-  }, [currentWord, lesson.date, onUpdateLesson]);
+  }, [currentWord, lesson, onUpdateLesson]);
 
   // Pronounce word when navigating if autoPronounce is true
   useEffect(() => {

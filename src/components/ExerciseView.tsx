@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { DailyLesson, ExerciseItem } from '../types/lesson';
 import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers, BookOpen } from 'lucide-react';
-import { updateLessonProgress } from '../services/storage';
+import { saveLesson, normalizeExerciseResults } from '../services/storage';
 import confetti from 'canvas-confetti';
 
 interface ExerciseViewProps {
@@ -21,7 +21,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
   const activeBtnRef = useRef<HTMLButtonElement>(null);
 
   const exerciseResults = useMemo(
-    () => lesson.progress?.exerciseResults || {},
+    () => normalizeExerciseResults(lesson.progress?.exerciseResults),
     [lesson.progress?.exerciseResults]
   );
 
@@ -39,6 +39,13 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     }
     return all;
   }, [lesson.exercises, activeSession, exerciseResults]);
+
+  // Keep currentIdx within valid range if filtered list size changes (e.g. fixing a wrong question)
+  useEffect(() => {
+    if (filteredExercises.length > 0 && currentIdx >= filteredExercises.length) {
+      setCurrentIdx(filteredExercises.length - 1);
+    }
+  }, [filteredExercises.length, currentIdx]);
 
   const currentExercise: ExerciseItem | undefined = filteredExercises[currentIdx];
   const currentResult = currentExercise ? exerciseResults[currentExercise.id] : undefined;
@@ -81,27 +88,35 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
       const cleanTarget = currentExercise.answer.trim().toLowerCase().replace(/[.,!?;:]/g, '');
       const isCorrect = cleanUser === cleanTarget;
 
-      const updated = updateLessonProgress(lesson.date, (prev) => {
-        const nextResults = { ...(prev?.exerciseResults || {}) };
-        nextResults[currentExercise.id] = {
-          userAnswer: userAnswerText.trim(),
-          isCorrect,
-        };
-        return {
-          wordsMastered: prev?.wordsMastered || [],
-          exerciseResults: nextResults,
-        };
-      });
+      const currentProgress = lesson.progress || {
+        wordsMastered: [],
+        exerciseResults: {},
+      };
+      const nextResults = { ...(currentProgress.exerciseResults || {}) };
+      nextResults[currentExercise.id] = {
+        userAnswer: userAnswerText.trim(),
+        isCorrect,
+      };
 
-      if (updated) {
-        onUpdateLesson(updated);
-      }
+      const updatedProgress = {
+        wordsMastered: currentProgress.wordsMastered || [],
+        exerciseResults: nextResults,
+      };
+
+      const updated: DailyLesson = {
+        ...lesson,
+        progress: updatedProgress,
+      };
+
+      saveLesson(updated);
+      onUpdateLesson(updated);
 
       setIsAnswered(true);
 
-      // Check if user finished all exercises in the lesson
-      const newDoneCount = Object.keys(updated?.progress?.exerciseResults || {}).length;
-      if (newDoneCount === lesson.exercises.length) {
+      // Check if user finished all exercises in the lesson (only trigger on first complete)
+      const wasAlreadyAnswered = Boolean(exerciseResults[currentExercise.id]);
+      const newDoneCount = Object.keys(nextResults).length;
+      if (!wasAlreadyAnswered && newDoneCount === lesson.exercises.length) {
         confetti({
           particleCount: 80,
           spread: 70,
@@ -109,8 +124,16 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         });
       }
     },
-    [currentExercise, lesson.date, lesson.exercises.length, onUpdateLesson]
+    [currentExercise, lesson, exerciseResults, onUpdateLesson]
   );
+
+  // Switch question to edit mode so user can change answer freely
+  const handleStartEdit = useCallback(() => {
+    setIsAnswered(false);
+    if (currentResult && currentExercise?.type === 'fill_in_blank') {
+      setFillInput(currentResult.userAnswer || fillInput);
+    }
+  }, [currentResult, currentExercise, fillInput]);
 
   // Keyboard shortcut for Multiple Choice (1, 2, 3, 4) & Navigation
   useEffect(() => {
@@ -129,13 +152,21 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         return;
       }
 
-      // Multiple choice shortcuts (1, 2, 3, 4)
-      if (currentExercise.type === 'multiple_choice' && currentExercise.options && !isAnswered) {
+      // Multiple choice shortcuts (1, 2, 3, 4) - allows answering or changing answer
+      if (currentExercise.type === 'multiple_choice' && currentExercise.options) {
         const optNum = parseInt(e.key, 10);
         if (optNum >= 1 && optNum <= currentExercise.options.length) {
           e.preventDefault();
           handleAnswerSubmit(currentExercise.options[optNum - 1]);
+          return;
         }
+      }
+
+      // Shortcut 'r' or 'R' to retry/edit
+      if ((e.key === 'r' || e.key === 'R') && isAnswered) {
+        e.preventDefault();
+        handleStartEdit();
+        return;
       }
 
       if (e.key === 'ArrowRight' && isAnswered) {
@@ -149,7 +180,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentExercise, isAnswered, fillInput, handleAnswerSubmit, handleNext, handlePrev]);
+  }, [currentExercise, isAnswered, fillInput, handleAnswerSubmit, handleStartEdit, handleNext, handlePrev]);
 
   // Count wrong exercises
   const wrongCount = useMemo(() => {
@@ -436,8 +467,16 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                   'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700';
 
                 if (isCur) {
-                  btnStyle =
-                    'ring-2 ring-zinc-900 dark:ring-zinc-100 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-bold shadow-xs scale-105 z-10';
+                  if (res?.isCorrect) {
+                    btnStyle =
+                      'ring-2 ring-emerald-500 bg-emerald-600 text-white font-bold shadow-xs scale-105 z-10';
+                  } else if (res && !res.isCorrect) {
+                    btnStyle =
+                      'ring-2 ring-red-500 bg-red-600 text-white font-bold shadow-xs scale-105 z-10';
+                  } else {
+                    btnStyle =
+                      'ring-2 ring-zinc-900 dark:ring-zinc-100 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-bold shadow-xs scale-105 z-10';
+                  }
                 } else if (res) {
                   if (res.isCorrect) {
                     btnStyle =
@@ -477,22 +516,54 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                   <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
                     {currentIdx + 1}/{filteredExercises.length} trong phiên
                   </span>
+                  {currentExercise.section && (
+                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                      {currentExercise.section}
+                    </span>
+                  )}
                   <span className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 capitalize">
-                    {currentExercise.type === 'multiple_choice' ? 'Trắc nghiệm' : 'Điền từ'}
+                    {currentExercise.type === 'multiple_choice'
+                      ? 'Trắc nghiệm'
+                      : currentExercise.type === 'translation'
+                      ? 'Dịch câu'
+                      : currentExercise.type === 'verb_conjugation'
+                      ? 'Chia động từ'
+                      : currentExercise.type === 'meaning_check'
+                      ? 'Kiểm tra nghĩa'
+                      : currentExercise.type === 'sentence_writing'
+                      ? 'Tự đặt câu'
+                      : 'Điền từ'}
                   </span>
                 </div>
 
                 {currentResult && (
-                  <span
-                    className={`flex items-center gap-1 font-semibold font-mono text-xs px-2.5 py-1 rounded-md shrink-0 ${
-                      currentResult.isCorrect
-                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                        : 'bg-red-500/10 text-red-600 dark:text-red-400'
-                    }`}
-                  >
-                    {currentResult.isCorrect ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
-                    <span>{currentResult.isCorrect ? 'Chính xác' : 'Chưa đúng'}</span>
-                  </span>
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <span
+                      className={`flex items-center gap-1 font-semibold font-mono text-xs px-2.5 py-1 rounded-md shrink-0 ${
+                        currentResult.isCorrect
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                          : 'bg-red-500/10 text-red-600 dark:text-red-400'
+                      }`}
+                    >
+                      {currentResult.isCorrect ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
+                      <span>{currentResult.isCorrect ? 'Chính xác' : 'Chưa đúng'}</span>
+                    </span>
+
+                    {isAnswered ? (
+                      <button
+                        onClick={handleStartEdit}
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 transition-colors cursor-pointer"
+                        title="Sửa lại đáp án (phím tắt R)"
+                      >
+                        <RotateCcw size={12} />
+                        <span>Sửa đáp án</span>
+                      </button>
+                    ) : (
+                      <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md">
+                        Đang sửa...
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
 
@@ -503,79 +574,134 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
 
               {/* Tương tác đáp án: Trắc nghiệm hoặc Điền từ */}
               {currentExercise.type === 'multiple_choice' && currentExercise.options ? (
-                <div className="grid grid-cols-1 gap-2 pt-1">
-                  {currentExercise.options.map((option, optIdx) => {
-                    const isSelected = currentResult?.userAnswer === option;
-                    const isCorrectAnswer = option === currentExercise.answer;
+                <div className="space-y-2 pt-1">
+                  <div className="grid grid-cols-1 gap-2">
+                    {currentExercise.options.map((option, optIdx) => {
+                      const isSelected = currentResult?.userAnswer === option;
+                      const isCorrectAnswer = option === currentExercise.answer;
 
-                    let btnStyle =
-                      'border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-zinc-600';
+                      let btnStyle =
+                        'border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30 text-zinc-800 dark:text-zinc-200 hover:border-zinc-400 dark:hover:border-zinc-600';
 
-                    if (isAnswered) {
-                      if (isCorrectAnswer) {
-                        btnStyle =
-                          'border-emerald-500 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-semibold';
-                      } else if (isSelected && !currentResult?.isCorrect) {
-                        btnStyle =
-                          'border-red-500 bg-red-500/15 text-red-700 dark:text-red-300 font-medium';
-                      } else {
-                        btnStyle = 'border-zinc-200 dark:border-zinc-800 opacity-40';
+                      if (isAnswered) {
+                        if (isCorrectAnswer) {
+                          btnStyle =
+                            'border-emerald-500 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-semibold shadow-xs';
+                        } else if (isSelected && !currentResult?.isCorrect) {
+                          btnStyle =
+                            'border-red-500 bg-red-500/15 text-red-700 dark:text-red-300 font-medium';
+                        } else {
+                          btnStyle =
+                            'border-zinc-200 dark:border-zinc-800 opacity-60 hover:opacity-100 hover:border-zinc-400 dark:hover:border-zinc-600';
+                        }
                       }
-                    }
 
-                    return (
+                      return (
+                        <button
+                          key={optIdx}
+                          onClick={() => handleAnswerSubmit(option)}
+                          className={`w-full p-3 sm:p-4 rounded-2xl border text-left text-sm sm:text-base transition-all flex items-start sm:items-center justify-between gap-3 cursor-pointer active:scale-[0.99] ${btnStyle}`}
+                        >
+                          <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
+                            <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono font-semibold flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+                              {optIdx + 1}
+                            </span>
+                            <span className="break-words leading-snug sm:leading-normal">{option}</span>
+                          </div>
+                          {isAnswered && isCorrectAnswer && (
+                            <CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5 sm:mt-0" />
+                          )}
+                          {isAnswered && isSelected && !currentResult?.isCorrect && (
+                            <XCircle size={18} className="text-red-500 shrink-0 mt-0.5 sm:mt-0" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Nút hỗ trợ chọn lại khi đã kiểm tra xong */}
+                  {isAnswered && (
+                    <div className="flex items-center justify-between pt-1">
                       <button
-                        key={optIdx}
-                        disabled={isAnswered}
-                        onClick={() => handleAnswerSubmit(option)}
-                        className={`w-full p-3 sm:p-4 rounded-2xl border text-left text-sm sm:text-base transition-all flex items-start sm:items-center justify-between gap-3 cursor-pointer active:scale-[0.99] ${btnStyle}`}
+                        onClick={handleStartEdit}
+                        className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                       >
-                        <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
-                          <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono font-semibold flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
-                            {optIdx + 1}
-                          </span>
-                          <span className="break-words leading-snug sm:leading-normal">{option}</span>
-                        </div>
-                        {isAnswered && isCorrectAnswer && (
-                          <CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5 sm:mt-0" />
-                        )}
-                        {isAnswered && isSelected && !currentResult?.isCorrect && (
-                          <XCircle size={18} className="text-red-500 shrink-0 mt-0.5 sm:mt-0" />
-                        )}
+                        <RotateCcw size={13} />
+                        <span>Sửa lại / Chọn lại đáp án</span>
                       </button>
-                    );
-                  })}
+                      <span className="text-[11px] text-zinc-400 hidden sm:inline">
+                        (Bạn cũng có thể bấm trực tiếp vào đáp án khác để sửa)
+                      </span>
+                    </div>
+                  )}
                 </div>
               ) : (
-                /* Điền từ khuyết */
+                /* Điền từ khuyết / Dịch / Chia động từ */
                 <div className="space-y-3 pt-1">
+                  {/* Ngân hàng từ (Word Bank) nếu có */}
+                  {currentExercise.wordBank && currentExercise.wordBank.length > 0 && (
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-800 space-y-2">
+                      <div className="flex items-center justify-between text-xs text-zinc-500">
+                        <span className="font-medium flex items-center gap-1.5">
+                          <span className="text-zinc-800 dark:text-zinc-200 font-semibold">Ngân hàng từ:</span>
+                          <span className="text-[11px] text-zinc-400 font-normal">(Bấm để chọn từ)</span>
+                        </span>
+                        <span className="text-[10px] font-mono opacity-70">
+                          {currentExercise.wordBank.length} từ
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {currentExercise.wordBank.map((word, wIdx) => {
+                          const isChosen = fillInput.trim().toLowerCase() === word.trim().toLowerCase();
+                          return (
+                            <button
+                              key={wIdx}
+                              type="button"
+                              onClick={() => {
+                                setFillInput(word);
+                                if (isAnswered) setIsAnswered(false);
+                              }}
+                              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer active:scale-95 ${
+                                isChosen
+                                  ? 'bg-blue-600 text-white shadow-xs ring-2 ring-blue-400'
+                                  : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-300'
+                              }`}
+                            >
+                              {word}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      disabled={isAnswered}
                       value={fillInput}
-                      onChange={(e) => setFillInput(e.target.value)}
+                      onChange={(e) => {
+                        setFillInput(e.target.value);
+                        if (isAnswered) setIsAnswered(false);
+                      }}
                       placeholder="Gõ từ cần điền..."
-                      className="flex-1 px-4 py-3 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-base focus:outline-hidden focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 disabled:opacity-75"
+                      className="flex-1 px-4 py-3 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-base focus:outline-hidden focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                     />
                     {!isAnswered ? (
                       <button
                         disabled={!fillInput.trim()}
                         onClick={() => handleAnswerSubmit(fillInput)}
-                        className="px-5 sm:px-6 py-3 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs sm:text-sm font-semibold hover:bg-zinc-800 disabled:opacity-40 cursor-pointer transition-all active:scale-95"
+                        className="px-5 sm:px-6 py-3 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs sm:text-sm font-semibold hover:bg-zinc-800 disabled:opacity-40 cursor-pointer transition-all active:scale-95 shrink-0"
                       >
-                        Kiểm tra
+                        {currentResult ? 'Cập nhật' : 'Kiểm tra'}
                       </button>
                     ) : (
                       <button
-                        onClick={() => {
-                          setIsAnswered(false);
-                          setFillInput('');
-                        }}
-                        className="px-4 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs cursor-pointer active:scale-95"
-                        title="Thử lại câu này"
+                        onClick={handleStartEdit}
+                        className="px-4 py-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs cursor-pointer active:scale-95 flex items-center gap-1.5 shrink-0"
+                        title="Sửa lại câu này"
                       >
-                        <RotateCcw size={16} />
+                        <RotateCcw size={15} />
+                        <span className="hidden sm:inline">Sửa lại</span>
                       </button>
                     )}
                   </div>
@@ -699,11 +825,26 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                   </div>
                 )}
 
-                {res && ex.explanation && (
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 pt-1 italic">
-                    💡 {ex.explanation}
-                  </p>
-                )}
+                <div className="flex items-center justify-between pt-1 gap-2">
+                  {res && ex.explanation ? (
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 italic flex-1">
+                      💡 {ex.explanation}
+                    </p>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+                  <button
+                    onClick={() => {
+                      setCurrentIdx(idx);
+                      setViewMode('focus');
+                      if (res) setIsAnswered(false);
+                    }}
+                    className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:underline shrink-0 font-medium cursor-pointer px-2.5 py-1 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                  >
+                    <RotateCcw size={12} />
+                    <span>{res ? 'Sửa đáp án' : 'Làm câu này'}</span>
+                  </button>
+                </div>
               </div>
             );
           })}

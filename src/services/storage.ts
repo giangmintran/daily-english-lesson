@@ -80,12 +80,45 @@ export function setActiveDate(date: string): void {
   localStorage.setItem(STORAGE_KEY_ACTIVE_DATE, date);
 }
 
+export function normalizeExerciseResults(
+  rawResults?: Record<string | number, any>
+): Record<string | number, { userAnswer: string; isCorrect: boolean }> {
+  if (!rawResults || typeof rawResults !== 'object') return {};
+  const normalized: Record<string | number, { userAnswer: string; isCorrect: boolean }> = {};
+  for (const [key, val] of Object.entries(rawResults)) {
+    if (typeof val === 'boolean') {
+      normalized[key] = { userAnswer: '', isCorrect: val };
+    } else if (val && typeof val === 'object') {
+      normalized[key] = {
+        userAnswer: typeof val.userAnswer === 'string' ? val.userAnswer : String(val.userAnswer ?? ''),
+        isCorrect: Boolean(val.isCorrect),
+      };
+    }
+  }
+  return normalized;
+}
+
 export function updateLessonProgress(
   date: string,
-  updater: (prevProgress: DailyLesson['progress']) => DailyLesson['progress']
-): DailyLesson | null {
-  const current = getCurrentLesson();
-  if (!current || current.date !== date) return null;
+  updater: (prevProgress: DailyLesson['progress']) => DailyLesson['progress'],
+  fallbackLesson?: DailyLesson
+): DailyLesson {
+  let current = getCurrentLesson();
+  if (!current || current.date !== date) {
+    if (fallbackLesson) {
+      current = { ...fallbackLesson, date };
+    } else if (current) {
+      current = { ...current, date };
+    } else {
+      current = {
+        date,
+        topic: 'Daily English Lesson',
+        vocabulary: [],
+        exercises: [],
+        progress: { wordsMastered: [], exerciseResults: {} },
+      };
+    }
+  }
 
   const currentProgress = current.progress || {
     wordsMastered: [],
@@ -100,21 +133,65 @@ export function updateLessonProgress(
 export function getUserStats(): UserStats {
   try {
     const raw = localStorage.getItem(STORAGE_KEY_STATS);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return {
+        streak: typeof parsed.streak === 'number' ? parsed.streak : 1,
+        lastActiveDate: parsed.lastActiveDate || '',
+        totalWordsLearned: parsed.totalWordsLearned || 0,
+        totalExercisesDone: parsed.totalExercisesDone || 0,
+        importedDates: Array.isArray(parsed.importedDates) ? parsed.importedDates : [],
+      };
+    }
   } catch {
     // ignore
   }
 
   return {
     streak: 1,
-    lastActiveDate: new Date().toISOString().split('T')[0],
+    lastActiveDate: '',
     totalWordsLearned: 0,
     totalExercisesDone: 0,
+    importedDates: [],
   };
 }
 
 export function saveUserStats(stats: UserStats): void {
   localStorage.setItem(STORAGE_KEY_STATS, JSON.stringify(stats));
+}
+
+/**
+ * Cập nhật chuỗi ngày học khi có ngày mới được import
+ */
+export function updateStreakWithDate(date: string): UserStats {
+  const stats = getUserStats();
+  const dateSet = new Set(stats.importedDates || []);
+  if (date) {
+    dateSet.add(date);
+  }
+  stats.importedDates = Array.from(dateSet);
+  stats.streak = Math.max(dateSet.size, stats.streak, 1);
+  stats.lastActiveDate = date || new Date().toISOString().split('T')[0];
+  saveUserStats(stats);
+  return stats;
+}
+
+/**
+ * Đồng bộ chuỗi ngày học từ danh sách toàn bộ bài học (ví dụ từ backend Supabase)
+ */
+export function syncStreakFromLessons(lessons: { date: string }[]): UserStats {
+  const stats = getUserStats();
+  const dateSet = new Set(lessons.map((l) => l.date).filter(Boolean));
+  (stats.importedDates || []).forEach((d) => {
+    if (d) dateSet.add(d);
+  });
+  stats.importedDates = Array.from(dateSet);
+  stats.streak = Math.max(dateSet.size, 1);
+  if (lessons.length > 0) {
+    stats.lastActiveDate = lessons[0].date;
+  }
+  saveUserStats(stats);
+  return stats;
 }
 
 /**
@@ -218,6 +295,7 @@ export function validateAndParseExercisesJson(jsonString: string): {
   let rawList: any[] = [];
   let date: string | undefined = undefined;
   let topic: string | undefined = undefined;
+  let topWordBank: string[] | undefined = undefined;
 
   if (Array.isArray(parsed)) {
     rawList = parsed;
@@ -227,6 +305,14 @@ export function validateAndParseExercisesJson(jsonString: string): {
     }
     if (typeof parsed.topic === 'string' && parsed.topic.trim()) {
       topic = parsed.topic.trim();
+    }
+
+    if (Array.isArray(parsed.word_bank_2A)) {
+      topWordBank = parsed.word_bank_2A.map(String);
+    } else if (Array.isArray(parsed.wordBank)) {
+      topWordBank = parsed.wordBank.map(String);
+    } else if (Array.isArray(parsed.word_bank)) {
+      topWordBank = parsed.word_bank.map(String);
     }
 
     if (Array.isArray(parsed.exercises)) {
@@ -252,14 +338,27 @@ export function validateAndParseExercisesJson(jsonString: string): {
       throw new Error(`Bài tập thứ ${index + 1} thiếu trường "answer" (đáp án).`);
     }
 
-    const type = e.type === 'fill_in_blank' || e.type === 'translation' ? e.type : 'multiple_choice';
     const options = Array.isArray(e.options) ? e.options.map(String) : undefined;
+    const type = typeof e.type === 'string' && e.type.trim()
+      ? e.type.trim()
+      : options && options.length > 0
+      ? 'multiple_choice'
+      : 'fill_in_blank';
+
+    let wordBank: string[] | undefined = undefined;
+    if (Array.isArray(e.wordBank || e.word_bank)) {
+      wordBank = (e.wordBank || e.word_bank).map(String);
+    } else if (topWordBank && typeof e.section === 'string' && e.section.includes('2A')) {
+      wordBank = topWordBank;
+    }
 
     return {
       id: e.id !== undefined ? e.id : index + 1,
+      section: typeof e.section === 'string' ? e.section.trim() : undefined,
       type,
       question: e.question.trim(),
       options,
+      wordBank,
       answer: String(e.answer).trim(),
       explanation: e.explanation?.trim() || '',
     };

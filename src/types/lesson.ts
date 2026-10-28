@@ -34,13 +34,22 @@ export interface VocabularyItem {
   isMastered?: boolean;
 }
 
-export type ExerciseType = 'multiple_choice' | 'fill_in_blank' | 'translation';
+export type ExerciseType =
+  | 'multiple_choice'
+  | 'fill_in_blank'
+  | 'translation'
+  | 'verb_conjugation'
+  | 'meaning_check'
+  | 'sentence_writing'
+  | string;
 
 export interface ExerciseItem {
   id: string | number;
+  section?: string;
   type: ExerciseType;
   question: string;
   options?: string[]; // for multiple_choice
+  wordBank?: string[]; // for fill_in_blank or exercises with word bank
   answer: string;
   explanation?: string;
   userAnswer?: string;
@@ -64,4 +73,5 @@ export interface UserStats {
   lastActiveDate: string;
   totalWordsLearned: number;
   totalExercisesDone: number;
+  importedDates?: string[];
 }

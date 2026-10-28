@@ -1,0 +1,810 @@
+{
+  "date": "2026-10-28",
+  "topic": "Appointments, Travel & Shopping Vocabulary - Bài tập tổng hợp & Ôn tập cách quãng",
+  "word_bank_2A": [
+    "arrange",
+    "confirm",
+    "reschedule",
+    "postpone",
+    "cancel",
+    "book",
+    "reserve",
+    "available",
+    "convenient",
+    "attend",
+    "prepare",
+    "arrive",
+    "delay",
+    "miss",
+    "pick up",
+    "drop off",
+    "return",
+    "exchange",
+    "refund",
+    "receipt"
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Could you ______ the appointment by email?",
+      "answer": "confirm",
+      "explanation": "'Confirm' nghĩa là xác nhận."
+    },
+    {
+      "id": 2,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I need to ______ my flight because my plans have changed.",
+      "answer": "reschedule",
+      "explanation": "'Reschedule' nghĩa là đổi lịch sang thời gian khác."
+    },
+    {
+      "id": 3,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "We decided to ______ the event until next month.",
+      "answer": "postpone",
+      "explanation": "'Postpone' nghĩa là hoãn lại sang thời điểm sau."
+    },
+    {
+      "id": 4,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "The airline had to ______ our flight.",
+      "answer": "cancel",
+      "explanation": "'Cancel' nghĩa là hủy."
+    },
+    {
+      "id": 5,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can I ______ a table for four at seven?",
+      "answer": "book",
+      "explanation": "'Book a table' nghĩa là đặt bàn."
+    },
+    {
+      "id": 6,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to ______ a hotel room for two nights.",
+      "answer": "reserve",
+      "explanation": "'Reserve' nghĩa là đặt trước (phòng, chỗ)."
+    },
+    {
+      "id": 7,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Are you ______ to meet tomorrow morning?",
+      "answer": "available",
+      "explanation": "'Available' nghĩa là rảnh, có thể gặp."
+    },
+    {
+      "id": 8,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Would Friday afternoon be ______ for you?",
+      "answer": "convenient",
+      "explanation": "'Convenient' nghĩa là thuận tiện."
+    },
+    {
+      "id": 9,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I have to ______ a training session this afternoon.",
+      "answer": "attend",
+      "explanation": "'Attend' nghĩa là tham dự."
+    },
+    {
+      "id": 10,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Please ______ your documents before the interview.",
+      "answer": "prepare",
+      "explanation": "'Prepare' nghĩa là chuẩn bị."
+    },
+    {
+      "id": 11,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "What time did you ______ at the station?",
+      "answer": "arrive",
+      "explanation": "'Arrive at' + địa điểm: đến nơi nào đó."
+    },
+    {
+      "id": 12,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Our train was ______ by an hour.",
+      "answer": "delayed",
+      "explanation": "Câu bị động 'was delayed': bị chậm, trễ."
+    },
+    {
+      "id": 13,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I don't want to ______ the last bus home.",
+      "answer": "miss",
+      "explanation": "'Miss' nghĩa là lỡ (chuyến xe)."
+    },
+    {
+      "id": 14,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can you ______ me up at the airport?",
+      "answer": "pick",
+      "explanation": "'Pick + đại từ + up': đón ai đó."
+    },
+    {
+      "id": 15,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'll ______ the package off at the office.",
+      "answer": "drop",
+      "explanation": "'Drop something off': giao, để lại cái gì đó tại một nơi."
+    },
+    {
+      "id": 16,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to ______ this item because it's damaged.",
+      "answer": "return",
+      "explanation": "'Return' nghĩa là trả lại sản phẩm."
+    },
+    {
+      "id": 17,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Can I ______ these shoes for a larger size?",
+      "answer": "exchange",
+      "explanation": "'Exchange something for something else': đổi cái này lấy cái khác."
+    },
+    {
+      "id": 18,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'd like to request a ______ for my order.",
+      "answer": "refund",
+      "explanation": "'Refund' (danh từ) nghĩa là khoản hoàn tiền."
+    },
+    {
+      "id": 19,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "Please keep your ______ in case you need to return the product.",
+      "answer": "receipt",
+      "explanation": "'Receipt' nghĩa là hóa đơn, biên lai."
+    },
+    {
+      "id": 20,
+      "section": "2A - Điền từ thích hợp",
+      "type": "fill_in_blank",
+      "question": "I'll ______ a meeting with the team for Monday.",
+      "answer": "arrange",
+      "explanation": "'Arrange a meeting' nghĩa là sắp xếp một cuộc họp."
+    },
+    {
+      "id": 21,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ sắp xếp một cuộc họp vào thứ Sáu.",
+      "answer": "I'll arrange a meeting for Friday.",
+      "explanation": "Dùng 'arrange a meeting'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 22,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có thể xác nhận cuộc hẹn qua email không?",
+      "answer": "Could you confirm the appointment by email?",
+      "explanation": "'Could you...?' là cách hỏi lịch sự. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 23,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chúng ta có thể đổi lịch sang tuần sau không?",
+      "answer": "Can we reschedule for next week?",
+      "explanation": "'Reschedule for' + thời gian mới. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 24,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Họ đã hoãn chuyến đi vì thời tiết xấu.",
+      "answer": "They postponed the trip because of the bad weather.",
+      "explanation": "Quá khứ đơn 'postponed'; 'because of' + cụm danh từ. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 25,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi cần hủy đặt phòng khách sạn.",
+      "answer": "I need to cancel my hotel reservation.",
+      "explanation": "'Cancel a reservation': hủy đặt chỗ. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 26,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn đặt bàn cho hai người lúc bảy giờ.",
+      "answer": "I'd like to book a table for two at seven.",
+      "explanation": "'I'd like to' là cách nói lịch sự. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 27,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có rảnh vào chiều mai không?",
+      "answer": "Are you available tomorrow afternoon?",
+      "explanation": "'Available' dùng để hỏi ai đó có rảnh không. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 28,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Thời gian này có thuận tiện cho bạn không?",
+      "answer": "Is this time convenient for you?",
+      "explanation": "'Convenient for + người'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 29,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi phải tham dự một cuộc họp vào ngày mai.",
+      "answer": "I have to attend a meeting tomorrow.",
+      "explanation": "'Attend' đi thẳng với tân ngữ, không cần 'to'. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 30,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi cần chuẩn bị cho buổi phỏng vấn.",
+      "answer": "I need to prepare for the interview.",
+      "explanation": "'Prepare for' + sự kiện. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 31,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chúng tôi đến sân bay sớm hai tiếng.",
+      "answer": "We arrived at the airport two hours early.",
+      "explanation": "'Arrive at' + sân bay/nhà ga. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 32,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Chuyến tàu bị chậm 30 phút.",
+      "answer": "The train was delayed by thirty minutes.",
+      "explanation": "'Delayed by' + khoảng thời gian. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 33,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi đã lỡ chuyến xe buýt cuối cùng.",
+      "answer": "I missed the last bus.",
+      "explanation": "'Miss' + phương tiện: lỡ chuyến. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 34,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Bạn có thể đón tôi ở nhà ga không?",
+      "answer": "Could you pick me up at the station?",
+      "explanation": "Pick + đại từ + up. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 35,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ giao tài liệu tại văn phòng.",
+      "answer": "I'll drop the documents off at the office.",
+      "explanation": "'Drop off' có thể tách: drop + tân ngữ + off. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 36,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn trả lại chiếc áo này.",
+      "answer": "I'd like to return this shirt.",
+      "explanation": "'Return' nghĩa là trả lại sản phẩm. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 37,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi có thể đổi đôi giày sang cỡ lớn hơn không?",
+      "answer": "Can I exchange these shoes for a larger size?",
+      "explanation": "Exchange something for something else. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 38,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi muốn yêu cầu hoàn tiền.",
+      "answer": "I'd like to request a refund.",
+      "explanation": "'Request a refund': yêu cầu hoàn tiền. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 39,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Vui lòng giữ hóa đơn.",
+      "answer": "Please keep the receipt.",
+      "explanation": "'Receipt' là hóa đơn, biên lai. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 40,
+      "section": "2B - Dịch sang tiếng Anh",
+      "type": "translation",
+      "question": "Tôi sẽ sắp xếp lại lịch hẹn.",
+      "answer": "I'll reschedule the appointment.",
+      "explanation": "'Reschedule' = sắp xếp lại lịch. Có nhiều cách dịch đúng; ưu tiên câu tự nhiên và đúng cấu trúc."
+    },
+    {
+      "id": 41,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (arrange) a meeting yesterday.",
+      "answer": "arranged",
+      "explanation": "Quá khứ đơn (yesterday): thêm -ed."
+    },
+    {
+      "id": 42,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (confirm) the booking last night.",
+      "answer": "confirmed",
+      "explanation": "Quá khứ đơn (last night): confirm → confirmed."
+    },
+    {
+      "id": 43,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "We ______ (reschedule) the appointment last week.",
+      "answer": "rescheduled",
+      "explanation": "Quá khứ đơn (last week): reschedule → rescheduled."
+    },
+    {
+      "id": 44,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "They ______ (postpone) the trip because of the storm.",
+      "answer": "postponed",
+      "explanation": "Quá khứ đơn: postpone → postponed."
+    },
+    {
+      "id": 45,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The company ______ (cancel) the event yesterday.",
+      "answer": "canceled",
+      "explanation": "Quá khứ đơn: cancel → canceled (Anh-Anh: cancelled)."
+    },
+    {
+      "id": 46,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (book) the tickets two days ago.",
+      "answer": "booked",
+      "explanation": "'Two days ago' → quá khứ đơn: booked."
+    },
+    {
+      "id": 47,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (reserve) a table for four last night.",
+      "answer": "reserved",
+      "explanation": "Quá khứ đơn: reserve → reserved."
+    },
+    {
+      "id": 48,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (be) available yesterday afternoon.",
+      "answer": "was",
+      "explanation": "'Be' ở quá khứ với 'I' là 'was'."
+    },
+    {
+      "id": 49,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The meeting time ______ (be) convenient for everyone yesterday.",
+      "answer": "was",
+      "explanation": "Chủ ngữ số ít 'The meeting time' → 'was'."
+    },
+    {
+      "id": 50,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "We ______ (attend) the workshop last Friday.",
+      "answer": "attended",
+      "explanation": "Quá khứ đơn: attend → attended."
+    },
+    {
+      "id": 51,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (prepare) all the documents before the interview.",
+      "answer": "prepared",
+      "explanation": "Quá khứ đơn: prepare → prepared."
+    },
+    {
+      "id": 52,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The train ______ (arrive) ten minutes late yesterday.",
+      "answer": "arrived",
+      "explanation": "Quá khứ đơn: arrive → arrived."
+    },
+    {
+      "id": 53,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "Our flight ______ (be) delayed by bad weather.",
+      "answer": "was",
+      "explanation": "Bị động quá khứ: was delayed; chủ ngữ 'Our flight' số ít."
+    },
+    {
+      "id": 54,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (miss) the bus this morning.",
+      "answer": "missed",
+      "explanation": "Quá khứ đơn: miss → missed."
+    },
+    {
+      "id": 55,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "She ______ (pick up) her friend at the airport yesterday.",
+      "answer": "picked up",
+      "explanation": "Quá khứ đơn của 'pick up' là 'picked up'."
+    },
+    {
+      "id": 56,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "They ______ (drop off) the package yesterday.",
+      "answer": "dropped off",
+      "explanation": "Quá khứ đơn của 'drop off' là 'dropped off' (gấp đôi p)."
+    },
+    {
+      "id": 57,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "He ______ (return) the product last week.",
+      "answer": "returned",
+      "explanation": "Quá khứ đơn: return → returned."
+    },
+    {
+      "id": 58,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "I ______ (exchange) the shirt for a larger size yesterday.",
+      "answer": "exchanged",
+      "explanation": "Quá khứ đơn: exchange → exchanged."
+    },
+    {
+      "id": 59,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The store ______ (refund) my money last Friday.",
+      "answer": "refunded",
+      "explanation": "Quá khứ đơn: refund → refunded."
+    },
+    {
+      "id": 60,
+      "section": "2C - Chia động từ",
+      "type": "verb_conjugation",
+      "question": "The cashier ______ (give) me a receipt after the payment.",
+      "answer": "gave",
+      "explanation": "'Give' là động từ bất quy tắc: give → gave."
+    },
+    {
+      "id": 61,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Consider",
+      "answer": "Cân nhắc",
+      "explanation": "'Consider' nghĩa là: cân nhắc."
+    },
+    {
+      "id": 62,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Afford",
+      "answer": "Có đủ khả năng chi trả hoặc làm gì",
+      "explanation": "'Afford' nghĩa là: có đủ khả năng chi trả hoặc làm gì."
+    },
+    {
+      "id": 63,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Remind",
+      "answer": "Nhắc nhở",
+      "explanation": "'Remind' nghĩa là: nhắc nhở."
+    },
+    {
+      "id": 64,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Recommend",
+      "answer": "Đề xuất, khuyên dùng",
+      "explanation": "'Recommend' nghĩa là: đề xuất, khuyên dùng."
+    },
+    {
+      "id": 65,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Focus on",
+      "answer": "Tập trung vào",
+      "explanation": "'Focus on' nghĩa là: tập trung vào."
+    },
+    {
+      "id": 66,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Prioritize",
+      "answer": "Ưu tiên",
+      "explanation": "'Prioritize' nghĩa là: ưu tiên."
+    },
+    {
+      "id": 67,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Set aside",
+      "answer": "Dành riêng, để dành",
+      "explanation": "'Set aside' nghĩa là: dành riêng, để dành."
+    },
+    {
+      "id": 68,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Catch up on",
+      "answer": "Cập nhật hoặc xử lý việc còn tồn đọng",
+      "explanation": "'Catch up on' nghĩa là: cập nhật hoặc xử lý việc còn tồn đọng."
+    },
+    {
+      "id": 69,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Stick to",
+      "answer": "Tuân thủ, kiên trì với",
+      "explanation": "'Stick to' nghĩa là: tuân thủ, kiên trì với."
+    },
+    {
+      "id": 70,
+      "section": "3A - Ôn tập cách quãng: Kiểm tra nghĩa",
+      "type": "meaning_check",
+      "question": "Dịch sang tiếng Việt: Cut down on",
+      "answer": "Cắt giảm",
+      "explanation": "'Cut down on' nghĩa là: cắt giảm."
+    },
+    {
+      "id": 71,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I'm ______ changing jobs.",
+      "answer": "considering",
+      "explanation": "'Consider' + V-ing; ở đây dùng dạng V-ing sau 'I'm'."
+    },
+    {
+      "id": 72,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I can't ______ to buy that laptop.",
+      "answer": "afford",
+      "explanation": "'Afford to + V': đủ khả năng làm gì."
+    },
+    {
+      "id": 73,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "Can you ______ me to send the email?",
+      "answer": "remind",
+      "explanation": "'Remind someone to + V': nhắc ai làm gì."
+    },
+    {
+      "id": 74,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "She ______ taking a short break.",
+      "answer": "recommended",
+      "explanation": "'Recommend + V-ing' (quá khứ: recommended)."
+    },
+    {
+      "id": 75,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I need to focus ______ finishing this report.",
+      "answer": "on",
+      "explanation": "'Focus on + V-ing'."
+    },
+    {
+      "id": 76,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "We should ______ the most urgent tasks first.",
+      "answer": "prioritize",
+      "explanation": "'Prioritize' nghĩa là ưu tiên."
+    },
+    {
+      "id": 77,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I ______ aside thirty minutes for English every day.",
+      "answer": "set",
+      "explanation": "'Set aside': dành riêng thời gian (thì hiện tại, đi với 'I')."
+    },
+    {
+      "id": 78,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I need to catch up ______ my emails.",
+      "answer": "on",
+      "explanation": "'Catch up on' + việc tồn đọng."
+    },
+    {
+      "id": 79,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "I'm trying to stick ______ my study schedule.",
+      "answer": "to",
+      "explanation": "'Stick to': tuân thủ, kiên trì với."
+    },
+    {
+      "id": 80,
+      "section": "3B - Ôn tập cách quãng: Điền từ",
+      "type": "fill_in_blank",
+      "question": "He wants to cut down ______ sugary drinks.",
+      "answer": "on",
+      "explanation": "'Cut down on' + thứ cần giảm."
+    },
+    {
+      "id": 81,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I decided to postpone...",
+      "options": [
+        "to book the hotel.",
+        "booking the hotel.",
+        "book the hotel."
+      ],
+      "answer": "booking the hotel.",
+      "explanation": "Postpone + V-ing."
+    },
+    {
+      "id": 82,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "She arrived...",
+      "options": [
+        "to the airport at eight.",
+        "at the airport at eight.",
+        "in the airport at eight."
+      ],
+      "answer": "at the airport at eight.",
+      "explanation": "Dùng 'arrive at' với địa điểm cụ thể như sân bay hoặc nhà ga."
+    },
+    {
+      "id": 83,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "Could you pick...",
+      "options": [
+        "up me at six?",
+        "me up at six?",
+        "me at six up?"
+      ],
+      "answer": "me up at six?",
+      "explanation": "Pick + đại từ + up."
+    },
+    {
+      "id": 84,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I would like to exchange this shirt...",
+      "options": [
+        "with a larger size.",
+        "for a larger size.",
+        "to a larger size."
+      ],
+      "answer": "for a larger size.",
+      "explanation": "Exchange something for something else."
+    },
+    {
+      "id": 85,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "I'm looking forward to...",
+      "options": [
+        "meet you tomorrow.",
+        "meeting you tomorrow.",
+        "met you tomorrow."
+      ],
+      "answer": "meeting you tomorrow.",
+      "explanation": "Look forward to + V-ing. Trong cấu trúc này, 'to' là giới từ."
+    },
+    {
+      "id": 86,
+      "section": "3C - Ôn tập cách quãng: Chọn cấu trúc đúng",
+      "type": "multiple_choice",
+      "question": "She recommended...",
+      "options": [
+        "taking a taxi.",
+        "to take a taxi.",
+        "take a taxi."
+      ],
+      "answer": "taking a taxi.",
+      "explanation": "Recommend + V-ing."
+    },
+    {
+      "id": 87,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng arrange để sắp xếp một cuộc họp.",
+      "answer": "I'll arrange a meeting with my manager tomorrow.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 88,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng reschedule để đổi lịch hẹn.",
+      "answer": "Could we reschedule our appointment for Friday?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 89,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng available để hỏi một người có rảnh không.",
+      "answer": "Are you available this afternoon?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 90,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng postpone để nói về việc hoãn chuyến đi.",
+      "answer": "We had to postpone our trip because of the storm.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 91,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng pick up để nhờ ai đó đón mình.",
+      "answer": "Could you pick me up at the station?",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 92,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng return để nói về việc trả một sản phẩm.",
+      "answer": "I'd like to return this product because it's damaged.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 93,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng refund để yêu cầu hoàn tiền.",
+      "answer": "I'd like to request a refund for my order.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    },
+    {
+      "id": 94,
+      "section": "3D - Ôn tập cách quãng: Tự đặt câu",
+      "type": "sentence_writing",
+      "question": "Dùng consider để nói về việc cân nhắc đổi công việc.",
+      "answer": "I'm considering changing jobs.",
+      "explanation": "Câu gợi ý (sample answer); có nhiều cách đặt câu đúng khác."
+    }
+  ]
+}

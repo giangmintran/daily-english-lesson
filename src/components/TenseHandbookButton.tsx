@@ -20,17 +20,17 @@ export const TenseHandbookButton: React.FC<TenseHandbookButtonProps> = ({
         type="button"
         aria-expanded={isOpen}
         aria-label="Mở sổ tay 12 thì Tiếng Anh"
-        className="group relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 sm:gap-2 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 cursor-pointer border border-blue-400/40 dark:border-blue-400/30 ring-4 ring-transparent hover:ring-blue-500/20"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 sm:gap-2 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 sm:active:scale-100 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 sm:transition-none cursor-pointer border border-blue-400/40 dark:border-blue-400/30 ring-4 ring-transparent hover:ring-blue-500/20"
         title="Sổ tay 12 thì tiếng Anh (Tra cứu nhanh công thức & dấu hiệu)"
       >
-        {/* Subtle indicator dot / pulse */}
+        {/* Subtle indicator dot / pulse - chỉ nhấp nháy trên mobile, tắt hoàn toàn animation trên PC */}
         <span className="absolute -top-0.5 -right-0.5 sm:static sm:top-auto sm:right-auto flex h-2.5 w-2.5 shrink-0">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-200 opacity-75" />
+          <span className="sm:hidden animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-200 opacity-75" />
           <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white border border-blue-600 sm:border-0" />
         </span>
 
-        {/* Book Icon (Always visible) */}
-        <BookOpen size={18} className="transition-transform group-hover:scale-110 shrink-0" />
+        {/* Book Icon (Tắt scale animation khi hover trên PC) */}
+        <BookOpen size={18} className="transition-transform group-hover:scale-110 sm:group-hover:scale-100 sm:transition-none shrink-0" />
 
         {/* Text (Hidden on mobile phones, only shown on tablet and desktop) */}
         <span className="hidden sm:inline font-semibold text-xs sm:text-sm tracking-tight whitespace-nowrap">

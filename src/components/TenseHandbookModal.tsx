@@ -67,7 +67,8 @@ export const TenseHandbookModal: React.FC<TenseHandbookModalProps> = ({
     setExpandedTenseId(id);
     const el = tenseRefs.current[id];
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const isPc = typeof window !== 'undefined' && window.innerWidth >= 640;
+      el.scrollIntoView({ behavior: isPc ? 'auto' : 'smooth', block: 'start' });
     }
   };
 
@@ -103,9 +104,9 @@ export const TenseHandbookModal: React.FC<TenseHandbookModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end sm:items-center sm:justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex flex-col justify-end sm:items-center sm:justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-150 sm:animate-none sm:transition-none">
       <div
-        className="relative w-full sm:max-w-4xl h-[92vh] sm:h-auto sm:max-h-[88vh] bg-white dark:bg-zinc-900 border-t sm:border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden text-zinc-900 dark:text-zinc-100 animate-in slide-in-from-bottom duration-200 sm:slide-in-from-bottom-0 sm:zoom-in-95"
+        className="relative w-full sm:max-w-4xl h-[92vh] sm:h-auto sm:max-h-[88vh] bg-white dark:bg-zinc-900 border-t sm:border border-zinc-200 dark:border-zinc-800 rounded-t-3xl sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden text-zinc-900 dark:text-zinc-100 animate-in slide-in-from-bottom duration-200 sm:animate-none sm:transition-none sm:transform-none"
         role="dialog"
         aria-modal="true"
       >
@@ -744,7 +745,7 @@ export const TenseHandbookModal: React.FC<TenseHandbookModalProps> = ({
                     <div
                       key={tense.id}
                       ref={(el) => (tenseRefs.current[tense.id] = el)}
-                      className="border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-zinc-950 overflow-hidden transition-all shadow-2xs hover:border-zinc-300 dark:hover:border-zinc-700"
+                      className="border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-zinc-950 overflow-hidden transition-all sm:transition-none shadow-2xs hover:border-zinc-300 dark:hover:border-zinc-700"
                     >
                       {/* Card Header (Tap to toggle on mobile) */}
                       <div

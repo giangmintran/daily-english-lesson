@@ -105,14 +105,21 @@ export function validateLessonPayload(raw) {
     });
   }
 
-  // Validate exercises array (max 100 exercises per day)
+  // Validate exercises array (max 200 exercises per day)
   const rawExercises = Array.isArray(raw.exercises) ? raw.exercises : [];
-  if (rawExercises.length > 100) {
-    return { valid: false, message: 'Số lượng bài tập trong một ngày tối đa là 100 bài.' };
+  if (rawExercises.length > 200) {
+    return { valid: false, message: 'Số lượng bài tập trong một ngày tối đa là 200 bài.' };
   }
 
   const exercises = [];
-  const validTypes = new Set(['multiple_choice', 'fill_in_blank', 'translation']);
+  const validTypes = new Set([
+    'multiple_choice',
+    'fill_in_blank',
+    'translation',
+    'verb_conjugation',
+    'meaning_check',
+    'sentence_writing',
+  ]);
 
   for (let i = 0; i < rawExercises.length; i++) {
     const ex = rawExercises[i];
@@ -136,16 +143,27 @@ export function validateLessonPayload(raw) {
       return { valid: false, message: `Đáp án bài tập ${i + 1} vượt quá 500 ký tự.` };
     }
 
-    const type = validTypes.has(ex.type) ? ex.type : 'multiple_choice';
     const options = Array.isArray(ex.options)
       ? ex.options.slice(0, 10).map((opt) => String(opt).trim().slice(0, 300))
       : undefined;
 
+    const type = validTypes.has(ex.type)
+      ? ex.type
+      : options && options.length > 0
+      ? 'multiple_choice'
+      : 'fill_in_blank';
+
+    const wordBank = Array.isArray(ex.wordBank || ex.word_bank)
+      ? (ex.wordBank || ex.word_bank).slice(0, 50).map((w) => String(w).trim().slice(0, 100))
+      : undefined;
+
     exercises.push({
       id: ex.id !== undefined ? (typeof ex.id === 'number' ? ex.id : String(ex.id).slice(0, 50)) : i + 1,
+      section: typeof ex.section === 'string' ? ex.section.trim().slice(0, 100) : undefined,
       type,
       question,
       options,
+      wordBank,
       answer,
       explanation: typeof ex.explanation === 'string' ? ex.explanation.trim().slice(0, 1000) : '',
     });
@@ -185,7 +203,19 @@ export function validateProgressPayload(raw) {
   if (raw.exerciseResults && typeof raw.exerciseResults === 'object' && !Array.isArray(raw.exerciseResults)) {
     const keys = Object.keys(raw.exerciseResults).slice(0, 500);
     for (const k of keys) {
-      exerciseResults[k.slice(0, 50)] = Boolean(raw.exerciseResults[k]);
+      const item = raw.exerciseResults[k];
+      const safeKey = String(k).slice(0, 50);
+      if (item && typeof item === 'object') {
+        exerciseResults[safeKey] = {
+          userAnswer: typeof item.userAnswer === 'string' ? item.userAnswer.slice(0, 500) : String(item.userAnswer ?? '').slice(0, 500),
+          isCorrect: Boolean(item.isCorrect),
+        };
+      } else if (typeof item === 'boolean') {
+        exerciseResults[safeKey] = {
+          userAnswer: '',
+          isCorrect: item,
+        };
+      }
     }
   }
 
