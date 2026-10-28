@@ -10,12 +10,62 @@ interface ExerciseViewProps {
   onOpenHandbook?: () => void;
 }
 
+interface TranslationWordToken {
+  id: string;
+  word: string;
+}
+
+function isTranslationExercise(exercise?: ExerciseItem): boolean {
+  if (!exercise) return false;
+  return (
+    exercise.type === 'translation' ||
+    Boolean(exercise.section?.toLowerCase().includes('dịch'))
+  );
+}
+
+function getShuffledTranslationTokens(
+  exerciseId: string | number,
+  answer: string
+): TranslationWordToken[] {
+  const words = answer
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.replace(/^[.,!?;:"'()]+|[.,!?;:"'()]+$/g, ''))
+    .filter(Boolean);
+
+  const tokens: TranslationWordToken[] = words.map((w, idx) => ({
+    id: `${exerciseId}-${idx}`,
+    word: w,
+  }));
+
+  const shuffled = [...tokens];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  // If words.length > 1 and shuffled is accidentally identical to original words order, swap first two
+  if (shuffled.length > 1 && shuffled.every((t, i) => t.word === words[i])) {
+    const temp = shuffled[0];
+    shuffled[0] = shuffled[1];
+    shuffled[1] = temp;
+  }
+
+  return shuffled;
+}
+
 export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLesson, onOpenHandbook }) => {
   const [activeSession, setActiveSession] = useState<'all' | 's1' | 's2' | 's3' | 'wrong'>('s1');
   const [currentIdx, setCurrentIdx] = useState(0);
   const [fillInput, setFillInput] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
   const [viewMode, setViewMode] = useState<'focus' | 'list'>('focus');
+
+  // Translation sentence builder state
+  const [translationTokensMap, setTranslationTokensMap] = useState<
+    Record<string | number, TranslationWordToken[]>
+  >({});
+  const [selectedWordIds, setSelectedWordIds] = useState<string[]>([]);
 
   // Ref for active question button to auto-scroll into view if scrollable
   const activeBtnRef = useRef<HTMLButtonElement>(null);
@@ -50,16 +100,83 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
   const currentExercise: ExerciseItem | undefined = filteredExercises[currentIdx];
   const currentResult = currentExercise ? exerciseResults[currentExercise.id] : undefined;
 
+  // Translation tokens for current exercise
+  const currentTokens = useMemo(() => {
+    if (!currentExercise || !isTranslationExercise(currentExercise)) return [];
+    if (translationTokensMap[currentExercise.id]) {
+      return translationTokensMap[currentExercise.id];
+    }
+    return getShuffledTranslationTokens(currentExercise.id, currentExercise.answer);
+  }, [currentExercise, translationTokensMap]);
+
+  const tokenMap = useMemo(() => {
+    const map = new Map<string, TranslationWordToken>();
+    currentTokens.forEach((t) => map.set(t.id, t));
+    return map;
+  }, [currentTokens]);
+
+  const assembledSentence = useMemo(() => {
+    return selectedWordIds
+      .map((id) => tokenMap.get(id)?.word)
+      .filter(Boolean)
+      .join(' ');
+  }, [selectedWordIds, tokenMap]);
+
   // Sync state when current question changes
   useEffect(() => {
-    if (currentResult) {
-      setFillInput(currentResult.userAnswer || '');
-      setIsAnswered(true);
+    if (!currentExercise) return;
+
+    if (isTranslationExercise(currentExercise)) {
+      // Ensure tokens exist in translationTokensMap
+      let tokens = translationTokensMap[currentExercise.id];
+      if (!tokens) {
+        tokens = getShuffledTranslationTokens(currentExercise.id, currentExercise.answer);
+        setTranslationTokensMap((prev) => ({
+          ...prev,
+          [currentExercise.id]: tokens,
+        }));
+      }
+
+      // If already answered, restore selected word chips
+      if (currentResult?.userAnswer) {
+        const userWords = currentResult.userAnswer
+          .trim()
+          .split(/\s+/)
+          .map((w) => w.replace(/^[.,!?;:"'()]+|[.,!?;:"'()]+$/g, ''))
+          .filter(Boolean);
+
+        const restoredIds: string[] = [];
+        const usedTokenIds = new Set<string>();
+
+        userWords.forEach((word) => {
+          const matched = tokens.find(
+            (t) =>
+              !usedTokenIds.has(t.id) &&
+              t.word.toLowerCase() === word.toLowerCase()
+          );
+          if (matched) {
+            restoredIds.push(matched.id);
+            usedTokenIds.add(matched.id);
+          }
+        });
+
+        setSelectedWordIds(restoredIds);
+        setIsAnswered(true);
+      } else {
+        setSelectedWordIds([]);
+        setIsAnswered(false);
+      }
     } else {
-      setFillInput('');
-      setIsAnswered(false);
+      // Regular fill in the blank / other inputs
+      if (currentResult) {
+        setFillInput(currentResult.userAnswer || '');
+        setIsAnswered(true);
+      } else {
+        setFillInput('');
+        setIsAnswered(false);
+      }
     }
-  }, [currentIdx, currentResult, activeSession]);
+  }, [currentIdx, currentResult, activeSession, currentExercise]);
 
   // Auto-scroll active question button into view if in a scrollable list
   useEffect(() => {
@@ -127,21 +244,53 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     [currentExercise, lesson, exerciseResults, onUpdateLesson]
   );
 
+  // Word token click handlers for translation sentence builder
+  const handleSelectWordToken = useCallback(
+    (tokenId: string) => {
+      if (isAnswered) setIsAnswered(false);
+      setSelectedWordIds((prev) => {
+        if (prev.includes(tokenId)) return prev;
+        return [...prev, tokenId];
+      });
+    },
+    [isAnswered]
+  );
+
+  const handleRemoveSelectedWord = useCallback(
+    (tokenId: string) => {
+      if (isAnswered) setIsAnswered(false);
+      setSelectedWordIds((prev) => prev.filter((id) => id !== tokenId));
+    },
+    [isAnswered]
+  );
+
+  const handleUndoWord = useCallback(() => {
+    if (isAnswered) setIsAnswered(false);
+    setSelectedWordIds((prev) => prev.slice(0, -1));
+  }, [isAnswered]);
+
+  const handleResetWords = useCallback(() => {
+    if (isAnswered) setIsAnswered(false);
+    setSelectedWordIds([]);
+  }, [isAnswered]);
+
   // Switch question to edit mode so user can change answer freely
   const handleStartEdit = useCallback(() => {
     setIsAnswered(false);
-    if (currentResult && currentExercise?.type === 'fill_in_blank') {
-      setFillInput(currentResult.userAnswer || fillInput);
+    if (currentResult && currentExercise) {
+      if (!isTranslationExercise(currentExercise) && currentExercise.type === 'fill_in_blank') {
+        setFillInput(currentResult.userAnswer || fillInput);
+      }
     }
   }, [currentResult, currentExercise, fillInput]);
 
-  // Keyboard shortcut for Multiple Choice (1, 2, 3, 4) & Navigation
+  // Keyboard shortcut for Multiple Choice, Translation & Navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!currentExercise) return;
 
       // Allow typing in fill_in_blank input
-      if (currentExercise.type === 'fill_in_blank') {
+      if (!isTranslationExercise(currentExercise) && currentExercise.type === 'fill_in_blank') {
         if (e.key === 'Enter' && !isAnswered && fillInput.trim()) {
           e.preventDefault();
           handleAnswerSubmit(fillInput);
@@ -150,6 +299,29 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
           handleNext();
         }
         return;
+      }
+
+      // Translation sentence builder keyboard shortcuts
+      if (isTranslationExercise(currentExercise)) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (!isAnswered) {
+            if (selectedWordIds.length > 0) {
+              handleAnswerSubmit(assembledSentence);
+            }
+          } else {
+            handleNext();
+          }
+          return;
+        }
+
+        if (e.key === 'Backspace' && !isAnswered && selectedWordIds.length > 0) {
+          if (!['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+            e.preventDefault();
+            handleUndoWord();
+            return;
+          }
+        }
       }
 
       // Multiple choice shortcuts (1, 2, 3, 4) - allows answering or changing answer
@@ -180,7 +352,18 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentExercise, isAnswered, fillInput, handleAnswerSubmit, handleStartEdit, handleNext, handlePrev]);
+  }, [
+    currentExercise,
+    isAnswered,
+    fillInput,
+    selectedWordIds,
+    assembledSentence,
+    handleAnswerSubmit,
+    handleStartEdit,
+    handleNext,
+    handlePrev,
+    handleUndoWord,
+  ]);
 
   // Count wrong exercises
   const wrongCount = useMemo(() => {
@@ -524,8 +707,8 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                   <span className="text-[11px] px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 capitalize">
                     {currentExercise.type === 'multiple_choice'
                       ? 'Trắc nghiệm'
-                      : currentExercise.type === 'translation'
-                      ? 'Dịch câu'
+                      : isTranslationExercise(currentExercise)
+                      ? 'Dịch câu (Ghép từ)'
                       : currentExercise.type === 'verb_conjugation'
                       ? 'Chia động từ'
                       : currentExercise.type === 'meaning_check'
@@ -635,8 +818,158 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                     </div>
                   )}
                 </div>
+              ) : isTranslationExercise(currentExercise) ? (
+                /* Ghép từ dịch sang tiếng Anh (Translation Sentence Builder) */
+                <div className="space-y-4 pt-1">
+                  {/* Hướng dẫn & Nút chức năng */}
+                  <div className="flex items-center justify-between text-xs text-zinc-500 flex-wrap gap-2">
+                    <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                      Chọn các từ bên dưới để ghép thành câu dịch hoàn chỉnh:
+                    </span>
+
+                    {selectedWordIds.length > 0 && !isAnswered && (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleUndoWord}
+                          className="text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 text-xs flex items-center gap-1 cursor-pointer"
+                          title="Xóa từ vừa chọn cuối cùng (Backspace)"
+                        >
+                          <RotateCcw size={12} />
+                          <span>Xóa từ cuối</span>
+                        </button>
+                        <span>•</span>
+                        <button
+                          type="button"
+                          onClick={handleResetWords}
+                          className="text-rose-500 hover:text-rose-600 text-xs cursor-pointer font-medium"
+                        >
+                          Xóa hết
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Khung câu đang ghép (Assembled Sentence Box) */}
+                  <div
+                    className={`w-full min-h-[75px] sm:min-h-[90px] p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex flex-wrap gap-2 items-center ${
+                      isAnswered
+                        ? currentResult?.isCorrect
+                          ? 'border-emerald-500/40 bg-emerald-500/5 dark:bg-emerald-500/10'
+                          : 'border-rose-500/40 bg-rose-500/5 dark:bg-rose-500/10'
+                        : selectedWordIds.length > 0
+                        ? 'border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-950'
+                        : 'border-dashed border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40'
+                    }`}
+                  >
+                    {selectedWordIds.length === 0 ? (
+                      <span className="text-zinc-400 dark:text-zinc-500 text-xs sm:text-sm select-none italic">
+                        Bấm vào các từ bên dưới theo thứ tự để ghép thành câu dịch...
+                      </span>
+                    ) : (
+                      selectedWordIds.map((id) => {
+                        const token = tokenMap.get(id);
+                        if (!token) return null;
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            disabled={isAnswered}
+                            onClick={() => handleRemoveSelectedWord(id)}
+                            className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all shadow-xs flex items-center gap-1.5 ${
+                              isAnswered
+                                ? currentResult?.isCorrect
+                                  ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
+                                  : 'bg-rose-500/15 border-rose-500/30 text-rose-800 dark:text-rose-300'
+                                : 'bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer active:scale-95 group'
+                            }`}
+                            title={isAnswered ? '' : 'Bấm để gỡ từ này ra khỏi câu'}
+                          >
+                            <span>{token.word}</span>
+                            {!isAnswered && (
+                              <span className="text-[10px] text-zinc-400 group-hover:text-rose-500">×</span>
+                            )}
+                          </button>
+                        );
+                      })
+                    )}
+                  </div>
+
+                  {/* Ngân hàng từ sắp xếp ngẫu nhiên (Shuffled Word Pool) */}
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-50/80 dark:bg-zinc-800/30 border border-zinc-200/80 dark:border-zinc-800 space-y-2">
+                    <div className="flex items-center justify-between text-xs text-zinc-400">
+                      <span>Ngân hàng từ:</span>
+                      <span className="font-mono text-[11px]">
+                        {selectedWordIds.length}/{currentTokens.length} từ đã chọn
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {currentTokens.map((token) => {
+                        const isChosen = selectedWordIds.includes(token.id);
+                        return isChosen ? (
+                          <div
+                            key={token.id}
+                            className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-zinc-200/40 dark:bg-zinc-800/40 border border-dashed border-zinc-200 dark:border-zinc-700/60 text-transparent select-none text-xs sm:text-sm"
+                            aria-hidden="true"
+                          >
+                            {token.word}
+                          </div>
+                        ) : (
+                          <button
+                            key={token.id}
+                            type="button"
+                            disabled={isAnswered}
+                            onClick={() => handleSelectWordToken(token.id)}
+                            className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-xs sm:text-sm shadow-xs transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                          >
+                            {token.word}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Nút Kiểm tra / Sửa đáp án */}
+                  <div className="flex items-center gap-2 pt-1">
+                    {!isAnswered ? (
+                      <button
+                        type="button"
+                        disabled={selectedWordIds.length === 0}
+                        onClick={() => handleAnswerSubmit(assembledSentence)}
+                        className="px-6 py-3 rounded-2xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs sm:text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-40 cursor-pointer transition-all active:scale-95 shadow-xs"
+                      >
+                        {currentResult ? 'Cập nhật đáp án' : 'Kiểm tra đáp án'}
+                      </button>
+                    ) : (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <button
+                          type="button"
+                          onClick={handleStartEdit}
+                          className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs font-medium cursor-pointer active:scale-95 flex items-center gap-1.5 shadow-xs"
+                        >
+                          <RotateCcw size={13} />
+                          <span>Sửa lại câu này</span>
+                        </button>
+                        <span className="text-xs text-zinc-400">
+                          (Bạn có thể bấm vào từ để gỡ bỏ hoặc chọn lại từ mới)
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Hiển thị đáp án đúng sau khi kiểm tra */}
+                  {isAnswered && (
+                    <div className="text-xs sm:text-sm font-medium pt-1">
+                      Đáp án chính xác:{' '}
+                      <strong className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                        {currentExercise.answer}
+                      </strong>
+                    </div>
+                  )}
+                </div>
               ) : (
-                /* Điền từ khuyết / Dịch / Chia động từ */
+                /* Điền từ khuyết / Chia động từ */
                 <div className="space-y-3 pt-1">
                   {/* Ngân hàng từ (Word Bank) nếu có */}
                   {currentExercise.wordBank && currentExercise.wordBank.length > 0 && (
