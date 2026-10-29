@@ -11,7 +11,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { updateLessonProgress } from '../services/storage';
-import confetti from 'canvas-confetti';
+import { triggerFireworks } from '../utils/confetti';
 
 interface VocabQuizProps {
   lesson: DailyLesson;
@@ -315,17 +315,13 @@ export const VocabQuiz: React.FC<VocabQuizProps> = ({
     }
   }, [isAnswered, currentIdx, questions.length]);
 
-  // Trigger confetti if high score on finish
+  // Trigger fireworks if high score on finish
   useEffect(() => {
     if (isFinished && results.length > 0) {
       const correctCount = results.filter((r) => r.isCorrect).length;
       const scoreRatio = correctCount / results.length;
       if (scoreRatio >= 0.8) {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-        });
+        triggerFireworks();
       }
     }
   }, [isFinished, results]);

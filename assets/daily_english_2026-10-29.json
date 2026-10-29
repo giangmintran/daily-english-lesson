@@ -1,0 +1,432 @@
+{
+  "date": "2026-10-29",
+  "topic": "Communication at Work",
+  "exercises": [
+    {
+      "id": 1,
+      "type": "fill_in_blank",
+      "question": "Could you _______ (làm rõ) this requirement before we start?",
+      "answer": "clarify",
+      "explanation": "'Clarify' nghĩa là làm rõ để mọi người hiểu chính xác."
+    },
+    {
+      "id": 2,
+      "type": "fill_in_blank",
+      "question": "Can you _______ (giải thích) how this feature works?",
+      "answer": "explain",
+      "explanation": "'Explain' nghĩa là giải thích một điều gì đó."
+    },
+    {
+      "id": 3,
+      "type": "fill_in_blank",
+      "question": "She forgot to _______ (đề cập) the deadline during the meeting.",
+      "answer": "mention",
+      "explanation": "'Mention' nghĩa là đề cập hoặc nhắc đến điều gì."
+    },
+    {
+      "id": 4,
+      "type": "fill_in_blank",
+      "question": "We need to _______ (thảo luận) this issue with the team.",
+      "answer": "discuss",
+      "explanation": "'Discuss' nghĩa là thảo luận; thường đi trực tiếp với tân ngữ, không dùng 'about' trước tân ngữ."
+    },
+    {
+      "id": 5,
+      "type": "fill_in_blank",
+      "question": "Please _______ (thông báo) me if the schedule changes.",
+      "answer": "notify",
+      "explanation": "'Notify someone' nghĩa là thông báo cho ai đó."
+    },
+    {
+      "id": 6,
+      "type": "fill_in_blank",
+      "question": "I already _______ (thông báo) the team about the update yesterday.",
+      "answer": "informed",
+      "explanation": "'Inform' ở quá khứ là 'informed'; cấu trúc thường dùng: inform someone about something."
+    },
+    {
+      "id": 7,
+      "type": "fill_in_blank",
+      "question": "Please _______ (phản hồi) to the customer as soon as possible.",
+      "answer": "respond",
+      "explanation": "'Respond' thường đi với giới từ 'to': respond to someone/something."
+    },
+    {
+      "id": 8,
+      "type": "fill_in_blank",
+      "question": "I'll _______ (trả lời) to your email this afternoon.",
+      "answer": "reply",
+      "explanation": "'Reply' thường dùng với 'to' khi nói trả lời ai hoặc điều gì."
+    },
+    {
+      "id": 9,
+      "type": "fill_in_blank",
+      "question": "The client made a _______ (yêu cầu) for more details.",
+      "answer": "request",
+      "explanation": "'Request' có thể là danh từ nghĩa là yêu cầu hoặc động từ nghĩa là yêu cầu."
+    },
+    {
+      "id": 10,
+      "type": "fill_in_blank",
+      "question": "Could you _______ (cung cấp) the information by Friday?",
+      "answer": "provide",
+      "explanation": "'Provide' nghĩa là cung cấp; có thể dùng 'provide someone with something'."
+    },
+    {
+      "id": 11,
+      "type": "fill_in_blank",
+      "question": "Can you _______ (xử lý) this task while I'm away?",
+      "answer": "handle",
+      "explanation": "'Handle' nghĩa là xử lý hoặc giải quyết một công việc/tình huống."
+    },
+    {
+      "id": 12,
+      "type": "fill_in_blank",
+      "question": "We need to _______ (giải quyết) the problem before release.",
+      "answer": "resolve",
+      "explanation": "'Resolve' thường dùng cho việc giải quyết vấn đề hoặc xung đột."
+    },
+    {
+      "id": 13,
+      "type": "fill_in_blank",
+      "question": "Let's work together to _______ (giải) this technical problem.",
+      "answer": "solve",
+      "explanation": "'Solve' thường đi với 'problem', 'puzzle' hoặc 'equation'."
+    },
+    {
+      "id": 14,
+      "type": "fill_in_blank",
+      "question": "Please _______ (báo cáo) the bug to the development team.",
+      "answer": "report",
+      "explanation": "'Report' nghĩa là báo cáo hoặc thông báo chính thức về một vấn đề."
+    },
+    {
+      "id": 15,
+      "type": "fill_in_blank",
+      "question": "I apologize _______ the delay in replying.",
+      "answer": "for",
+      "explanation": "Cấu trúc: apologize for something hoặc apologize for doing something."
+    },
+    {
+      "id": 16,
+      "type": "fill_in_blank",
+      "question": "We need to agree _______ a deadline before ending the meeting.",
+      "answer": "on",
+      "explanation": "'Agree on something' nghĩa là thống nhất về một điều gì đó."
+    },
+    {
+      "id": 17,
+      "type": "fill_in_blank",
+      "question": "I respectfully _______ (không đồng ý) with that approach.",
+      "answer": "disagree",
+      "explanation": "'Disagree with someone/something' nghĩa là không đồng ý với ai hoặc điều gì."
+    },
+    {
+      "id": 18,
+      "type": "fill_in_blank",
+      "question": "My main _______ (mối lo ngại) is the quality of the final product.",
+      "answer": "concern",
+      "explanation": "'Concern' có thể là danh từ chỉ mối lo ngại hoặc điều khiến ai đó quan tâm."
+    },
+    {
+      "id": 19,
+      "type": "fill_in_blank",
+      "question": "Please double-check the figures to _______ (đảm bảo) they are correct.",
+      "answer": "ensure",
+      "explanation": "'Ensure' nghĩa là đảm bảo rằng điều gì đó xảy ra hoặc đúng."
+    },
+    {
+      "id": 20,
+      "type": "fill_in_blank",
+      "question": "I'll follow _______ on the request next week.",
+      "answer": "up",
+      "explanation": "Cụm 'follow up on something' nghĩa là theo dõi hoặc tiếp tục xử lý một việc."
+    },
+    {
+      "id": 21,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Bạn có thể làm rõ yêu cầu này không?",
+      "answer": "Could you clarify this requirement?",
+      "explanation": "Dùng 'Could you...?' để đưa ra yêu cầu lịch sự."
+    },
+    {
+      "id": 22,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Cô ấy đã giải thích vấn đề với quản lý của mình.",
+      "answer": "She explained the problem to her manager.",
+      "explanation": "Cấu trúc: explain something to someone."
+    },
+    {
+      "id": 23,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Chúng ta cần thảo luận lựa chọn này.",
+      "answer": "We need to discuss this option.",
+      "explanation": "'Discuss' đi trực tiếp với tân ngữ: discuss this option, không phải 'discuss about this option'."
+    },
+    {
+      "id": 24,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Vui lòng thông báo cho tôi nếu có bất kỳ thay đổi nào.",
+      "answer": "Please notify me if there are any changes.",
+      "explanation": "Cấu trúc: notify someone; 'if there are any changes' nghĩa là nếu có bất kỳ thay đổi nào."
+    },
+    {
+      "id": 25,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi sẽ phản hồi email của bạn vào ngày mai.",
+      "answer": "I'll respond to your email tomorrow.",
+      "explanation": "'Respond' cần giới từ 'to' trước đối tượng được phản hồi."
+    },
+    {
+      "id": 26,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Khách hàng đã yêu cầu thêm thông tin.",
+      "answer": "The customer requested more information.",
+      "explanation": "'Request' có thể dùng như động từ với tân ngữ trực tiếp."
+    },
+    {
+      "id": 27,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Nhóm hỗ trợ đã giải quyết vấn đề.",
+      "answer": "The support team resolved the issue.",
+      "explanation": "'Resolve an issue' là cụm từ phổ biến trong môi trường công việc."
+    },
+    {
+      "id": 28,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi xin lỗi vì phản hồi muộn.",
+      "answer": "I apologize for the late response.",
+      "explanation": "Cấu trúc: apologize for + danh từ/V-ing."
+    },
+    {
+      "id": 29,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi không đồng ý với cách tiếp cận đó.",
+      "answer": "I disagree with that approach.",
+      "explanation": "Cấu trúc: disagree with + người/ý kiến/cách tiếp cận."
+    },
+    {
+      "id": 30,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi sẽ theo dõi và cập nhật với khách hàng vào tuần tới.",
+      "answer": "I'll follow up with the client next week.",
+      "explanation": "'Follow up with someone' nghĩa là liên hệ lại hoặc tiếp tục trao đổi với ai."
+    },
+    {
+      "id": 31,
+      "type": "verb_conjugation",
+      "question": "Yesterday, I _______ (clarify) the requirements for the project.",
+      "answer": "clarified",
+      "explanation": "'Clarify' là động từ có quy tắc; đổi 'y' thành 'i' rồi thêm '-ed': clarified."
+    },
+    {
+      "id": 32,
+      "type": "verb_conjugation",
+      "question": "He _______ (explain) the new process at the meeting yesterday.",
+      "answer": "explained",
+      "explanation": "Quá khứ đơn của 'explain' là 'explained'."
+    },
+    {
+      "id": 33,
+      "type": "verb_conjugation",
+      "question": "She _______ (mention) the deadline during the call.",
+      "answer": "mentioned",
+      "explanation": "Quá khứ đơn của 'mention' là 'mentioned'."
+    },
+    {
+      "id": 34,
+      "type": "verb_conjugation",
+      "question": "We _______ (discuss) the proposal last Friday.",
+      "answer": "discussed",
+      "explanation": "Quá khứ đơn của 'discuss' là 'discussed'."
+    },
+    {
+      "id": 35,
+      "type": "verb_conjugation",
+      "question": "The manager _______ (notify) everyone about the change yesterday.",
+      "answer": "notified",
+      "explanation": "'Notify' đổi 'y' thành 'i' rồi thêm '-ed': notified."
+    },
+    {
+      "id": 36,
+      "type": "verb_conjugation",
+      "question": "I _______ (respond) to the email this morning.",
+      "answer": "responded",
+      "explanation": "Quá khứ đơn của 'respond' là 'responded'."
+    },
+    {
+      "id": 37,
+      "type": "verb_conjugation",
+      "question": "The customer _______ (request) a refund last week.",
+      "answer": "requested",
+      "explanation": "Quá khứ đơn của 'request' là 'requested'."
+    },
+    {
+      "id": 38,
+      "type": "verb_conjugation",
+      "question": "Our team _______ (resolve) the issue yesterday.",
+      "answer": "resolved",
+      "explanation": "Quá khứ đơn của 'resolve' là 'resolved'."
+    },
+    {
+      "id": 39,
+      "type": "verb_conjugation",
+      "question": "She _______ (apologize) for the mistake during the meeting.",
+      "answer": "apologized",
+      "explanation": "Trong chính tả Mỹ, 'apologize' thành 'apologized'; Anh-Anh cũng có thể viết 'apologised'."
+    },
+    {
+      "id": 40,
+      "type": "verb_conjugation",
+      "question": "I _______ (follow up) with the client yesterday.",
+      "answer": "followed up",
+      "explanation": "Trong quá khứ đơn, 'follow' đổi thành 'followed'; phần 'up' giữ nguyên."
+    },
+    {
+      "id": 41,
+      "type": "multiple_choice",
+      "question": "Could you explain the problem _______ me?",
+      "options": [
+        "to",
+        "for",
+        "about",
+        "with"
+      ],
+      "answer": "to",
+      "explanation": "Cấu trúc: explain something to someone."
+    },
+    {
+      "id": 42,
+      "type": "multiple_choice",
+      "question": "Which sentence is correct?",
+      "options": [
+        "We need to discuss about the issue.",
+        "We need to discuss the issue.",
+        "We need discuss the issue.",
+        "We need discussing the issue."
+      ],
+      "answer": "We need to discuss the issue.",
+      "explanation": "'Need to + động từ nguyên mẫu'; 'discuss' đi trực tiếp với tân ngữ, không cần 'about'."
+    },
+    {
+      "id": 43,
+      "type": "multiple_choice",
+      "question": "Please respond _______ the customer by the end of the day.",
+      "options": [
+        "at",
+        "on",
+        "to",
+        "for"
+      ],
+      "answer": "to",
+      "explanation": "Cấu trúc: respond to someone/something."
+    },
+    {
+      "id": 44,
+      "type": "multiple_choice",
+      "question": "The trainer provided us _______ the information we needed.",
+      "options": [
+        "to",
+        "with",
+        "for",
+        "about"
+      ],
+      "answer": "with",
+      "explanation": "Cấu trúc: provide someone with something."
+    },
+    {
+      "id": 45,
+      "type": "multiple_choice",
+      "question": "I apologize _______ being late to the meeting.",
+      "options": [
+        "about",
+        "of",
+        "for",
+        "to"
+      ],
+      "answer": "for",
+      "explanation": "Cấu trúc: apologize for + danh từ hoặc V-ing."
+    },
+    {
+      "id": 46,
+      "type": "multiple_choice",
+      "question": "We need to agree _______ a deadline.",
+      "options": [
+        "on",
+        "at",
+        "to",
+        "with"
+      ],
+      "answer": "on",
+      "explanation": "'Agree on something' nghĩa là thống nhất về một điều gì."
+    },
+    {
+      "id": 47,
+      "type": "multiple_choice",
+      "question": "I'm concerned _______ the quality of this report.",
+      "options": [
+        "with",
+        "about",
+        "for",
+        "to"
+      ],
+      "answer": "about",
+      "explanation": "Cấu trúc phổ biến: be concerned about something."
+    },
+    {
+      "id": 48,
+      "type": "multiple_choice",
+      "question": "I'll follow up _______ the request tomorrow.",
+      "options": [
+        "on",
+        "at",
+        "to",
+        "for"
+      ],
+      "answer": "on",
+      "explanation": "Cấu trúc: follow up on something."
+    },
+    {
+      "id": 49,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi đang cân nhắc học một kỹ năng mới.",
+      "answer": "I'm considering learning a new skill.",
+      "explanation": "'Consider' thường đi với V-ing: consider doing something."
+    },
+    {
+      "id": 50,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi không đủ khả năng mua một chiếc laptop mới ngay bây giờ.",
+      "answer": "I can't afford to buy a new laptop right now.",
+      "explanation": "Cấu trúc: afford to + động từ nguyên mẫu; 'can't afford' nghĩa là không đủ khả năng chi trả."
+    },
+    {
+      "id": 51,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Hãy nhắc tôi gọi cho khách hàng nhé.",
+      "answer": "Please remind me to call the client.",
+      "explanation": "Cấu trúc: remind someone to do something."
+    },
+    {
+      "id": 52,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Chúng tôi đã hoãn việc đưa ra quyết định đến thứ Hai.",
+      "answer": "We postponed making a decision until Monday.",
+      "explanation": "'Postpone' thường đi với danh từ hoặc V-ing: postpone doing something."
+    },
+    {
+      "id": 53,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi đồng ý với đề xuất của bạn.",
+      "answer": "I agree with your suggestion.",
+      "explanation": "Cấu trúc: agree with someone/something."
+    },
+    {
+      "id": 54,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi sẽ theo dõi yêu cầu hỗ trợ vào ngày mai.",
+      "answer": "I'll follow up on the support ticket tomorrow.",
+      "explanation": "'Follow up on' dùng khi tiếp tục theo dõi một yêu cầu hoặc vấn đề."
+    }
+  ]
+}

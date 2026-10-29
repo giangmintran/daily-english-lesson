@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { DailyLesson, ExerciseItem } from '../types/lesson';
-import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers, BookOpen } from 'lucide-react';
+import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers, BookOpen, GripVertical, ArrowLeftRight } from 'lucide-react';
 import { saveLesson, normalizeExerciseResults } from '../services/storage';
-import confetti from 'canvas-confetti';
+import { triggerFireworks } from '../utils/confetti';
 
 interface ExerciseViewProps {
   lesson: DailyLesson;
@@ -66,6 +66,17 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     Record<string | number, TranslationWordToken[]>
   >({});
   const [selectedWordIds, setSelectedWordIds] = useState<string[]>([]);
+  const [selectedSwapTokenId, setSelectedSwapTokenId] = useState<string | null>(null);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
+  const touchStateRef = useRef<{
+    startX: number;
+    startY: number;
+    index: number;
+    isDragging: boolean;
+    targetIndex: number | null;
+  } | null>(null);
 
   // Ref for active question button to auto-scroll into view if scrollable
   const activeBtnRef = useRef<HTMLButtonElement>(null);
@@ -122,6 +133,18 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
       .join(' ');
   }, [selectedWordIds, tokenMap]);
 
+  const selectedSwapToken = useMemo(() => {
+    if (!selectedSwapTokenId) return null;
+    return tokenMap.get(selectedSwapTokenId) || null;
+  }, [selectedSwapTokenId, tokenMap]);
+
+  const isCurrentSessionComplete = useMemo(() => {
+    return (
+      filteredExercises.length > 0 &&
+      filteredExercises.every((e) => Boolean(exerciseResults[e.id]))
+    );
+  }, [filteredExercises, exerciseResults]);
+
   // Sync state when current question changes
   useEffect(() => {
     if (!currentExercise) return;
@@ -166,6 +189,9 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         setSelectedWordIds([]);
         setIsAnswered(false);
       }
+      setSelectedSwapTokenId(null);
+      setDraggedIndex(null);
+      setDragOverIndex(null);
     } else {
       // Regular fill in the blank / other inputs
       if (currentResult) {
@@ -229,25 +255,40 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
       onUpdateLesson(updated);
 
       setIsAnswered(true);
+      setSelectedSwapTokenId(null);
+      setDraggedIndex(null);
+      setDragOverIndex(null);
 
-      // Check if user finished all exercises in the lesson (only trigger on first complete)
-      const wasAlreadyAnswered = Boolean(exerciseResults[currentExercise.id]);
-      const newDoneCount = Object.keys(nextResults).length;
-      if (!wasAlreadyAnswered && newDoneCount === lesson.exercises.length) {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-        });
+      // Bắn hiệu ứng pháo hoa khi hoàn thành bài tập / phiên học và làm đúng câu cuối
+      if (isCorrect) {
+        const wasAlreadyCorrect = Boolean(exerciseResults[currentExercise.id]?.isCorrect);
+
+        // Chỉ kích hoạt khi câu này chưa đúng trước đó (lần đầu làm đúng hoặc vừa sửa từ sai sang đúng)
+        if (!wasAlreadyCorrect) {
+          // Kiểm tra xem tất cả câu trong phiên hiện tại đã được làm hay chưa
+          const isSessionComplete =
+            filteredExercises.length > 0 &&
+            filteredExercises.every((e) => Boolean(nextResults[e.id]));
+
+          // Kiểm tra xem tất cả câu trong toàn bộ bài học đã được làm hay chưa
+          const isLessonComplete =
+            lesson.exercises.length > 0 &&
+            lesson.exercises.every((e) => Boolean(nextResults[e.id]));
+
+          if (isSessionComplete || isLessonComplete) {
+            triggerFireworks();
+          }
+        }
       }
     },
-    [currentExercise, lesson, exerciseResults, onUpdateLesson]
+    [currentExercise, lesson, exerciseResults, filteredExercises, onUpdateLesson]
   );
 
   // Word token click handlers for translation sentence builder
   const handleSelectWordToken = useCallback(
     (tokenId: string) => {
       if (isAnswered) setIsAnswered(false);
+      setSelectedSwapTokenId(null);
       setSelectedWordIds((prev) => {
         if (prev.includes(tokenId)) return prev;
         return [...prev, tokenId];
@@ -259,6 +300,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
   const handleRemoveSelectedWord = useCallback(
     (tokenId: string) => {
       if (isAnswered) setIsAnswered(false);
+      setSelectedSwapTokenId((prev) => (prev === tokenId ? null : prev));
       setSelectedWordIds((prev) => prev.filter((id) => id !== tokenId));
     },
     [isAnswered]
@@ -266,17 +308,78 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
 
   const handleUndoWord = useCallback(() => {
     if (isAnswered) setIsAnswered(false);
-    setSelectedWordIds((prev) => prev.slice(0, -1));
+    setSelectedWordIds((prev) => {
+      const removedId = prev[prev.length - 1];
+      if (removedId) {
+        setSelectedSwapTokenId((s) => (s === removedId ? null : s));
+      }
+      return prev.slice(0, -1);
+    });
   }, [isAnswered]);
 
   const handleResetWords = useCallback(() => {
     if (isAnswered) setIsAnswered(false);
+    setSelectedSwapTokenId(null);
     setSelectedWordIds([]);
   }, [isAnswered]);
+
+  // Word position manipulation handlers (Drag & Drop, Swap, Shift)
+  const handleMoveWord = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      if (fromIndex === toIndex) return;
+      if (isAnswered) setIsAnswered(false);
+      setSelectedWordIds((prev) => {
+        if (fromIndex < 0 || fromIndex >= prev.length || toIndex < 0 || toIndex >= prev.length) {
+          return prev;
+        }
+        const updated = [...prev];
+        const [moved] = updated.splice(fromIndex, 1);
+        updated.splice(toIndex, 0, moved);
+        return updated;
+      });
+    },
+    [isAnswered]
+  );
+
+  const handleSwapWords = useCallback(
+    (indexA: number, indexB: number) => {
+      if (indexA === indexB) return;
+      if (isAnswered) setIsAnswered(false);
+      setSelectedWordIds((prev) => {
+        if (indexA < 0 || indexA >= prev.length || indexB < 0 || indexB >= prev.length) {
+          return prev;
+        }
+        const updated = [...prev];
+        const temp = updated[indexA];
+        updated[indexA] = updated[indexB];
+        updated[indexB] = temp;
+        return updated;
+      });
+    },
+    [isAnswered]
+  );
+
+  const handleShiftWordLeft = useCallback(
+    (index: number) => {
+      if (index <= 0) return;
+      handleMoveWord(index, index - 1);
+    },
+    [handleMoveWord]
+  );
+
+  const handleShiftWordRight = useCallback(
+    (index: number) => {
+      handleMoveWord(index, index + 1);
+    },
+    [handleMoveWord]
+  );
 
   // Switch question to edit mode so user can change answer freely
   const handleStartEdit = useCallback(() => {
     setIsAnswered(false);
+    setSelectedSwapTokenId(null);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
     if (currentResult && currentExercise) {
       if (!isTranslationExercise(currentExercise) && currentExercise.type === 'fill_in_blank') {
         setFillInput(currentResult.userAnswer || fillInput);
@@ -303,6 +406,28 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
 
       // Translation sentence builder keyboard shortcuts
       if (isTranslationExercise(currentExercise)) {
+        // Translation word reordering shortcuts when a word is selected
+        if (selectedSwapTokenId) {
+          const sIdx = selectedWordIds.indexOf(selectedSwapTokenId);
+          if (sIdx !== -1) {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              handleShiftWordLeft(sIdx);
+              return;
+            }
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              handleShiftWordRight(sIdx);
+              return;
+            }
+            if (e.key === 'Escape') {
+              e.preventDefault();
+              setSelectedSwapTokenId(null);
+              return;
+            }
+          }
+        }
+
         if (e.key === 'Enter') {
           e.preventDefault();
           if (!isAnswered) {
@@ -358,11 +483,14 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     fillInput,
     selectedWordIds,
     assembledSentence,
+    selectedSwapTokenId,
     handleAnswerSubmit,
     handleStartEdit,
     handleNext,
     handlePrev,
     handleUndoWord,
+    handleShiftWordLeft,
+    handleShiftWordRight,
   ]);
 
   // Count wrong exercises
@@ -820,7 +948,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                 </div>
               ) : isTranslationExercise(currentExercise) ? (
                 /* Ghép từ dịch sang tiếng Anh (Translation Sentence Builder) */
-                <div className="space-y-4 pt-1">
+                <div className="space-y-3 pt-1">
                   {/* Hướng dẫn & Nút chức năng */}
                   <div className="flex items-center justify-between text-xs text-zinc-500 flex-wrap gap-2">
                     <span className="font-medium text-zinc-700 dark:text-zinc-300">
@@ -850,8 +978,49 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                     )}
                   </div>
 
-                  {/* Khung câu đang ghép (Assembled Sentence Box) */}
+                  {/* Thanh thông báo & Hướng dẫn đổi vị trí khi đang chọn từ */}
+                  {selectedSwapToken && !isAnswered ? (
+                    <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-xl text-xs animate-fade-in shadow-xs">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <ArrowLeftRight size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
+                        <span>
+                          Đang chọn: <strong className="font-semibold underline decoration-blue-400">"{selectedSwapToken.word}"</strong>
+                        </span>
+                        <span className="text-[11px] opacity-85">
+                          • Bấm từ khác để đổi chỗ, hoặc bấm ‹ › để dịch chuyển
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedSwapTokenId(null)}
+                        className="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 ml-2 cursor-pointer"
+                      >
+                        Hủy
+                      </button>
+                    </div>
+                  ) : selectedWordIds.length >= 2 && !isAnswered ? (
+                    <div className="flex items-center gap-1.5 text-[11px] text-zinc-500 dark:text-zinc-400 px-1">
+                      <ArrowLeftRight size={12} className="text-blue-500 shrink-0" />
+                      <span>
+                        Mẹo: Bạn có thể kéo thả từ hoặc bấm chọn 2 từ để đổi vị trí cho nhau
+                      </span>
+                    </div>
+                  ) : null}
+
+                  {/* Khung câu đang ghép (Assembled Sentence Box - Hỗ trợ kéo thả & đổi vị trí) */}
                   <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      e.dataTransfer.dropEffect = 'move';
+                    }}
+                    onDrop={(e) => {
+                      if (e.target === e.currentTarget && draggedIndex !== null) {
+                        e.preventDefault();
+                        handleMoveWord(draggedIndex, selectedWordIds.length - 1);
+                        setDraggedIndex(null);
+                        setDragOverIndex(null);
+                      }
+                    }}
                     className={`w-full min-h-[75px] sm:min-h-[90px] p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex flex-wrap gap-2 items-center ${
                       isAnswered
                         ? currentResult?.isCorrect
@@ -867,29 +1036,197 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                         Bấm vào các từ bên dưới theo thứ tự để ghép thành câu dịch...
                       </span>
                     ) : (
-                      selectedWordIds.map((id) => {
+                      selectedWordIds.map((id, index) => {
                         const token = tokenMap.get(id);
                         if (!token) return null;
+
+                        const isSelectedForSwap = selectedSwapTokenId === id;
+                        const isBeingDragged = draggedIndex === index;
+                        const isDropTarget = dragOverIndex === index && draggedIndex !== index;
+
                         return (
-                          <button
+                          <div
                             key={id}
-                            type="button"
-                            disabled={isAnswered}
-                            onClick={() => handleRemoveSelectedWord(id)}
-                            className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all shadow-xs flex items-center gap-1.5 ${
+                            data-word-index={index}
+                            draggable={!isAnswered}
+                            onDragStart={(e) => {
+                              if (isAnswered) setIsAnswered(false);
+                              e.dataTransfer.setData('text/plain', String(index));
+                              e.dataTransfer.effectAllowed = 'move';
+                              setDraggedIndex(index);
+                            }}
+                            onDragOver={(e) => {
+                              e.preventDefault();
+                              e.dataTransfer.dropEffect = 'move';
+                            }}
+                            onDragEnter={(e) => {
+                              e.preventDefault();
+                              if (draggedIndex !== null && draggedIndex !== index) {
+                                setDragOverIndex(index);
+                              }
+                            }}
+                            onDragLeave={(e) => {
+                              e.preventDefault();
+                            }}
+                            onDrop={(e) => {
+                              e.preventDefault();
+                              if (draggedIndex !== null && draggedIndex !== index) {
+                                handleMoveWord(draggedIndex, index);
+                              }
+                              setDraggedIndex(null);
+                              setDragOverIndex(null);
+                            }}
+                            onDragEnd={() => {
+                              setDraggedIndex(null);
+                              setDragOverIndex(null);
+                            }}
+                            onTouchStart={(e) => {
+                              if (isAnswered) setIsAnswered(false);
+                              const touch = e.touches[0];
+                              touchStateRef.current = {
+                                startX: touch.clientX,
+                                startY: touch.clientY,
+                                index,
+                                isDragging: false,
+                                targetIndex: null,
+                              };
+                            }}
+                            onTouchMove={(e) => {
+                              if (!touchStateRef.current) return;
+                              const touch = e.touches[0];
+                              const dx = Math.abs(touch.clientX - touchStateRef.current.startX);
+                              const dy = Math.abs(touch.clientY - touchStateRef.current.startY);
+
+                              if (!touchStateRef.current.isDragging && (dx > 7 || dy > 7)) {
+                                touchStateRef.current.isDragging = true;
+                                setDraggedIndex(index);
+                              }
+
+                              if (touchStateRef.current.isDragging) {
+                                const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
+                                const chipEl = targetEl?.closest('[data-word-index]');
+                                if (chipEl) {
+                                  const targetIdx = Number(chipEl.getAttribute('data-word-index'));
+                                  if (!isNaN(targetIdx) && targetIdx !== touchStateRef.current.targetIndex) {
+                                    touchStateRef.current.targetIndex = targetIdx;
+                                    setDragOverIndex(targetIdx);
+                                  }
+                                }
+                              }
+                            }}
+                            onTouchEnd={() => {
+                              if (touchStateRef.current) {
+                                if (
+                                  touchStateRef.current.isDragging &&
+                                  touchStateRef.current.targetIndex !== null &&
+                                  touchStateRef.current.targetIndex !== touchStateRef.current.index
+                                ) {
+                                  handleMoveWord(touchStateRef.current.index, touchStateRef.current.targetIndex);
+                                }
+                                touchStateRef.current = null;
+                                setDraggedIndex(null);
+                                setDragOverIndex(null);
+                              }
+                            }}
+                            onClick={() => {
+                              if (isAnswered) setIsAnswered(false);
+                              if (!selectedSwapTokenId) {
+                                setSelectedSwapTokenId(id);
+                              } else if (selectedSwapTokenId === id) {
+                                setSelectedSwapTokenId(null);
+                              } else {
+                                const idxA = selectedWordIds.indexOf(selectedSwapTokenId);
+                                const idxB = index;
+                                if (idxA !== -1 && idxB !== -1) {
+                                  handleSwapWords(idxA, idxB);
+                                }
+                                setSelectedSwapTokenId(null);
+                              }
+                            }}
+                            className={`relative px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all shadow-xs flex items-center gap-1.5 select-none touch-none cursor-pointer ${
                               isAnswered
                                 ? currentResult?.isCorrect
                                   ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
                                   : 'bg-rose-500/15 border-rose-500/30 text-rose-800 dark:text-rose-300'
-                                : 'bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:border-rose-400 hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer active:scale-95 group'
+                                : isBeingDragged
+                                ? 'opacity-40 scale-95 border-dashed border-blue-400 bg-blue-50/50 dark:bg-blue-950/30 ring-2 ring-blue-400'
+                                : isDropTarget
+                                ? 'ring-2 ring-blue-500 scale-105 border-blue-500 bg-blue-100/70 dark:bg-blue-900/50 z-10'
+                                : isSelectedForSwap
+                                ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 shadow-sm'
+                                : 'bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 hover:border-blue-400 dark:hover:border-blue-500 active:scale-95'
                             }`}
-                            title={isAnswered ? '' : 'Bấm để gỡ từ này ra khỏi câu'}
+                            title={
+                              isAnswered
+                                ? ''
+                                : isSelectedForSwap
+                                ? 'Đang chọn từ này. Bấm từ khác để đổi chỗ hoặc dùng ‹ › để dịch chuyển'
+                                : 'Kéo thả để di chuyển, hoặc bấm để đổi chỗ với từ khác'
+                            }
                           >
-                            <span>{token.word}</span>
+                            {/* Drag Grip Handle */}
                             {!isAnswered && (
-                              <span className="text-[10px] text-zinc-400 group-hover:text-rose-500">×</span>
+                              <GripVertical
+                                size={13}
+                                className={`shrink-0 cursor-grab active:cursor-grabbing ${
+                                  isSelectedForSwap
+                                    ? 'text-blue-500'
+                                    : 'text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300'
+                                }`}
+                              />
                             )}
-                          </button>
+
+                            {/* Shift Left Arrow (shown when selected) */}
+                            {!isAnswered && isSelectedForSwap && (
+                              <button
+                                type="button"
+                                disabled={index === 0}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleShiftWordLeft(index);
+                                }}
+                                className="p-0.5 rounded-md hover:bg-blue-200 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-300 disabled:opacity-20 cursor-pointer transition-colors"
+                                title="Dịch sang trái"
+                              >
+                                <ChevronLeft size={13} />
+                              </button>
+                            )}
+
+                            {/* Word text */}
+                            <span className="leading-none">{token.word}</span>
+
+                            {/* Shift Right Arrow (shown when selected) */}
+                            {!isAnswered && isSelectedForSwap && (
+                              <button
+                                type="button"
+                                disabled={index === selectedWordIds.length - 1}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleShiftWordRight(index);
+                                }}
+                                className="p-0.5 rounded-md hover:bg-blue-200 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-300 disabled:opacity-20 cursor-pointer transition-colors"
+                                title="Dịch sang phải"
+                              >
+                                <ChevronRight size={13} />
+                              </button>
+                            )}
+
+                            {/* Remove Button */}
+                            {!isAnswered && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (selectedSwapTokenId === id) setSelectedSwapTokenId(null);
+                                  handleRemoveSelectedWord(id);
+                                }}
+                                className="w-4 h-4 rounded-full flex items-center justify-center text-xs text-zinc-400 hover:bg-rose-100 hover:text-rose-600 dark:hover:bg-rose-950/60 dark:hover:text-rose-400 transition-colors ml-0.5 cursor-pointer"
+                                title="Gỡ từ này ra khỏi câu"
+                              >
+                                ×
+                              </button>
+                            )}
+                          </div>
                         );
                       })
                     )}
@@ -952,7 +1289,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                           <span>Sửa lại câu này</span>
                         </button>
                         <span className="text-xs text-zinc-400">
-                          (Bạn có thể bấm vào từ để gỡ bỏ hoặc chọn lại từ mới)
+                          (Bạn có thể kéo thả, đổi chỗ hoặc gỡ từ để chọn lại)
                         </span>
                       </div>
                     )}
@@ -1063,6 +1400,49 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                 </div>
               )}
 
+              {/* Thông báo chúc mừng khi hoàn thành phiên */}
+              {isAnswered && isCurrentSessionComplete && (
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between gap-3 animate-fade-in flex-wrap">
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+                      <Award size={20} />
+                    </div>
+                    <div>
+                      <div className="text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-300">
+                        Chúc mừng bạn đã hoàn thành {getSessionLabel(activeSession)}!
+                      </div>
+                      <div className="text-[11px] sm:text-xs text-emerald-700/80 dark:text-emerald-400/80 font-mono">
+                        Đúng {filteredExercises.filter((e) => exerciseResults[e.id]?.isCorrect).length}/{filteredExercises.length} câu
+                      </div>
+                    </div>
+                  </div>
+                  {activeSession === 's1' && lesson.exercises.length > 20 && (
+                    <button
+                      onClick={() => {
+                        setActiveSession('s2');
+                        setCurrentIdx(0);
+                      }}
+                      className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shrink-0 cursor-pointer transition-colors shadow-xs flex items-center gap-1.5"
+                    >
+                      <span>Sang Phiên 2</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  )}
+                  {activeSession === 's2' && lesson.exercises.length > 40 && (
+                    <button
+                      onClick={() => {
+                        setActiveSession('s3');
+                        setCurrentIdx(0);
+                      }}
+                      className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shrink-0 cursor-pointer transition-colors shadow-xs flex items-center gap-1.5"
+                    >
+                      <span>Sang Phiên 3</span>
+                      <ChevronRight size={14} />
+                    </button>
+                  )}
+                </div>
+              )}
+
               {/* Chuyển câu trước / câu sau */}
               <div className="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 gap-2">
                 <button
@@ -1083,18 +1463,52 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                   </span>
                 </div>
 
-                <button
-                  disabled={currentIdx === filteredExercises.length - 1}
-                  onClick={handleNext}
-                  className={`flex items-center gap-1.5 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-                    isAnswered && currentIdx < filteredExercises.length - 1
-                      ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
-                      : 'border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30'
-                  }`}
-                >
-                  <span>Câu tiếp</span>
-                  <ChevronRight size={16} />
-                </button>
+                {currentIdx === filteredExercises.length - 1 && isAnswered ? (
+                  activeSession === 's1' && lesson.exercises.length > 20 ? (
+                    <button
+                      onClick={() => {
+                        setActiveSession('s2');
+                        setCurrentIdx(0);
+                      }}
+                      className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs cursor-pointer transition-all"
+                    >
+                      <span>Sang Phiên 2</span>
+                      <ChevronRight size={16} />
+                    </button>
+                  ) : activeSession === 's2' && lesson.exercises.length > 40 ? (
+                    <button
+                      onClick={() => {
+                        setActiveSession('s3');
+                        setCurrentIdx(0);
+                      }}
+                      className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs cursor-pointer transition-all"
+                    >
+                      <span>Sang Phiên 3</span>
+                      <ChevronRight size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="flex items-center gap-1.5 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30"
+                    >
+                      <CheckCircle2 size={15} />
+                      <span>Đã xong phiên</span>
+                    </button>
+                  )
+                ) : (
+                  <button
+                    disabled={currentIdx === filteredExercises.length - 1}
+                    onClick={handleNext}
+                    className={`flex items-center gap-1.5 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all cursor-pointer ${
+                      isAnswered && currentIdx < filteredExercises.length - 1
+                        ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-xs'
+                        : 'border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30'
+                    }`}
+                  >
+                    <span>Câu tiếp</span>
+                    <ChevronRight size={16} />
+                  </button>
+                )}
               </div>
             </div>
           )}
