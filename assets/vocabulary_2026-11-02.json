@@ -1,0 +1,1149 @@
+{
+    "date": "2026-11-02",
+    "topic": "Workplace Communication & Problem Solving",
+    "vocabulary": [
+        {
+            "id": "v1",
+            "word": "clarify",
+            "phonetic": "/ˈklær.ə.faɪ/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Làm rõ, giải thích cho dễ hiểu.",
+            "usage": "Dùng khi thông tin, yêu cầu hoặc ý kiến chưa rõ ràng.",
+            "purpose": "Trao đổi công việc, xác nhận yêu cầu.",
+            "structures": [
+                "clarify a point",
+                "clarify what/how/why",
+                "ask someone to clarify"
+            ],
+            "commonMistakes": "Không nhầm clarify (làm rõ) với clear (rõ ràng/dọn sạch).",
+            "examples": [
+                {
+                    "en": "Could you clarify the deadline for this task?",
+                    "vi": "Bạn có thể làm rõ hạn chót của nhiệm vụ này không?"
+                },
+                {
+                    "en": "The manager clarified what the client expected.",
+                    "vi": "Quản lý đã làm rõ những gì khách hàng mong đợi."
+                }
+            ]
+        },
+        {
+            "id": "v2",
+            "word": "prioritize",
+            "phonetic": "/praɪˈɔːr.ə.taɪz/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Ưu tiên, sắp xếp việc quan trọng trước.",
+            "usage": "Dùng khi quyết định việc nào cần được xử lý trước.",
+            "purpose": "Quản lý thời gian và khối lượng công việc.",
+            "structures": [
+                "prioritize tasks",
+                "prioritize A over B",
+                "prioritize doing something"
+            ],
+            "commonMistakes": "Không dùng prioritize for thay cho prioritize khi nói trực tiếp về đối tượng được ưu tiên.",
+            "examples": [
+                {
+                    "en": "We need to prioritize the urgent bug fixes.",
+                    "vi": "Chúng ta cần ưu tiên sửa các lỗi khẩn cấp."
+                },
+                {
+                    "en": "She prioritizes customer requests based on their impact.",
+                    "vi": "Cô ấy ưu tiên các yêu cầu của khách hàng dựa trên mức độ ảnh hưởng."
+                }
+            ]
+        },
+        {
+            "id": "v3",
+            "word": "deadline",
+            "phonetic": "/ˈded.laɪn/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Hạn chót, thời hạn cuối cùng.",
+            "usage": "Dùng để nói về thời điểm cuối cùng phải hoàn thành hoặc nộp việc.",
+            "purpose": "Công việc, học tập và dự án.",
+            "structures": [
+                "meet a deadline",
+                "miss a deadline",
+                "extend the deadline",
+                "deadline for something"
+            ],
+            "commonMistakes": "Deadline là thời điểm cuối; không nhầm với timeline (tiến độ/lịch trình).",
+            "examples": [
+                {
+                    "en": "The deadline for the report is Friday afternoon.",
+                    "vi": "Hạn chót nộp báo cáo là chiều thứ Sáu."
+                },
+                {
+                    "en": "We may need to extend the deadline by two days.",
+                    "vi": "Chúng ta có thể cần gia hạn thêm hai ngày."
+                }
+            ]
+        },
+        {
+            "id": "v4",
+            "word": "efficient",
+            "phonetic": "/ɪˈfɪʃ.ənt/",
+            "partOfSpeech": "Tính từ",
+            "meaning": "Hiệu quả, đạt kết quả tốt mà không lãng phí thời gian hoặc nguồn lực.",
+            "usage": "Dùng để mô tả cách làm việc hoặc hệ thống vận hành ít lãng phí.",
+            "purpose": "Nói về năng suất và quy trình.",
+            "structures": [
+                "an efficient process",
+                "work efficiently",
+                "more efficient than"
+            ],
+            "commonMistakes": "Efficient nhấn mạnh ít lãng phí nguồn lực; effective nhấn mạnh đạt đúng kết quả mong muốn.",
+            "examples": [
+                {
+                    "en": "Automating this step would make the process more efficient.",
+                    "vi": "Tự động hóa bước này sẽ giúp quy trình hiệu quả hơn."
+                },
+                {
+                    "en": "He found an efficient way to organize his notes.",
+                    "vi": "Anh ấy tìm ra một cách hiệu quả để sắp xếp ghi chú."
+                }
+            ]
+        },
+        {
+            "id": "v5",
+            "word": "feedback",
+            "phonetic": "/ˈfiːd.bæk/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Phản hồi, nhận xét nhằm cung cấp thông tin cải thiện.",
+            "usage": "Dùng khi đưa ra hoặc nhận ý kiến về công việc, sản phẩm hay hành vi.",
+            "purpose": "Đánh giá và cải thiện chất lượng.",
+            "structures": [
+                "give feedback",
+                "receive feedback",
+                "feedback on something",
+                "constructive feedback"
+            ],
+            "commonMistakes": "Feedback thường là danh từ không đếm được; tránh nói a feedback.",
+            "examples": [
+                {
+                    "en": "I'd appreciate your feedback on this proposal.",
+                    "vi": "Tôi rất mong nhận được phản hồi của bạn về đề xuất này."
+                },
+                {
+                    "en": "The team used customer feedback to improve the app.",
+                    "vi": "Nhóm đã dùng phản hồi của khách hàng để cải thiện ứng dụng."
+                }
+            ]
+        },
+        {
+            "id": "v6",
+            "word": "reliable",
+            "phonetic": "/rɪˈlaɪ.ə.bəl/",
+            "partOfSpeech": "Tính từ",
+            "meaning": "Đáng tin cậy, có thể dựa vào.",
+            "usage": "Dùng để mô tả người, nguồn tin hoặc hệ thống hoạt động ổn định.",
+            "purpose": "Đánh giá độ tin cậy.",
+            "structures": [
+                "a reliable source",
+                "reliable information",
+                "be reliable"
+            ],
+            "commonMistakes": "Reliable là tính từ; trạng từ là reliably, danh từ là reliability.",
+            "examples": [
+                {
+                    "en": "We need a reliable source before making a decision.",
+                    "vi": "Chúng ta cần một nguồn đáng tin cậy trước khi đưa ra quyết định."
+                },
+                {
+                    "en": "This service is generally reliable, even during busy hours.",
+                    "vi": "Dịch vụ này nhìn chung đáng tin cậy, kể cả giờ cao điểm."
+                }
+            ]
+        },
+        {
+            "id": "v7",
+            "word": "resolve",
+            "phonetic": "/rɪˈzɑːlv/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Giải quyết vấn đề hoặc tranh chấp.",
+            "usage": "Dùng khi xử lý một vấn đề để đưa tình huống về trạng thái ổn định.",
+            "purpose": "Hỗ trợ khách hàng và xử lý sự cố.",
+            "structures": [
+                "resolve an issue",
+                "resolve a conflict",
+                "resolve a problem"
+            ],
+            "commonMistakes": "Resolve thường trang trọng hơn fix; không nhầm với dissolve (hòa tan/giải thể).",
+            "examples": [
+                {
+                    "en": "The support team resolved the issue within an hour.",
+                    "vi": "Nhóm hỗ trợ đã giải quyết vấn đề trong vòng một giờ."
+                },
+                {
+                    "en": "We should resolve this disagreement before the meeting.",
+                    "vi": "Chúng ta nên giải quyết bất đồng này trước cuộc họp."
+                }
+            ]
+        },
+        {
+            "id": "v8",
+            "word": "approach",
+            "phonetic": "/əˈproʊtʃ/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Cách tiếp cận, phương pháp xử lý.",
+            "usage": "Dùng để nói về cách một người giải quyết nhiệm vụ hoặc vấn đề.",
+            "purpose": "Thảo luận phương án và chiến lược.",
+            "structures": [
+                "an approach to something",
+                "take an approach",
+                "a different approach"
+            ],
+            "commonMistakes": "Khi là danh từ, thường dùng approach to; không dùng approach for trong cấu trúc này.",
+            "examples": [
+                {
+                    "en": "We need a different approach to testing this feature.",
+                    "vi": "Chúng ta cần một cách tiếp cận khác để kiểm thử tính năng này."
+                },
+                {
+                    "en": "Her approach to problem-solving is practical.",
+                    "vi": "Cách tiếp cận giải quyết vấn đề của cô ấy rất thực tế."
+                }
+            ]
+        },
+        {
+            "id": "v9",
+            "word": "estimate",
+            "phonetic": "/ˈes.tə.meɪt/",
+            "partOfSpeech": "Động từ / Danh từ",
+            "meaning": "Ước tính; bản ước tính.",
+            "usage": "Dùng khi đưa ra con số gần đúng về thời gian, chi phí hoặc khối lượng.",
+            "purpose": "Lập kế hoạch và dự báo.",
+            "structures": [
+                "estimate the cost",
+                "estimate how long",
+                "a rough estimate"
+            ],
+            "commonMistakes": "Động từ nhấn âm đầu nhẹ hơn danh từ trong một số giọng; không xem estimate là con số chính xác tuyệt đối.",
+            "examples": [
+                {
+                    "en": "Can you estimate how long the update will take?",
+                    "vi": "Bạn có thể ước tính bản cập nhật sẽ mất bao lâu không?"
+                },
+                {
+                    "en": "Our initial estimate was slightly too low.",
+                    "vi": "Ước tính ban đầu của chúng tôi hơi thấp."
+                }
+            ]
+        },
+        {
+            "id": "v10",
+            "word": "allocate",
+            "phonetic": "/ˈæl.ə.keɪt/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Phân bổ nguồn lực, thời gian hoặc ngân sách cho mục đích cụ thể.",
+            "usage": "Dùng khi chia nguồn lực cho các nhiệm vụ hoặc nhóm.",
+            "purpose": "Quản lý dự án và ngân sách.",
+            "structures": [
+                "allocate time/resources/budget to something",
+                "allocate something for a purpose"
+            ],
+            "commonMistakes": "Allocate thường đi với to khi chỉ rõ đối tượng nhận nguồn lực.",
+            "examples": [
+                {
+                    "en": "The lead allocated two developers to the project.",
+                    "vi": "Trưởng nhóm phân công hai lập trình viên cho dự án."
+                },
+                {
+                    "en": "We should allocate more time for testing.",
+                    "vi": "Chúng ta nên phân bổ thêm thời gian cho việc kiểm thử."
+                }
+            ]
+        },
+        {
+            "id": "v11",
+            "word": "collaborate",
+            "phonetic": "/kəˈlæb.ə.reɪt/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Cộng tác, phối hợp làm việc với người khác.",
+            "usage": "Dùng khi nhiều cá nhân hoặc nhóm cùng đóng góp để đạt mục tiêu.",
+            "purpose": "Làm việc nhóm và dự án liên phòng ban.",
+            "structures": [
+                "collaborate with someone",
+                "collaborate on a project",
+                "collaborate closely"
+            ],
+            "commonMistakes": "Collaborate thường đi với with người/nhóm và on dự án/chủ đề.",
+            "examples": [
+                {
+                    "en": "Our design and engineering teams collaborate closely.",
+                    "vi": "Nhóm thiết kế và kỹ thuật của chúng tôi phối hợp chặt chẽ."
+                },
+                {
+                    "en": "They collaborated on a new training program.",
+                    "vi": "Họ đã cùng xây dựng một chương trình đào tạo mới."
+                }
+            ]
+        },
+        {
+            "id": "v12",
+            "word": "anticipate",
+            "phonetic": "/ænˈtɪs.ə.peɪt/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Dự đoán và chuẩn bị trước cho điều có thể xảy ra.",
+            "usage": "Dùng khi nghĩ trước về nhu cầu, khó khăn hoặc kết quả có khả năng xuất hiện.",
+            "purpose": "Lập kế hoạch và quản lý rủi ro.",
+            "structures": [
+                "anticipate a problem",
+                "anticipate doing something",
+                "anticipate that + clause"
+            ],
+            "commonMistakes": "Anticipate thường mang nghĩa dự liệu trước, không đơn thuần là mong chờ.",
+            "examples": [
+                {
+                    "en": "We anticipate a higher number of users next month.",
+                    "vi": "Chúng tôi dự đoán số lượng người dùng tháng tới sẽ cao hơn."
+                },
+                {
+                    "en": "It's difficult to anticipate every possible risk.",
+                    "vi": "Rất khó dự liệu mọi rủi ro có thể xảy ra."
+                }
+            ]
+        },
+        {
+            "id": "v13",
+            "word": "obstacle",
+            "phonetic": "/ˈɑːb.stə.kəl/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Trở ngại, vật cản hoặc khó khăn ngăn cản tiến trình.",
+            "usage": "Dùng để mô tả điều khiến một kế hoạch hoặc mục tiêu khó đạt được.",
+            "purpose": "Nói về thách thức và cách vượt qua.",
+            "structures": [
+                "overcome an obstacle",
+                "face an obstacle",
+                "an obstacle to progress"
+            ],
+            "commonMistakes": "Obstacle là danh từ đếm được; thường dùng an obstacle hoặc obstacles.",
+            "examples": [
+                {
+                    "en": "Limited access to data was a major obstacle.",
+                    "vi": "Việc hạn chế quyền truy cập dữ liệu là một trở ngại lớn."
+                },
+                {
+                    "en": "The team found a way to overcome the obstacle.",
+                    "vi": "Nhóm đã tìm được cách vượt qua trở ngại."
+                }
+            ]
+        },
+        {
+            "id": "v14",
+            "word": "adapt",
+            "phonetic": "/əˈdæpt/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Thích nghi hoặc điều chỉnh cho phù hợp với hoàn cảnh mới.",
+            "usage": "Dùng khi thay đổi cách làm để đáp ứng điều kiện hoặc nhu cầu khác.",
+            "purpose": "Thay đổi môi trường và yêu cầu.",
+            "structures": [
+                "adapt to change",
+                "adapt something for someone",
+                "adapt a plan"
+            ],
+            "commonMistakes": "Dùng adapt to + danh từ/V-ing khi nói thích nghi với điều gì.",
+            "examples": [
+                {
+                    "en": "New employees need time to adapt to the company's culture.",
+                    "vi": "Nhân viên mới cần thời gian để thích nghi với văn hóa công ty."
+                },
+                {
+                    "en": "We adapted the schedule to meet the client's needs.",
+                    "vi": "Chúng tôi đã điều chỉnh lịch trình để đáp ứng nhu cầu khách hàng."
+                }
+            ]
+        },
+        {
+            "id": "v15",
+            "word": "specific",
+            "phonetic": "/spəˈsɪf.ɪk/",
+            "partOfSpeech": "Tính từ",
+            "meaning": "Cụ thể, xác định rõ ràng.",
+            "usage": "Dùng khi muốn yêu cầu hoặc cung cấp thông tin chính xác, không chung chung.",
+            "purpose": "Làm rõ yêu cầu và hướng dẫn.",
+            "structures": [
+                "be specific about something",
+                "specific details",
+                "a specific reason"
+            ],
+            "commonMistakes": "Specific là tính từ; danh từ tương ứng là specification hoặc specificity tùy ngữ cảnh.",
+            "examples": [
+                {
+                    "en": "Please provide specific examples in your report.",
+                    "vi": "Vui lòng đưa ra các ví dụ cụ thể trong báo cáo."
+                },
+                {
+                    "en": "The instructions are not specific enough.",
+                    "vi": "Hướng dẫn chưa đủ cụ thể."
+                }
+            ]
+        },
+        {
+            "id": "v16",
+            "word": "issue",
+            "phonetic": "/ˈɪʃ.uː/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Vấn đề, sự cố hoặc chủ đề cần được xem xét.",
+            "usage": "Dùng trong môi trường công việc để nói về điều cần xử lý hoặc thảo luận.",
+            "purpose": "Báo lỗi và trao đổi công việc.",
+            "structures": [
+                "report an issue",
+                "address an issue",
+                "an issue with something"
+            ],
+            "commonMistakes": "Issue thường trung tính; không phải lúc nào cũng nghiêm trọng như crisis.",
+            "examples": [
+                {
+                    "en": "I noticed an issue with the payment page.",
+                    "vi": "Tôi nhận thấy một vấn đề ở trang thanh toán."
+                },
+                {
+                    "en": "Let's discuss this issue during the review.",
+                    "vi": "Hãy thảo luận vấn đề này trong buổi đánh giá."
+                }
+            ]
+        },
+        {
+            "id": "v17",
+            "word": "compromise",
+            "phonetic": "/ˈkɑːm.prə.maɪz/",
+            "partOfSpeech": "Danh từ / Động từ",
+            "meaning": "Sự thỏa hiệp; thỏa hiệp bằng cách mỗi bên nhượng bộ một phần.",
+            "usage": "Dùng khi các bên tìm giải pháp cân bằng lợi ích khác nhau.",
+            "purpose": "Đàm phán và giải quyết bất đồng.",
+            "structures": [
+                "reach a compromise",
+                "compromise on something",
+                "compromise your principles"
+            ],
+            "commonMistakes": "Compromise on something là thỏa hiệp về điều gì; compromise your principles mang nghĩa làm tổn hại nguyên tắc.",
+            "examples": [
+                {
+                    "en": "Both teams reached a compromise on the release date.",
+                    "vi": "Cả hai nhóm đã đạt được thỏa hiệp về ngày phát hành."
+                },
+                {
+                    "en": "We shouldn't compromise on security.",
+                    "vi": "Chúng ta không nên thỏa hiệp về vấn đề bảo mật."
+                }
+            ]
+        },
+        {
+            "id": "v18",
+            "word": "maintain",
+            "phonetic": "/meɪnˈteɪn/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Duy trì, giữ cho điều gì tiếp tục ở trạng thái tốt hoặc ổn định.",
+            "usage": "Dùng khi nói về việc giữ chất lượng, tiêu chuẩn hoặc hoạt động lâu dài.",
+            "purpose": "Quản lý hệ thống và thói quen.",
+            "structures": [
+                "maintain quality",
+                "maintain a system",
+                "maintain contact with someone"
+            ],
+            "commonMistakes": "Maintain là ngoại động từ trong các cấu trúc này, thường cần tân ngữ.",
+            "examples": [
+                {
+                    "en": "It's important to maintain clear communication.",
+                    "vi": "Việc duy trì giao tiếp rõ ràng rất quan trọng."
+                },
+                {
+                    "en": "The team maintains the software every month.",
+                    "vi": "Nhóm bảo trì phần mềm mỗi tháng."
+                }
+            ]
+        },
+        {
+            "id": "v19",
+            "word": "contribute",
+            "phonetic": "/kənˈtrɪb.juːt/",
+            "partOfSpeech": "Động từ",
+            "meaning": "Đóng góp vào một kết quả, hoạt động hoặc mục tiêu chung.",
+            "usage": "Dùng khi nói về phần đóng góp của cá nhân hoặc yếu tố vào thành quả.",
+            "purpose": "Làm việc nhóm và đóng góp ý tưởng.",
+            "structures": [
+                "contribute to something",
+                "contribute ideas",
+                "contribute money/time"
+            ],
+            "commonMistakes": "Contribute to + danh từ/V-ing; không dùng contribute for trong cấu trúc thông dụng này.",
+            "examples": [
+                {
+                    "en": "Everyone can contribute ideas during the workshop.",
+                    "vi": "Mọi người đều có thể đóng góp ý tưởng trong buổi hội thảo."
+                },
+                {
+                    "en": "Regular practice contributes to steady progress.",
+                    "vi": "Luyện tập thường xuyên góp phần tạo nên tiến bộ ổn định."
+                }
+            ]
+        },
+        {
+            "id": "v20",
+            "word": "outcome",
+            "phonetic": "/ˈaʊt.kʌm/",
+            "partOfSpeech": "Danh từ",
+            "meaning": "Kết quả cuối cùng của một quá trình hoặc hành động.",
+            "usage": "Dùng để nói về kết quả đạt được sau khi thực hiện kế hoạch hoặc quyết định.",
+            "purpose": "Đánh giá hiệu quả và kết quả dự án.",
+            "structures": [
+                "the outcome of something",
+                "achieve a positive outcome",
+                "desired outcome"
+            ],
+            "commonMistakes": "Outcome là kết quả cuối cùng; output thường là sản phẩm/đầu ra trực tiếp.",
+            "examples": [
+                {
+                    "en": "The outcome of the discussion was positive.",
+                    "vi": "Kết quả của cuộc thảo luận rất tích cực."
+                },
+                {
+                    "en": "We need to measure the outcome of this change.",
+                    "vi": "Chúng ta cần đo lường kết quả của thay đổi này."
+                }
+            ]
+        }
+    ],
+    "exercises": [
+        {
+            "id": 1,
+            "type": "multiple_choice",
+            "question": "Could you _______ what you mean by “high priority”?",
+            "options": [
+                "clarify",
+                "allocate",
+                "maintain",
+                "contribute"
+            ],
+            "answer": "clarify",
+            "explanation": "'Clarify' nghĩa là làm rõ thông tin hoặc ý kiến."
+        },
+        {
+            "id": 2,
+            "type": "multiple_choice",
+            "question": "We should _______ customer-impacting bugs before cosmetic changes.",
+            "options": [
+                "prioritize",
+                "anticipate",
+                "adapt",
+                "estimate"
+            ],
+            "answer": "prioritize",
+            "explanation": "'Prioritize' là ưu tiên việc quan trọng trước."
+        },
+        {
+            "id": 3,
+            "type": "multiple_choice",
+            "question": "The final _______ for submitting the proposal is 5 p.m. Thursday.",
+            "options": [
+                "deadline",
+                "outcome",
+                "approach",
+                "feedback"
+            ],
+            "answer": "deadline",
+            "explanation": "'Deadline' là hạn chót phải hoàn thành hoặc nộp việc."
+        },
+        {
+            "id": 4,
+            "type": "multiple_choice",
+            "question": "Using a shared checklist can make the review process more _______.",
+            "options": [
+                "efficient",
+                "specific",
+                "reliable",
+                "obstacle"
+            ],
+            "answer": "efficient",
+            "explanation": "'Efficient' mô tả quy trình đạt kết quả mà ít lãng phí nguồn lực."
+        },
+        {
+            "id": 5,
+            "type": "multiple_choice",
+            "question": "Please send me your _______ on the revised design.",
+            "options": [
+                "feedback",
+                "compromise",
+                "issue",
+                "outcome"
+            ],
+            "answer": "feedback",
+            "explanation": "'Feedback' là phản hồi hoặc nhận xét."
+        },
+        {
+            "id": 6,
+            "type": "multiple_choice",
+            "question": "We need a _______ backup system that works consistently.",
+            "options": [
+                "reliable",
+                "specific",
+                "efficient",
+                "anticipated"
+            ],
+            "answer": "reliable",
+            "explanation": "'Reliable' nghĩa là đáng tin cậy, hoạt động ổn định."
+        },
+        {
+            "id": 7,
+            "type": "multiple_choice",
+            "question": "The technician managed to _______ the login problem.",
+            "options": [
+                "resolve",
+                "allocate",
+                "contribute",
+                "anticipate"
+            ],
+            "answer": "resolve",
+            "explanation": "'Resolve an issue' nghĩa là giải quyết một vấn đề."
+        },
+        {
+            "id": 8,
+            "type": "multiple_choice",
+            "question": "Their _______ to onboarding includes a short practical workshop.",
+            "options": [
+                "approach",
+                "deadline",
+                "obstacle",
+                "outcome"
+            ],
+            "answer": "approach",
+            "explanation": "'Approach' là cách tiếp cận hoặc phương pháp."
+        },
+        {
+            "id": 9,
+            "type": "multiple_choice",
+            "question": "Could you _______ the amount of time needed for testing?",
+            "options": [
+                "estimate",
+                "clarify",
+                "maintain",
+                "compromise"
+            ],
+            "answer": "estimate",
+            "explanation": "'Estimate' là ước tính thời gian hoặc số lượng."
+        },
+        {
+            "id": 10,
+            "type": "multiple_choice",
+            "question": "The manager will _______ extra resources to the mobile team.",
+            "options": [
+                "allocate",
+                "resolve",
+                "adapt",
+                "prioritize"
+            ],
+            "answer": "allocate",
+            "explanation": "'Allocate' nghĩa là phân bổ nguồn lực."
+        },
+        {
+            "id": 11,
+            "type": "multiple_choice",
+            "question": "The two departments will _______ on the product launch.",
+            "options": [
+                "collaborate",
+                "maintain",
+                "anticipate",
+                "estimate"
+            ],
+            "answer": "collaborate",
+            "explanation": "'Collaborate on' là cùng cộng tác thực hiện dự án."
+        },
+        {
+            "id": 12,
+            "type": "multiple_choice",
+            "question": "We should _______ possible delays before confirming the launch date.",
+            "options": [
+                "anticipate",
+                "clarify",
+                "contribute",
+                "resolve"
+            ],
+            "answer": "anticipate",
+            "explanation": "'Anticipate' là dự liệu trước điều có thể xảy ra."
+        },
+        {
+            "id": 13,
+            "type": "multiple_choice",
+            "question": "A lack of documentation became an _______ to completing the task.",
+            "options": [
+                "obstacle",
+                "outcome",
+                "approach",
+                "feedback"
+            ],
+            "answer": "obstacle",
+            "explanation": "'Obstacle' là trở ngại cản trở tiến trình."
+        },
+        {
+            "id": 14,
+            "type": "multiple_choice",
+            "question": "The team had to _______ to a new reporting process.",
+            "options": [
+                "adapt",
+                "allocate",
+                "resolve",
+                "maintain"
+            ],
+            "answer": "adapt",
+            "explanation": "'Adapt to' nghĩa là thích nghi với điều mới."
+        },
+        {
+            "id": 15,
+            "type": "multiple_choice",
+            "question": "Please be _______ about which section needs to be changed.",
+            "options": [
+                "specific",
+                "reliable",
+                "efficient",
+                "compromised"
+            ],
+            "answer": "specific",
+            "explanation": "'Specific' nghĩa là cụ thể, rõ ràng."
+        },
+        {
+            "id": 16,
+            "type": "multiple_choice",
+            "question": "I found an _______ in the latest version of the application.",
+            "options": [
+                "issue",
+                "outcome",
+                "deadline",
+                "approach"
+            ],
+            "answer": "issue",
+            "explanation": "'Issue' là vấn đề hoặc sự cố cần xử lý."
+        },
+        {
+            "id": 17,
+            "type": "multiple_choice",
+            "question": "After a long discussion, they reached a _______.",
+            "options": [
+                "compromise",
+                "feedback",
+                "obstacle",
+                "estimate"
+            ],
+            "answer": "compromise",
+            "explanation": "'Reach a compromise' là đạt được sự thỏa hiệp."
+        },
+        {
+            "id": 18,
+            "type": "multiple_choice",
+            "question": "We must _______ a high level of service during the migration.",
+            "options": [
+                "maintain",
+                "anticipate",
+                "clarify",
+                "contribute"
+            ],
+            "answer": "maintain",
+            "explanation": "'Maintain' nghĩa là duy trì."
+        },
+        {
+            "id": 19,
+            "type": "multiple_choice",
+            "question": "Every team member can _______ to the final presentation.",
+            "options": [
+                "contribute",
+                "resolve",
+                "adapt",
+                "prioritize"
+            ],
+            "answer": "contribute",
+            "explanation": "'Contribute to' là đóng góp vào điều gì."
+        },
+        {
+            "id": 20,
+            "type": "multiple_choice",
+            "question": "The desired _______ is a faster and more stable service.",
+            "options": [
+                "outcome",
+                "deadline",
+                "issue",
+                "approach"
+            ],
+            "answer": "outcome",
+            "explanation": "'Outcome' là kết quả cuối cùng của quá trình."
+        },
+        {
+            "id": 21,
+            "type": "fill_in_blank",
+            "question": "Could you _______ the last point before we continue? (làm rõ)",
+            "answer": "clarify",
+            "explanation": "'Clarify' là động từ mang nghĩa làm rõ."
+        },
+        {
+            "id": 22,
+            "type": "fill_in_blank",
+            "question": "We have too many tasks, so let's _______ the urgent ones. (ưu tiên)",
+            "answer": "prioritize",
+            "explanation": "Sau 'let's' dùng động từ nguyên mẫu 'prioritize'."
+        },
+        {
+            "id": 23,
+            "type": "fill_in_blank",
+            "question": "They missed the project _______ because the requirements changed. (hạn chót)",
+            "answer": "deadline",
+            "explanation": "'Project deadline' là hạn chót của dự án."
+        },
+        {
+            "id": 24,
+            "type": "fill_in_blank",
+            "question": "The new workflow helps us work more _______. (hiệu quả)",
+            "answer": "efficiently",
+            "explanation": "Cần trạng từ 'efficiently' bổ nghĩa cho động từ 'work'."
+        },
+        {
+            "id": 25,
+            "type": "fill_in_blank",
+            "question": "The client gave us useful _______ on the prototype. (phản hồi)",
+            "answer": "feedback",
+            "explanation": "'Feedback' là danh từ không đếm được trong cách dùng này."
+        },
+        {
+            "id": 26,
+            "type": "fill_in_blank",
+            "question": "Is this website a _______ source of technical information? (đáng tin cậy)",
+            "answer": "reliable",
+            "explanation": "Cần tính từ 'reliable' bổ nghĩa cho 'source'."
+        },
+        {
+            "id": 27,
+            "type": "fill_in_blank",
+            "question": "The engineers are trying to _______ the connection problem. (giải quyết)",
+            "answer": "resolve",
+            "explanation": "Sau 'to' dùng động từ nguyên mẫu 'resolve'."
+        },
+        {
+            "id": 28,
+            "type": "fill_in_blank",
+            "question": "We need a new _______ to handling these requests. (cách tiếp cận)",
+            "answer": "approach",
+            "explanation": "'Approach to' là cách tiếp cận đối với việc gì."
+        },
+        {
+            "id": 29,
+            "type": "fill_in_blank",
+            "question": "Can you _______ how much the repair will cost? (ước tính)",
+            "answer": "estimate",
+            "explanation": "Sau động từ khuyết thiếu 'can' dùng động từ nguyên mẫu."
+        },
+        {
+            "id": 30,
+            "type": "fill_in_blank",
+            "question": "The budget was _______ to three different teams. (được phân bổ)",
+            "answer": "allocated",
+            "explanation": "Câu bị động quá khứ: was + past participle."
+        },
+        {
+            "id": 31,
+            "type": "fill_in_blank",
+            "question": "Our teams _______ with the marketing department on this campaign. (cộng tác)",
+            "answer": "collaborate",
+            "explanation": "Chủ ngữ số nhiều 'teams' đi với động từ nguyên mẫu."
+        },
+        {
+            "id": 32,
+            "type": "fill_in_blank",
+            "question": "We didn't _______ that so many users would register at once. (dự liệu)",
+            "answer": "anticipate",
+            "explanation": "Sau 'didn't' dùng động từ nguyên mẫu."
+        },
+        {
+            "id": 33,
+            "type": "fill_in_blank",
+            "question": "High staff turnover is a serious _______ to long-term planning. (trở ngại)",
+            "answer": "obstacle",
+            "explanation": "'A serious obstacle to' là một trở ngại lớn đối với."
+        },
+        {
+            "id": 34,
+            "type": "fill_in_blank",
+            "question": "The interface must _______ to different screen sizes. (thích nghi)",
+            "answer": "adapt",
+            "explanation": "Sau 'must' dùng động từ nguyên mẫu."
+        },
+        {
+            "id": 35,
+            "type": "fill_in_blank",
+            "question": "Please include _______ dates and figures in the summary. (cụ thể)",
+            "answer": "specific",
+            "explanation": "Cần tính từ bổ nghĩa cho 'dates and figures'."
+        },
+        {
+            "id": 36,
+            "type": "fill_in_blank",
+            "question": "The customer reported an _______ with the checkout page. (vấn đề)",
+            "answer": "issue",
+            "explanation": "'An issue with something' là vấn đề với điều gì."
+        },
+        {
+            "id": 37,
+            "type": "fill_in_blank",
+            "question": "Neither side wanted to _______ on data security. (thỏa hiệp)",
+            "answer": "compromise",
+            "explanation": "Sau 'to' dùng động từ nguyên mẫu."
+        },
+        {
+            "id": 38,
+            "type": "fill_in_blank",
+            "question": "We need to _______ regular contact with the supplier. (duy trì)",
+            "answer": "maintain",
+            "explanation": "'Maintain contact' là duy trì liên lạc."
+        },
+        {
+            "id": 39,
+            "type": "fill_in_blank",
+            "question": "Her suggestions _______ to improving the onboarding process. (đóng góp)",
+            "answer": "contribute",
+            "explanation": "Chủ ngữ số nhiều 'suggestions' dùng 'contribute'."
+        },
+        {
+            "id": 40,
+            "type": "fill_in_blank",
+            "question": "The final _______ depends on how users respond to the change. (kết quả)",
+            "answer": "outcome",
+            "explanation": "'Final outcome' là kết quả cuối cùng."
+        },
+        {
+            "id": 41,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Bạn có thể làm rõ yêu cầu này không?",
+            "answer": "Could you clarify this requirement?",
+            "explanation": "Dùng 'clarify' để yêu cầu người khác giải thích rõ hơn."
+        },
+        {
+            "id": 42,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Chúng ta cần ưu tiên những nhiệm vụ quan trọng.",
+            "answer": "We need to prioritize the important tasks.",
+            "explanation": "'Prioritize' đi trực tiếp với đối tượng được ưu tiên."
+        },
+        {
+            "id": 43,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Hạn chót là vào cuối tuần này.",
+            "answer": "The deadline is at the end of this week.",
+            "explanation": "'Deadline' chỉ thời hạn cuối cùng."
+        },
+        {
+            "id": 44,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Đây là một cách làm hiệu quả hơn.",
+            "answer": "This is a more efficient way of working.",
+            "explanation": "'Efficient' là tính từ bổ nghĩa cho 'way'."
+        },
+        {
+            "id": 45,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Tôi muốn nhận phản hồi của bạn về báo cáo.",
+            "answer": "I'd like to receive your feedback on the report.",
+            "explanation": "Dùng 'feedback on something' để nói phản hồi về nội dung."
+        },
+        {
+            "id": 46,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Chúng tôi cần một nhà cung cấp đáng tin cậy.",
+            "answer": "We need a reliable supplier.",
+            "explanation": "'Reliable' bổ nghĩa cho danh từ 'supplier'."
+        },
+        {
+            "id": 47,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Nhóm đã giải quyết vấn đề nhanh chóng.",
+            "answer": "The team resolved the issue quickly.",
+            "explanation": "Dùng quá khứ 'resolved' cho hành động đã hoàn tất."
+        },
+        {
+            "id": 48,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Cách tiếp cận của cô ấy rất thực tế.",
+            "answer": "Her approach is very practical.",
+            "explanation": "'Approach' là danh từ chỉ phương pháp."
+        },
+        {
+            "id": 49,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Tôi không thể ước tính chính xác chi phí.",
+            "answer": "I can't estimate the cost accurately.",
+            "explanation": "Sau 'can't' dùng động từ nguyên mẫu 'estimate'."
+        },
+        {
+            "id": 50,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Họ phân bổ thêm thời gian cho việc kiểm thử.",
+            "answer": "They allocated more time for testing.",
+            "explanation": "Dùng quá khứ 'allocated' cho hành động đã xảy ra."
+        },
+        {
+            "id": 51,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Chúng tôi cộng tác với một nhóm ở Singapore.",
+            "answer": "We collaborate with a team in Singapore.",
+            "explanation": "'Collaborate with' dùng khi nêu đối tác cộng tác."
+        },
+        {
+            "id": 52,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Chúng tôi dự liệu một vài thay đổi trong kế hoạch.",
+            "answer": "We anticipate a few changes to the plan.",
+            "explanation": "'Anticipate' diễn tả việc dự liệu trước."
+        },
+        {
+            "id": 53,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Thiếu kinh nghiệm là một trở ngại lớn.",
+            "answer": "Lack of experience is a major obstacle.",
+            "explanation": "'Obstacle' là danh từ chỉ trở ngại."
+        },
+        {
+            "id": 54,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Bạn cần thích nghi với môi trường mới.",
+            "answer": "You need to adapt to the new environment.",
+            "explanation": "Cấu trúc 'adapt to' là thích nghi với."
+        },
+        {
+            "id": 55,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Vui lòng cung cấp thông tin cụ thể.",
+            "answer": "Please provide specific information.",
+            "explanation": "'Specific' bổ nghĩa cho 'information'."
+        },
+        {
+            "id": 56,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Tôi đã báo cáo vấn đề này hôm qua.",
+            "answer": "I reported this issue yesterday.",
+            "explanation": "Dùng 'reported' vì có mốc thời gian quá khứ 'yesterday'."
+        },
+        {
+            "id": 57,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Hai bên đã đạt được thỏa hiệp.",
+            "answer": "Both sides reached a compromise.",
+            "explanation": "Cụm cố định 'reach a compromise'."
+        },
+        {
+            "id": 58,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Chúng ta phải duy trì chất lượng sản phẩm.",
+            "answer": "We must maintain product quality.",
+            "explanation": "Sau 'must' dùng động từ nguyên mẫu."
+        },
+        {
+            "id": 59,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Mọi người đều có thể đóng góp cho dự án.",
+            "answer": "Everyone can contribute to the project.",
+            "explanation": "Dùng 'contribute to' để diễn tả đóng góp vào."
+        },
+        {
+            "id": 60,
+            "type": "translation",
+            "question": "Dịch sang tiếng Anh: Kết quả cuối cùng tốt hơn mong đợi.",
+            "answer": "The final outcome was better than expected.",
+            "explanation": "'Outcome' là kết quả cuối cùng."
+        },
+        {
+            "id": 61,
+            "type": "sentence_correction",
+            "question": "Sửa lỗi: Could you clarify me the instructions?",
+            "answer": "Could you clarify the instructions for me?",
+            "explanation": "'Clarify' nhận đối tượng là nội dung cần làm rõ; có thể thêm 'for me' để chỉ người nghe."
+        },
+        {
+            "id": 62,
+            "type": "sentence_correction",
+            "question": "Sửa lỗi: We need prioritize on these tasks.",
+            "answer": "We need to prioritize these tasks.",
+            "explanation": "'Prioritize' đi trực tiếp với tân ngữ, không cần 'on'."
+        },
+        {
+            "id": 63,
+            "type": "sentence_correction",
+            "question": "Sửa lỗi: She gave me a useful feedback.",
+            "answer": "She gave me useful feedback.",
+            "explanation": "'Feedback' thường không đếm được, không dùng 'a' trong cách dùng này."
+        },
+        {
+            "id": 64,
+            "type": "sentence_correction",
+            "question": "Sửa lỗi: They adapted with the new system quickly.",
+            "answer": "They adapted to the new system quickly.",
+            "explanation": "Cấu trúc đúng là 'adapt to'."
+        },
+        {
+            "id": 65,
+            "type": "sentence_correction",
+            "question": "Sửa lỗi: The result was a positive output of the meeting.",
+            "answer": "The outcome of the meeting was positive.",
+            "explanation": "'Outcome' phù hợp để chỉ kết quả cuối cùng của cuộc họp."
+        },
+        {
+            "id": 66,
+            "type": "multiple_choice",
+            "question": "Choose the correct phrase: We need to _______ a deadline.",
+            "options": [
+                "meet",
+                "do",
+                "make",
+                "take"
+            ],
+            "answer": "meet",
+            "explanation": "'Meet a deadline' nghĩa là hoàn thành đúng hạn."
+        },
+        {
+            "id": 67,
+            "type": "multiple_choice",
+            "question": "Choose the correct phrase: The team will _______ an issue with the login page.",
+            "options": [
+                "resolve",
+                "allocate",
+                "contribute",
+                "anticipate"
+            ],
+            "answer": "resolve",
+            "explanation": "'Resolve an issue' là giải quyết một vấn đề."
+        },
+        {
+            "id": 68,
+            "type": "multiple_choice",
+            "question": "Choose the correct phrase: Please give _______ feedback.",
+            "options": [
+                "constructive",
+                "deadline",
+                "obstacle",
+                "outcome"
+            ],
+            "answer": "constructive",
+            "explanation": "'Constructive feedback' là phản hồi mang tính xây dựng."
+        },
+        {
+            "id": 69,
+            "type": "multiple_choice",
+            "question": "Choose the correct phrase: We should _______ resources to the highest-risk tasks.",
+            "options": [
+                "allocate",
+                "adapt",
+                "clarify",
+                "maintain"
+            ],
+            "answer": "allocate",
+            "explanation": "'Allocate resources to' là phân bổ nguồn lực cho."
+        },
+        {
+            "id": 70,
+            "type": "multiple_choice",
+            "question": "Choose the correct phrase: They reached a _______ after negotiating.",
+            "options": [
+                "compromise",
+                "specific",
+                "reliable",
+                "efficient"
+            ],
+            "answer": "compromise",
+            "explanation": "'Reach a compromise' là đạt được thỏa hiệp."
+        }
+    ]
+}

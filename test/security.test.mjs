@@ -238,6 +238,52 @@ async function runTests() {
     assert(rateLimited, 'F-04: Login rate limiter returns 429 after repeated failed attempts');
   }
 
+  // TEST 10: Deduplication of Vocabulary Words
+  {
+    const existingLessons = [
+      {
+        date: '2026-10-27',
+        vocabulary: [{ word: 'wake up' }, { word: 'oversleep' }, { word: 'unwind' }],
+      },
+    ];
+
+    // Simulate existing words check
+    const existingMap = new Map();
+    for (const l of existingLessons) {
+      for (const item of l.vocabulary) {
+        existingMap.set(item.word.trim().toLowerCase(), l.date);
+      }
+    }
+
+    const newVocabInput = [
+      { word: 'clarify' },
+      { word: 'Wake Up ' }, // case and space variation of existing word
+      { word: 'prioritize' },
+      { word: 'clarify' }, // duplicate inside same input
+    ];
+
+    const unique = [];
+    const skipped = [];
+    const seen = new Set();
+
+    for (const item of newVocabInput) {
+      const key = item.word.trim().toLowerCase();
+      if (existingMap.has(key)) {
+        skipped.push({ word: item.word, existingDate: existingMap.get(key) });
+      } else if (seen.has(key)) {
+        skipped.push({ word: item.word, reason: 'duplicate_in_input' });
+      } else {
+        seen.add(key);
+        unique.push(item);
+      }
+    }
+
+    assert(unique.length === 2, 'Deduplication preserves only new words (clarify, prioritize)');
+    assert(unique[0].word === 'clarify' && unique[1].word === 'prioritize', 'Filtered words match expected');
+    assert(skipped.length === 2, 'Deduplication correctly skips existing database word and duplicate in input');
+    assert(skipped[0].word.trim().toLowerCase() === 'wake up', 'Existing word Wake Up was caught');
+  }
+
   console.log(`\n========================================`);
   console.log(`Test Results: ${passed} PASSED, ${failed} FAILED`);
   console.log(`========================================\n`);

@@ -367,6 +367,76 @@ export function validateAndParseExercisesJson(jsonString: string): {
   return { exercises, date, topic };
 }
 
+export interface DuplicateWordInfo {
+  word: string;
+  existingDate?: string;
+  reason?: 'already_in_database' | 'duplicate_in_input';
+}
+
+/**
+ * Thu thập tất cả các từ vựng đã tồn tại từ danh sách các bài học trong database
+ * Key là từ viết thường, trimmed: "wake up" -> { word: "wake up", date: "2026-10-27" }
+ */
+export function extractDatabaseWordsMap(
+  lessons: DailyLesson[],
+  excludeDate?: string
+): Map<string, { word: string; date: string }> {
+  const map = new Map<string, { word: string; date: string }>();
+  for (const lesson of lessons) {
+    if (excludeDate && lesson.date === excludeDate) continue;
+    if (Array.isArray(lesson.vocabulary)) {
+      for (const item of lesson.vocabulary) {
+        if (item && typeof item.word === 'string' && item.word.trim()) {
+          const key = item.word.trim().toLowerCase();
+          if (!map.has(key)) {
+            map.set(key, { word: item.word.trim(), date: lesson.date });
+          }
+        }
+      }
+    }
+  }
+  return map;
+}
+
+/**
+ * Lọc bỏ các từ vựng đã tồn tại trong database hoặc bị lặp lại trong chính danh sách import
+ */
+export function filterDuplicateVocabulary(
+  vocabulary: VocabularyItem[],
+  existingWordsMap: Map<string, { word: string; date: string }>
+): {
+  uniqueVocab: VocabularyItem[];
+  duplicateWords: DuplicateWordInfo[];
+} {
+  const uniqueVocab: VocabularyItem[] = [];
+  const duplicateWords: DuplicateWordInfo[] = [];
+  const seenInBatch = new Set<string>();
+
+  for (const item of vocabulary) {
+    if (!item || typeof item.word !== 'string' || !item.word.trim()) continue;
+    const key = item.word.trim().toLowerCase();
+
+    if (existingWordsMap.has(key)) {
+      const existing = existingWordsMap.get(key);
+      duplicateWords.push({
+        word: item.word.trim(),
+        existingDate: existing?.date,
+        reason: 'already_in_database',
+      });
+    } else if (seenInBatch.has(key)) {
+      duplicateWords.push({
+        word: item.word.trim(),
+        reason: 'duplicate_in_input',
+      });
+    } else {
+      seenInBatch.add(key);
+      uniqueVocab.push(item);
+    }
+  }
+
+  return { uniqueVocab, duplicateWords };
+}
+
 /**
  * Validates and imports combined JSON string.
  */
@@ -382,17 +452,37 @@ export function validateAndParseLessonJson(jsonString: string): DailyLesson {
     throw new Error('Dữ liệu JSON phải là một đối tượng (Object) hợp lệ.');
   }
 
-  const date = typeof parsed.date === 'string' && parsed.date.trim() ? parsed.date.trim() : new Date().toISOString().split('T')[0];
-  const topic = typeof parsed.topic === 'string' && parsed.topic.trim() ? parsed.topic.trim() : 'Daily English Lesson';
+  const date = typeof parsed.date === 'string' && parsed.date.trim()
+    ? parsed.date.trim()
+    : new Date().toISOString().split('T')[0];
+  const topic = typeof parsed.topic === 'string' && parsed.topic.trim()
+    ? parsed.topic.trim()
+    : 'Daily English Lesson';
 
-  const vocabResult = Array.isArray(parsed.vocabulary) ? validateAndParseVocabularyJson(JSON.stringify(parsed.vocabulary)) : { vocabulary: [] };
-  const exResult = Array.isArray(parsed.exercises) ? validateAndParseExercisesJson(JSON.stringify(parsed.exercises)) : { exercises: [] };
+  let vocabulary: VocabularyItem[] = [];
+  if (Array.isArray(parsed.vocabulary) || Array.isArray(parsed.words)) {
+    const rawVocab = parsed.vocabulary || parsed.words;
+    const vResult = validateAndParseVocabularyJson(JSON.stringify(rawVocab));
+    vocabulary = vResult.vocabulary;
+  }
+
+  let exercises: ExerciseItem[] = [];
+  if (Array.isArray(parsed.exercises) || Array.isArray(parsed.questions)) {
+    const rawExercises = parsed.exercises || parsed.questions;
+    const eResult = validateAndParseExercisesJson(
+      JSON.stringify({
+        exercises: rawExercises,
+        wordBank: parsed.wordBank || parsed.word_bank || parsed.word_bank_2A,
+      })
+    );
+    exercises = eResult.exercises;
+  }
 
   return {
     date,
     topic,
-    vocabulary: vocabResult.vocabulary,
-    exercises: exResult.exercises,
+    vocabulary,
+    exercises,
     progress: {
       wordsMastered: [],
       exerciseResults: {},

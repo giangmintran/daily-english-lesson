@@ -116,6 +116,7 @@ router.get('/:date', requireSupabase, async (req, res) => {
 /**
  * POST /api/lessons
  * Create or update a lesson (Upsert) with strict schema validation
+ * Automatically filters out vocabulary words that already exist in other lessons in the database
  */
 router.post('/', requireSupabase, async (req, res) => {
   const rawLesson = req.body.lesson || req.body;
@@ -128,13 +129,66 @@ router.post('/', requireSupabase, async (req, res) => {
     });
   }
 
-  const payload = {
-    ...validation.lesson,
-    updated_at: new Date().toISOString(),
-  };
-
   try {
     const supabase = getSupabase();
+
+    // Query other lessons to check for words that already exist in the database
+    const { data: otherLessons, error: queryError } = await supabase
+      .from('daily_lessons')
+      .select('date, vocabulary')
+      .neq('date', validation.lesson.date);
+
+    if (queryError) {
+      console.warn('[Lessons API] Could not check existing words from daily_lessons:', queryError);
+    }
+
+    const existingWordMap = new Map();
+    if (Array.isArray(otherLessons)) {
+      for (const row of otherLessons) {
+        if (Array.isArray(row.vocabulary)) {
+          for (const item of row.vocabulary) {
+            if (item && item.word) {
+              const key = item.word.trim().toLowerCase();
+              if (!existingWordMap.has(key)) {
+                existingWordMap.set(key, row.date);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Filter out words that already exist in the database and deduplicate within payload
+    const skippedWords = [];
+    const seenInPayload = new Set();
+    const filteredVocab = [];
+
+    for (const item of validation.lesson.vocabulary) {
+      const key = item.word.trim().toLowerCase();
+      if (existingWordMap.has(key)) {
+        skippedWords.push({
+          word: item.word,
+          existingDate: existingWordMap.get(key),
+          reason: 'already_in_database',
+        });
+      } else if (seenInPayload.has(key)) {
+        skippedWords.push({
+          word: item.word,
+          reason: 'duplicate_in_payload',
+        });
+      } else {
+        seenInPayload.add(key);
+        filteredVocab.push(item);
+      }
+    }
+
+    validation.lesson.vocabulary = filteredVocab;
+
+    const payload = {
+      ...validation.lesson,
+      updated_at: new Date().toISOString(),
+    };
+
     const { error } = await supabase
       .from('daily_lessons')
       .upsert(payload, { onConflict: 'date' });
@@ -147,7 +201,12 @@ router.post('/', requireSupabase, async (req, res) => {
       });
     }
 
-    return res.json({ success: true, data: payload });
+    return res.json({
+      success: true,
+      data: payload,
+      skippedWords,
+      importedWordsCount: filteredVocab.length,
+    });
   } catch (err) {
     console.error('[Lessons API] POST / exception:', err);
     return res.status(500).json({
@@ -160,6 +219,7 @@ router.post('/', requireSupabase, async (req, res) => {
 /**
  * POST /api/lessons/batch
  * Bulk upsert lessons with count limits and schema validation
+ * Automatically filters duplicate vocabulary words against the database
  */
 router.post('/batch', requireSupabase, async (req, res) => {
   const rawList = Array.isArray(req.body) ? req.body : req.body.lessons;
@@ -172,14 +232,50 @@ router.post('/batch', requireSupabase, async (req, res) => {
     });
   }
 
-  const now = new Date().toISOString();
-  const payloads = validation.lessons.map((lesson) => ({
-    ...lesson,
-    updated_at: now,
-  }));
-
   try {
     const supabase = getSupabase();
+    const batchDates = validation.lessons.map((l) => l.date);
+
+    // Query existing lessons not in current batch
+    const { data: dbLessons } = await supabase
+      .from('daily_lessons')
+      .select('date, vocabulary');
+
+    const existingWordMap = new Map();
+    if (Array.isArray(dbLessons)) {
+      for (const row of dbLessons) {
+        if (!batchDates.includes(row.date) && Array.isArray(row.vocabulary)) {
+          for (const item of row.vocabulary) {
+            if (item && item.word) {
+              const key = item.word.trim().toLowerCase();
+              if (!existingWordMap.has(key)) {
+                existingWordMap.set(key, row.date);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const now = new Date().toISOString();
+    const payloads = validation.lessons.map((lesson) => {
+      const filteredVocab = [];
+      const seen = new Set();
+      for (const item of lesson.vocabulary) {
+        const key = item.word.trim().toLowerCase();
+        if (!existingWordMap.has(key) && !seen.has(key)) {
+          seen.add(key);
+          existingWordMap.set(key, lesson.date);
+          filteredVocab.push(item);
+        }
+      }
+      return {
+        ...lesson,
+        vocabulary: filteredVocab,
+        updated_at: now,
+      };
+    });
+
     const { error } = await supabase
       .from('daily_lessons')
       .upsert(payloads, { onConflict: 'date' });
