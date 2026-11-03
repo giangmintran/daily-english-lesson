@@ -2,12 +2,14 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { DailyLesson, ExerciseItem } from '../types/lesson';
 import { CheckCircle2, XCircle, ChevronLeft, ChevronRight, RotateCcw, Award, Lightbulb, ListFilter, LayoutList, Layers, BookOpen, GripVertical, ArrowLeftRight } from 'lucide-react';
 import { saveLesson, normalizeExerciseResults } from '../services/storage';
+import { updateProgressToApi } from '../services/api';
 import { triggerFireworks } from '../utils/confetti';
 
 interface ExerciseViewProps {
   lesson: DailyLesson;
   onUpdateLesson: (updated: DailyLesson) => void;
   onOpenHandbook?: () => void;
+  allLessons?: DailyLesson[];
 }
 
 interface TranslationWordToken {
@@ -54,8 +56,13 @@ function getShuffledTranslationTokens(
   return shuffled;
 }
 
-export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLesson, onOpenHandbook }) => {
-  const [activeSession, setActiveSession] = useState<'all' | 's1' | 's2' | 's3' | 'wrong'>('s1');
+export const ExerciseView: React.FC<ExerciseViewProps> = ({
+  lesson,
+  onUpdateLesson,
+  onOpenHandbook,
+  allLessons = [],
+}) => {
+  const [activeSession, setActiveSession] = useState<'all' | 's1' | 's2' | 's3' | 'wrong' | 'vault'>('s1');
   const [currentIdx, setCurrentIdx] = useState(0);
   const [fillInput, setFillInput] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
@@ -86,6 +93,25 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     [lesson.progress?.exerciseResults]
   );
 
+  // Tổng hợp kho câu hỏi sai tích lũy từ toàn bộ bài học (Mistake Vault)
+  const vaultExercises = useMemo(() => {
+    const pool: (ExerciseItem & { lessonDate?: string })[] = [];
+    const sourceLessons = allLessons && allLessons.length > 0 ? allLessons : [lesson];
+    for (const l of sourceLessons) {
+      const res = normalizeExerciseResults(l.progress?.exerciseResults);
+      for (const ex of l.exercises || []) {
+        const itemRes = res[ex.id];
+        if (itemRes && !itemRes.isCorrect) {
+          pool.push({
+            ...ex,
+            lessonDate: l.date,
+          });
+        }
+      }
+    }
+    return pool;
+  }, [allLessons, lesson]);
+
   // Filter exercises based on selected session chunk
   const filteredExercises = useMemo(() => {
     const all = lesson.exercises;
@@ -98,8 +124,11 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         return res && !res.isCorrect;
       });
     }
+    if (activeSession === 'vault') {
+      return vaultExercises;
+    }
     return all;
-  }, [lesson.exercises, activeSession, exerciseResults]);
+  }, [lesson.exercises, activeSession, exerciseResults, vaultExercises]);
 
   // Keep currentIdx within valid range if filtered list size changes (e.g. fixing a wrong question)
   useEffect(() => {
@@ -251,8 +280,33 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         progress: updatedProgress,
       };
 
-      saveLesson(updated);
-      onUpdateLesson(updated);
+      const exLessonDate = (currentExercise as any).lessonDate;
+      if (exLessonDate && exLessonDate !== lesson.date) {
+        const targetLesson = (allLessons || []).find((l) => l.date === exLessonDate);
+        if (targetLesson) {
+          const targetProgress = targetLesson.progress || { wordsMastered: [], exerciseResults: {} };
+          const updatedTarget: DailyLesson = {
+            ...targetLesson,
+            progress: {
+              ...targetProgress,
+              exerciseResults: {
+                ...(targetProgress.exerciseResults || {}),
+                [currentExercise.id]: {
+                  userAnswer: userAnswerText.trim(),
+                  isCorrect,
+                },
+              },
+            },
+          };
+          saveLesson(updatedTarget);
+          updateProgressToApi(exLessonDate, updatedTarget.progress).catch((e) =>
+            console.warn('Backend progress update failed for vault exercise', e)
+          );
+        }
+      } else {
+        saveLesson(updated);
+        onUpdateLesson(updated);
+      }
 
       setIsAnswered(true);
       setSelectedSwapTokenId(null);
@@ -528,7 +582,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
     };
   }, [lesson.exercises, exerciseResults]);
 
-  const getSessionLabel = (sessionKey: 's1' | 's2' | 's3' | 'all' | 'wrong') => {
+  const getSessionLabel = (sessionKey: 's1' | 's2' | 's3' | 'all' | 'wrong' | 'vault') => {
     switch (sessionKey) {
       case 's1':
         return 'Phiên 1 (1 - 20)';
@@ -539,7 +593,9 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
       case 'all':
         return `Tất cả (${lesson.exercises.length} câu)`;
       case 'wrong':
-        return `Làm lại (${wrongCount} câu sai)`;
+        return `Làm lại (${wrongCount} câu sai hôm nay)`;
+      case 'vault':
+        return `Kho lỗi sai lịch sử (${vaultExercises.length} câu)`;
     }
   };
 
@@ -671,7 +727,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
               <span>Tất cả ({lesson.exercises.length})</span>
             </button>
 
-            {/* Nút Làm lại câu sai */}
+            {/* Nút Làm lại câu sai hôm nay */}
             {wrongCount > 0 && (
               <button
                 onClick={() => {
@@ -685,7 +741,26 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
                 }`}
               >
                 <XCircle size={13} />
-                <span>Làm lại câu sai ({wrongCount})</span>
+                <span>Câu sai hôm nay ({wrongCount})</span>
+              </button>
+            )}
+
+            {/* Nút Kho lỗi sai lịch sử (Mistake Vault) */}
+            {vaultExercises.length > 0 && (
+              <button
+                onClick={() => {
+                  setActiveSession('vault');
+                  setCurrentIdx(0);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  activeSession === 'vault'
+                    ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-xs'
+                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 hover:bg-rose-500/20'
+                }`}
+                title="Luyện lại toàn bộ câu hỏi từng làm sai trong quá khứ"
+              >
+                <RotateCcw size={13} />
+                <span>Kho lỗi sai lịch sử ({vaultExercises.length})</span>
               </button>
             )}
           </div>
@@ -720,10 +795,18 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({ lesson, onUpdateLess
         <div className="text-center py-16 border border-dashed rounded-3xl border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6">
           <Award size={36} className="mx-auto text-emerald-500 mb-3" />
           <h4 className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
-            {activeSession === 'wrong' ? 'Tuyệt vời! Không có câu sai nào.' : 'Không có câu hỏi trong phiên này.'}
+            {activeSession === 'wrong'
+              ? 'Tuyệt vời! Không có câu sai nào trong bài hôm nay.'
+              : activeSession === 'vault'
+              ? 'Xuất sắc! Kho lỗi sai lịch sử đang trống trơn.'
+              : 'Không có câu hỏi trong phiên này.'}
           </h4>
           <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
-            {activeSession === 'wrong' ? 'Bạn đã làm chính xác toàn bộ bài tập.' : 'Hãy chọn phiên khác để tiếp tục.'}
+            {activeSession === 'wrong'
+              ? 'Bạn đã làm chính xác toàn bộ bài tập hôm nay.'
+              : activeSession === 'vault'
+              ? 'Tất cả các câu hỏi từng làm sai trước đây đều đã được phục thù thành công!'
+              : 'Hãy chọn phiên khác để tiếp tục.'}
           </p>
           <button
             onClick={() => setActiveSession('s1')}

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { DailyLesson } from '../types/lesson';
+import React, { useState, useMemo, useEffect } from 'react';
+import { DailyLesson, VocabularyItem } from '../types/lesson';
 import {
   Volume2,
   ArrowRight,
@@ -10,23 +10,70 @@ import {
   Eye,
   EyeOff,
   CheckCircle2,
+  Bookmark,
+  Flame,
 } from 'lucide-react';
+import { SrsWordRecord } from '../utils/srs';
 import { speakWord } from '../utils/speech';
 import { normalizeExerciseResults } from '../services/storage';
+import {
+  isWordSaved,
+  saveWord,
+  deleteSavedWord,
+  getSavedWordByWord,
+  subscribeSavedWords,
+} from '../services/savedWordStorage';
 
 interface DailyOverviewProps {
   lesson: DailyLesson;
   onNavigateTab: (tab: 'vocabulary' | 'exercises', subMode?: 'flashcards' | 'quiz') => void;
   onSelectExerciseSession?: (sessionIndex: number) => void;
+  dueSrsWords?: SrsWordRecord[];
+  onOpenSrsReview?: () => void;
 }
 
 export const DailyOverview: React.FC<DailyOverviewProps> = ({
   lesson,
   onNavigateTab,
+  dueSrsWords = [],
+  onOpenSrsReview,
 }) => {
   const [revealedMeanings, setRevealedMeanings] = useState<Record<string, boolean>>({});
   const [showAllMeanings, setShowAllMeanings] = useState(false);
   const [playingWordId, setPlayingWordId] = useState<string | null>(null);
+  const [, setSavedVersion] = useState(0);
+
+  useEffect(() => {
+    const unsub = subscribeSavedWords(() => {
+      setSavedVersion((v) => v + 1);
+    });
+    return () => unsub();
+  }, []);
+
+  const toggleSaveOverviewWord = (v: VocabularyItem) => {
+    const existing = getSavedWordByWord(v.word);
+    if (existing) {
+      deleteSavedWord(existing.id);
+    } else {
+      let exampleSentence = '';
+      if (v.examples && v.examples.length > 0) {
+        const first = v.examples[0];
+        exampleSentence = typeof first === 'string' ? first : first.en;
+      } else if (v.example) {
+        exampleSentence = v.example;
+      }
+
+      saveWord({
+        word: v.word,
+        meaning: v.meaning,
+        phonetic: v.phonetic,
+        partOfSpeech: v.partOfSpeech,
+        contextSentence: exampleSentence || v.usage,
+        sourceDate: lesson.date,
+        sourceType: 'lesson_vocab',
+      });
+    }
+  };
 
   const masteredWordIds = lesson.progress?.wordsMastered || [];
   const rawExerciseResults = lesson.progress?.exerciseResults || {};
@@ -74,6 +121,32 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
         {/* Minimal geometric background subtle accent */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-zinc-100 to-transparent dark:from-zinc-800/20 dark:to-transparent pointer-events-none" />
       </div>
+
+      {/* Spaced Repetition (SRS) Review Callout Banner */}
+      {dueSrsWords.length > 0 && onOpenSrsReview && (
+        <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 shadow-xs animate-fade-in">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <Flame size={20} />
+            </div>
+            <div>
+              <h3 className="text-xs sm:text-sm font-bold text-amber-950 dark:text-amber-100">
+                Hôm nay bạn có {dueSrsWords.length} từ đến hạn ôn tập (Spaced Repetition)
+              </h3>
+              <p className="text-[11px] text-amber-800/80 dark:text-amber-300/80 leading-relaxed">
+                Các từ từ những ngày trước cần được nhắc lại đúng chu kỳ để củng cố vào trí nhớ dài hạn.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenSrsReview}
+            className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-xs transition-all cursor-pointer shrink-0 text-center flex items-center justify-center gap-1.5"
+          >
+            <span>Ôn tập ngay ({dueSrsWords.length} từ)</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
 
       {/* Main Dual Modules: Vocabulary & Exercises */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -263,6 +336,23 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                     >
                       <Volume2 size={16} className={playingWordId === v.id ? 'animate-pulse text-blue-600' : ''} />
                     </button>
+
+                    {/* Bookmark to Wordbook button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSaveOverviewWord(v);
+                      }}
+                      className={`p-1.5 sm:p-2 rounded-lg transition-all cursor-pointer ${
+                        isWordSaved(v.word)
+                          ? 'text-amber-500 bg-amber-50 dark:bg-amber-950/40 ring-1 ring-amber-400'
+                          : 'text-zinc-400 hover:text-amber-500 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                      }`}
+                      title={isWordSaved(v.word) ? 'Đã lưu trong Sổ tay (Bấm để hủy lưu)' : 'Lưu vào Sổ tay từ vựng'}
+                      aria-label="Lưu vào Sổ tay từ vựng"
+                    >
+                      <Bookmark size={15} className={isWordSaved(v.word) ? 'fill-current' : ''} />
+                    </button>
                   </div>
                 </div>
 
@@ -279,9 +369,46 @@ export const DailyOverview: React.FC<DailyOverviewProps> = ({
                   className="mt-1 pl-7 cursor-pointer text-xs sm:text-sm"
                 >
                   {isRevealed ? (
-                    <span className="text-zinc-700 dark:text-zinc-300 font-medium">
-                      {v.meaning}
-                    </span>
+                    <div>
+                      <span className="text-zinc-700 dark:text-zinc-300 font-medium">
+                        {v.meaning}
+                      </span>
+                      {/* Optional example sentence when revealed */}
+                      {(() => {
+                        let exEn = '';
+                        let exVi = '';
+                        if (v.examples && v.examples.length > 0) {
+                          const first = v.examples[0];
+                          if (typeof first === 'string') exEn = first;
+                          else if (first && first.en) {
+                            exEn = first.en;
+                            exVi = first.vi || '';
+                          }
+                        } else if (v.example) {
+                          exEn = v.example;
+                          exVi = v.exampleMeaning || '';
+                        }
+                        if (!exEn) return null;
+                        return (
+                          <div className="mt-1 flex items-start gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 italic bg-zinc-50/70 dark:bg-zinc-800/30 p-2 rounded-lg border border-zinc-100 dark:border-zinc-800/50">
+                            <span className="flex-1">
+                              "{exEn}"
+                              {exVi && <span className="block text-[11px] text-zinc-400 not-italic">→ {exVi}</span>}
+                            </span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                speakWord(exEn);
+                              }}
+                              className="p-1 rounded text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0"
+                              title="Nghe câu ví dụ"
+                            >
+                              <Volume2 size={13} />
+                            </button>
+                          </div>
+                        );
+                      })()}
+                    </div>
                   ) : (
                     <span className="text-zinc-400 italic hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
                       [Chạm để xem nghĩa]

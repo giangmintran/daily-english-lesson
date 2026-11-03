@@ -11,9 +11,17 @@ import {
   Layers,
   RefreshCw,
   CheckCircle2,
+  Bookmark,
 } from 'lucide-react';
 import { speakWord } from '../utils/speech';
 import { updateLessonProgress } from '../services/storage';
+import {
+  isWordSaved,
+  saveWord,
+  deleteSavedWord,
+  getSavedWordByWord,
+  subscribeSavedWords,
+} from '../services/savedWordStorage';
 import { VocabQuiz } from './VocabQuiz';
 
 interface VocabularyViewProps {
@@ -49,6 +57,48 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({
   const masteredIds = new Set(lesson.progress?.wordsMastered || []);
   const isCurrentMastered = currentWord ? masteredIds.has(currentWord.id) : false;
 
+  const [isCurrentSaved, setIsCurrentSaved] = useState<boolean>(() => {
+    return currentWord ? isWordSaved(currentWord.word) : false;
+  });
+
+  useEffect(() => {
+    if (currentWord) {
+      setIsCurrentSaved(isWordSaved(currentWord.word));
+    }
+    const unsub = subscribeSavedWords(() => {
+      if (currentWord) {
+        setIsCurrentSaved(isWordSaved(currentWord.word));
+      }
+    });
+    return () => unsub();
+  }, [currentWord]);
+
+  const handleToggleSaveToWordbook = () => {
+    if (!currentWord) return;
+    const existing = getSavedWordByWord(currentWord.word);
+    if (existing) {
+      deleteSavedWord(existing.id);
+    } else {
+      let exampleSentence = '';
+      if (currentWord.examples && currentWord.examples.length > 0) {
+        const first = currentWord.examples[0];
+        exampleSentence = typeof first === 'string' ? first : first.en;
+      } else if (currentWord.example) {
+        exampleSentence = currentWord.example;
+      }
+
+      saveWord({
+        word: currentWord.word,
+        meaning: currentWord.meaning,
+        phonetic: currentWord.phonetic,
+        partOfSpeech: currentWord.partOfSpeech,
+        contextSentence: exampleSentence || currentWord.usage,
+        sourceDate: lesson.date,
+        sourceType: 'lesson_vocab',
+      });
+    }
+  };
+
   const totalWords = words.length;
 
   const handlePlayAudio = useCallback(() => {
@@ -73,6 +123,10 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({
   }, [totalWords]);
 
   const handleFlip = useCallback(() => {
+    const sel = window.getSelection();
+    if (sel && sel.toString().trim().length > 0) {
+      return; // Do not flip card if user was selecting text
+    }
     setIsFlipped((prev) => !prev);
   }, []);
 
@@ -204,28 +258,28 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({
     <div className="w-full">
       {/* Top Mode Selector: Flashcards vs Quiz */}
       <div className="flex items-center justify-center pt-2 sm:pt-4 mb-2">
-        <div className="inline-flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/80 shadow-xs">
+        <div className="inline-flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/80 shadow-xs whitespace-nowrap">
           <button
             onClick={() => setViewMode('flashcards')}
-            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 ${
               viewMode === 'flashcards'
                 ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                 : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
             }`}
           >
-            <BookOpen size={15} />
-            <span>Thẻ ghi nhớ</span>
+            <BookOpen size={15} className="shrink-0" />
+            <span className="whitespace-nowrap">Thẻ ghi nhớ</span>
           </button>
           <button
             onClick={() => setViewMode('quiz')}
-            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer whitespace-nowrap shrink-0 ${
               viewMode === 'quiz'
                 ? 'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                 : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200'
             }`}
           >
-            <CheckCircle2 size={15} className="text-emerald-500" />
-            <span>Kiểm tra từ mới</span>
+            <CheckCircle2 size={15} className="text-emerald-500 shrink-0" />
+            <span className="whitespace-nowrap">Kiểm tra từ mới</span>
           </button>
         </div>
       </div>
@@ -322,6 +376,26 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5">
+            {/* Bookmark to Wordbook Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggleSaveToWordbook();
+              }}
+              className={`flex items-center gap-1 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer active:scale-95 ${
+                isCurrentSaved
+                  ? 'bg-amber-500 text-zinc-950 shadow-xs'
+                  : 'bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300'
+              }`}
+              title={isCurrentSaved ? 'Đã lưu trong Sổ tay (Nhấp để hủy lưu)' : 'Lưu từ này vào Sổ tay'}
+              aria-label="Lưu vào Sổ tay từ vựng"
+            >
+              <Bookmark size={15} className={isCurrentSaved ? 'fill-current' : ''} />
+              <span className="hidden sm:inline">
+                {isCurrentSaved ? 'Đã lưu sổ' : 'Lưu sổ'}
+              </span>
+            </button>
+
             {/* Audio Pronunciation Button */}
             <button
               onClick={(e) => {
@@ -359,7 +433,7 @@ export const VocabularyView: React.FC<VocabularyViewProps> = ({
           /* FRONT SIDE */
           <div
             onClick={handleFlip}
-            className="text-center py-10 sm:py-16 space-y-3 cursor-pointer select-none flex-1 flex flex-col justify-center"
+            className="text-center py-10 sm:py-16 space-y-3 cursor-pointer flex-1 flex flex-col justify-center"
           >
             <div className="flex items-center justify-center gap-2.5 flex-wrap">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 break-words px-2">

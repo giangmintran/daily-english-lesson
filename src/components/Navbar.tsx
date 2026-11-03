@@ -12,6 +12,8 @@ interface NavbarProps {
   onToggleDarkMode: () => void;
   currentDate: string;
   onLogout?: () => void;
+  srsDueCount?: number;
+  onOpenSrsReview?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -25,110 +27,125 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleDarkMode,
   currentDate,
   onLogout,
+  srsDueCount = 0,
+  onOpenSrsReview,
 }) => {
   return (
     <>
       {/* Top Header */}
       <header className="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md transition-colors">
-        <div className="max-w-5xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3 sm:gap-4">
           {/* Brand / Logo */}
           <div
-            className="flex items-center gap-2.5 cursor-pointer shrink-0"
+            className="flex items-center gap-2 sm:gap-2.5 cursor-pointer shrink-0 whitespace-nowrap"
             onClick={() => onSelectTab('overview')}
           >
-            <div className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-bold text-xs shadow-xs">
+            <div className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-bold text-xs shadow-xs shrink-0">
               En
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 whitespace-nowrap">
               <span className="font-semibold text-sm tracking-tight text-zinc-900 dark:text-zinc-100">
                 Daily English
               </span>
-              <span className="hidden sm:inline-block text-[11px] font-mono px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+              <span className="hidden xl:inline-block text-[11px] font-mono px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
                 {currentDate}
               </span>
             </div>
           </div>
 
           {/* Center Navigation Pills (Desktop Only) */}
-          <nav className="hidden md:flex items-center space-x-1 bg-zinc-100/80 dark:bg-zinc-900/80 p-1 rounded-xl border border-zinc-200/50 dark:border-zinc-800/50 text-xs font-medium">
+          <nav className="hidden md:flex items-center space-x-1 bg-zinc-100/80 dark:bg-zinc-900/80 p-1 rounded-xl border border-zinc-200/50 dark:border-zinc-800/50 text-xs font-medium whitespace-nowrap shrink-0">
             <button
               onClick={() => onSelectTab('overview')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 currentTab === 'overview'
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
               }`}
             >
-              <LayoutDashboard size={14} />
-              <span>Tổng quan</span>
+              <LayoutDashboard size={14} className="shrink-0" />
+              <span className="whitespace-nowrap">Tổng quan</span>
             </button>
 
             <button
               onClick={() => onSelectTab('vocabulary')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 currentTab === 'vocabulary'
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
               }`}
             >
-              <BookOpen size={14} />
-              <span>Từ mới</span>
-              <span className="ml-0.5 text-[10px] px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-700">
+              <BookOpen size={14} className="shrink-0" />
+              <span className="whitespace-nowrap">Từ mới</span>
+              <span className="ml-0.5 text-[10px] px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-700 shrink-0">
                 {vocabularyCount}
               </span>
             </button>
 
             <button
               onClick={() => onSelectTab('exercises')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 currentTab === 'exercises'
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
               }`}
             >
-              <CheckSquare size={14} />
-              <span>Bài tập</span>
-              <span className="ml-0.5 text-[10px] px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-700">
+              <CheckSquare size={14} className="shrink-0" />
+              <span className="whitespace-nowrap">Bài tập</span>
+              <span className="ml-0.5 text-[10px] px-1.5 py-0.2 rounded-full bg-zinc-200 dark:bg-zinc-700 shrink-0">
                 {exerciseCount}
               </span>
             </button>
 
             <button
               onClick={() => onSelectTab('history')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 currentTab === 'history'
-                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                  ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
               }`}
             >
-              <History size={14} />
-              <span>Lịch sử</span>
+              <History size={14} className="shrink-0" />
+              <span className="whitespace-nowrap">Lịch sử</span>
             </button>
           </nav>
 
           {/* Right Action Icons */}
-          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0 whitespace-nowrap">
+            {/* SRS Review Pill if words due */}
+            {srsDueCount > 0 && onOpenSrsReview && (
+              <button
+                onClick={onOpenSrsReview}
+                className="flex items-center gap-1 text-xs px-2 sm:px-2.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-amber-700 dark:text-amber-400 font-semibold border border-amber-500/30 hover:bg-amber-500/25 transition-all cursor-pointer shadow-xs whitespace-nowrap shrink-0 animate-pulse"
+                title="Các từ đến hạn ôn tập Spaced Repetition hôm nay"
+              >
+                <Flame size={13} className="fill-amber-500 text-amber-500 shrink-0" />
+                <span className="font-mono">{srsDueCount}</span>
+                <span className="hidden xl:inline">ôn tập</span>
+              </button>
+            )}
+
             {/* Streak Badge */}
-            <div className="flex items-center gap-1 text-xs px-2 sm:px-2.5 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-medium">
-              <Flame size={13} className="fill-amber-500 text-amber-500" />
+            <div className="flex items-center gap-1 text-xs px-2 sm:px-2.5 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-medium whitespace-nowrap shrink-0">
+              <Flame size={13} className="fill-amber-500 text-amber-500 shrink-0" />
               <span className="font-mono text-xs">{streak}</span>
-              <span className="hidden sm:inline">ngày</span>
+              <span className="hidden xl:inline">ngày</span>
             </div>
 
             {/* Import JSON button */}
             <button
               onClick={onOpenImport}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-xs cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-xs cursor-pointer whitespace-nowrap shrink-0"
               title="Import bài học JSON"
             >
-              <Upload size={13} />
+              <Upload size={13} className="shrink-0" />
               <span className="hidden sm:inline">Import JSON</span>
             </button>
 
             {/* Dark mode toggle */}
             <button
               onClick={onToggleDarkMode}
-              className="p-1.5 sm:p-2 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer shrink-0"
               title="Đổi giao diện sáng/tối"
             >
               {isDarkMode ? <Sun size={15} /> : <Moon size={15} />}
@@ -138,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {onLogout && (
               <button
                 onClick={onLogout}
-                className="p-1.5 sm:p-2 rounded-lg text-zinc-400 hover:text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-lg text-zinc-400 hover:text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer shrink-0"
                 title="Khóa ứng dụng / Đăng xuất"
               >
                 <LogOut size={15} />

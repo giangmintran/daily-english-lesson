@@ -38,3 +38,38 @@ FOR ALL
 TO service_role
 USING (true)
 WITH CHECK (true);
+
+-- ==============================================================================
+-- 5. Bảng Sổ tay từ vựng (Personal Saved Words Notebook)
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS public.saved_words (
+  id TEXT PRIMARY KEY,
+  word TEXT NOT NULL,
+  meaning TEXT NOT NULL,
+  phonetic TEXT,
+  part_of_speech TEXT,
+  english_definition TEXT,
+  context_sentence TEXT,
+  source_date VARCHAR(10),
+  source_type VARCHAR(20) DEFAULT 'manual',
+  notes TEXT,
+  audio_url TEXT,
+  is_mastered BOOLEAN DEFAULT false,
+  review_count INT DEFAULT 0,
+  last_reviewed_date TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+ALTER TABLE public.saved_words ENABLE ROW LEVEL SECURITY;
+GRANT USAGE ON SCHEMA public TO postgres, service_role;
+GRANT ALL ON TABLE public.saved_words TO postgres, service_role;
+REVOKE ALL ON TABLE public.saved_words FROM anon, authenticated;
+
+DROP POLICY IF EXISTS "Allow backend service_role full access to saved_words" ON public.saved_words;
+CREATE POLICY "Allow backend service_role full access to saved_words"
+ON public.saved_words
+FOR ALL
+TO service_role
+USING (true)
+WITH CHECK (true);

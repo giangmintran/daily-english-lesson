@@ -1,4 +1,5 @@
 import { DailyLesson } from '../types/lesson';
+import { SavedWordItem } from '../types/savedWord';
 
 const API_BASE = '/api';
 const TOKEN_KEY = 'daily_english_auth_token_v1';
@@ -292,3 +293,97 @@ export async function deleteLessonFromApi(date: string): Promise<{ success: bool
     };
   }
 }
+
+/**
+ * Lấy danh sách từ đã lưu trong sổ tay từ Supabase
+ */
+export async function fetchSavedWordsFromApi(): Promise<SavedWordItem[] | null> {
+  try {
+    const res = await fetch(`${API_BASE}/saved-words`, {
+      headers: getHeaders(),
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return null;
+    }
+
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success && Array.isArray(data.data)) {
+      return data.data;
+    }
+    return null;
+  } catch (err) {
+    console.warn('Không thể tải sổ tay từ vựng từ server:', err);
+    return null;
+  }
+}
+
+/**
+ * Lưu hoặc cập nhật 1 từ trong sổ tay lên Supabase
+ */
+export async function saveSavedWordToApi(word: SavedWordItem): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/saved-words`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(word),
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn.' };
+    }
+
+    const data = await res.json().catch(() => ({}));
+    return { success: res.ok && data.success, error: data.message };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Lỗi kết nối server' };
+  }
+}
+
+/**
+ * Đồng bộ hàng loạt từ vựng lên Supabase
+ */
+export async function syncSavedWordsToApi(words: SavedWordItem[]): Promise<{ success: boolean; error?: string; count?: number }> {
+  try {
+    const res = await fetch(`${API_BASE}/saved-words/sync`, {
+      method: 'POST',
+      headers: getHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ words }),
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn.' };
+    }
+
+    const data = await res.json().catch(() => ({}));
+    return { success: res.ok && data.success, error: data.message, count: data.count };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Lỗi kết nối server' };
+  }
+}
+
+/**
+ * Xóa 1 từ khỏi sổ tay trên Supabase
+ */
+export async function deleteSavedWordFromApi(id: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/saved-words/${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return { success: false, error: 'Phiên đăng nhập đã hết hạn.' };
+    }
+
+    const data = await res.json().catch(() => ({}));
+    return { success: res.ok && data.success, error: data.message };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Lỗi kết nối server' };
+  }
+}
+

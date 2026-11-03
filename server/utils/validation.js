@@ -252,3 +252,77 @@ export function validateBatchLessons(rawList) {
   return { valid: true, lessons: validatedLessons };
 }
 
+/**
+ * Validates and sanitizes a single saved word payload
+ */
+export function validateSavedWordPayload(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    return { valid: false, message: 'Dữ liệu từ vựng phải là một đối tượng JSON (Object).' };
+  }
+
+  const rawWord = typeof raw.word === 'string' ? raw.word.trim() : '';
+  if (!rawWord) {
+    return { valid: false, message: 'Trường "word" (từ vựng) là bắt buộc.' };
+  }
+  if (rawWord.length > 200) {
+    return { valid: false, message: 'Từ vựng không được dài quá 200 ký tự.' };
+  }
+
+  const rawMeaning = typeof raw.meaning === 'string' ? raw.meaning.trim() : '';
+  if (!rawMeaning) {
+    return { valid: false, message: 'Trường "meaning" (nghĩa) là bắt buộc.' };
+  }
+  if (rawMeaning.length > 500) {
+    return { valid: false, message: 'Nghĩa không được dài quá 500 ký tự.' };
+  }
+
+  const id = typeof raw.id === 'string' && raw.id.trim()
+    ? raw.id.trim().slice(0, 100)
+    : `sw_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+  return {
+    valid: true,
+    word: {
+      id,
+      word: rawWord,
+      meaning: rawMeaning,
+      phonetic: typeof raw.phonetic === 'string' ? raw.phonetic.trim().slice(0, 100) : '',
+      part_of_speech: typeof raw.partOfSpeech === 'string' ? raw.partOfSpeech.trim().slice(0, 50) : (raw.part_of_speech ? String(raw.part_of_speech).slice(0, 50) : ''),
+      english_definition: typeof raw.englishDefinition === 'string' ? raw.englishDefinition.trim().slice(0, 500) : (raw.english_definition ? String(raw.english_definition).slice(0, 500) : ''),
+      context_sentence: typeof raw.contextSentence === 'string' ? raw.contextSentence.trim().slice(0, 1000) : (raw.context_sentence ? String(raw.context_sentence).slice(0, 1000) : ''),
+      source_date: typeof raw.sourceDate === 'string' ? raw.sourceDate.trim().slice(0, 20) : (raw.source_date ? String(raw.source_date).slice(0, 20) : ''),
+      source_type: typeof raw.sourceType === 'string' ? raw.sourceType.trim().slice(0, 30) : (raw.source_type ? String(raw.source_type).slice(0, 30) : 'manual'),
+      notes: typeof raw.notes === 'string' ? raw.notes.trim().slice(0, 1000) : '',
+      audio_url: typeof raw.audioUrl === 'string' ? raw.audioUrl.trim().slice(0, 500) : (raw.audio_url ? String(raw.audio_url).slice(0, 500) : ''),
+      is_mastered: Boolean(raw.isMastered ?? raw.is_mastered),
+      review_count: Number.isFinite(raw.reviewCount ?? raw.review_count) ? Math.max(0, Number(raw.reviewCount ?? raw.review_count)) : 0,
+      last_reviewed_date: raw.lastReviewedDate || raw.last_reviewed_date || null,
+      created_at: raw.dateAdded || raw.created_at || new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+  };
+}
+
+/**
+ * Validates a batch array of saved words
+ */
+export function validateBatchSavedWords(rawList) {
+  if (!Array.isArray(rawList)) {
+    return { valid: false, message: 'Danh sách từ phải là một mảng.' };
+  }
+  if (rawList.length > 500) {
+    return { valid: false, message: 'Chỉ có thể đồng bộ tối đa 500 từ trong một lượt.' };
+  }
+
+  const words = [];
+  for (let i = 0; i < rawList.length; i++) {
+    const res = validateSavedWordPayload(rawList[i]);
+    if (!res.valid) {
+      return { valid: false, message: `Lỗi ở từ thứ ${i + 1}: ${res.message}` };
+    }
+    words.push(res.word);
+  }
+  return { valid: true, words };
+}
+
+

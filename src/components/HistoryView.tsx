@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getActiveDate, setActiveDate, clearCurrentLesson, normalizeExerciseResults } from '../services/storage';
 import { fetchLessonsFromApi, deleteLessonFromApi } from '../services/api';
 import { DailyLesson } from '../types/lesson';
@@ -49,6 +49,41 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate, onLesson
     totalMasteredWords += wordsCount;
     totalDoneExercises += exDone;
   });
+
+  // Generate 70 days (10 weeks) for GitHub-style Activity Heatmap
+  const heatmapDays = useMemo(() => {
+    const days: {
+      date: string;
+      level: 0 | 1 | 2 | 3;
+      hasLesson: boolean;
+      wordsCount: number;
+      exercisesCount: number;
+    }[] = [];
+    const lessonMap = new Map(lessons.map((l) => [l.date, l]));
+    const today = new Date();
+
+    for (let i = 69; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const dateStr = d.toISOString().split('T')[0];
+      const l = lessonMap.get(dateStr);
+
+      if (!l) {
+        days.push({ date: dateStr, level: 0, hasLesson: false, wordsCount: 0, exercisesCount: 0 });
+      } else {
+        const words = l.progress?.wordsMastered?.length || 0;
+        const ex = Object.keys(normalizeExerciseResults(l.progress?.exerciseResults)).length;
+        let level: 0 | 1 | 2 | 3 = 1;
+        if (words >= 15 && ex >= 40) {
+          level = 3;
+        } else if (words >= 8 || ex >= 20) {
+          level = 2;
+        }
+        days.push({ date: dateStr, level, hasLesson: true, wordsCount: words, exercisesCount: ex });
+      }
+    }
+    return days;
+  }, [lessons]);
 
   const handleExportBackup = () => {
     if (lessons.length === 0) return;
@@ -124,6 +159,46 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ onSelectDate, onLesson
           >
             Tải file JSON
           </button>
+        </div>
+      </div>
+
+      {/* Activity Heatmap Card */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3">
+        <div className="flex items-center justify-between text-xs">
+          <div className="flex items-center gap-1.5 font-semibold text-zinc-900 dark:text-zinc-100">
+            <Flame size={14} className="text-amber-500" />
+            <span>Biểu đồ chuyên cần (10 tuần gần nhất)</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-zinc-400">
+            <span>Chưa học</span>
+            <span className="w-2.5 h-2.5 rounded-xs bg-zinc-100 dark:bg-zinc-800" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-emerald-200 dark:bg-emerald-950" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-emerald-400 dark:bg-emerald-700" />
+            <span className="w-2.5 h-2.5 rounded-xs bg-emerald-600 dark:bg-emerald-400" />
+            <span>Hoàn thành tốt</span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
+          {heatmapDays.map((d) => (
+            <div
+              key={d.date}
+              title={`${d.date}: ${
+                d.hasLesson
+                  ? `${d.wordsCount} từ đã thuộc, ${d.exercisesCount} bài tập`
+                  : 'Chưa có bài học'
+              }`}
+              className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-xs transition-colors cursor-pointer ${
+                d.level === 3
+                  ? 'bg-emerald-600 dark:bg-emerald-500 ring-1 ring-emerald-400/50'
+                  : d.level === 2
+                  ? 'bg-emerald-400 dark:bg-emerald-700'
+                  : d.level === 1
+                  ? 'bg-emerald-200 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800'
+                  : 'bg-zinc-100 dark:bg-zinc-800/70 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+              }`}
+            />
+          ))}
         </div>
       </div>
 

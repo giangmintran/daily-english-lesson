@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { DailyLesson } from './types/lesson';
 import {
   getLessonByDate,
@@ -27,6 +27,12 @@ import { ImportModal } from './components/ImportModal';
 import { LoginView } from './components/LoginView';
 import { TenseHandbookModal } from './components/TenseHandbookModal';
 import { TenseHandbookButton } from './components/TenseHandbookButton';
+import { SavedWordsButton } from './components/SavedWordsButton';
+import { SavedWordsModal } from './components/SavedWordsModal';
+import { SelectionWordPopover } from './components/SelectionWordPopover';
+import { syncSavedWordsWithBackend } from './services/savedWordStorage';
+import { SrsReviewModal } from './components/SrsReviewModal';
+import { getDueSrsWords } from './utils/srs';
 
 export function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => Boolean(getAuthToken()));
@@ -36,6 +42,10 @@ export function App() {
   const [currentLesson, setCurrentLesson] = useState<DailyLesson | null>(() => getLessonByDate(getActiveDate()));
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isHandbookOpen, setIsHandbookOpen] = useState(false);
+  const [isSavedWordsOpen, setIsSavedWordsOpen] = useState(false);
+  const [isSrsOpen, setIsSrsOpen] = useState(false);
+  const [allLessons, setAllLessons] = useState<DailyLesson[]>([]);
+  const [srsVersion, setSrsVersion] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem('theme') === 'dark' ||
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -80,8 +90,12 @@ export function App() {
     if (!isAuthenticated) return;
 
     async function loadBackendLessons() {
+      // Đồng bộ sổ tay từ vựng với Supabase
+      syncSavedWordsWithBackend().catch((e) => console.warn('Saved words sync failed', e));
+
       const apiLessons = await fetchLessonsFromApi();
       if (apiLessons && apiLessons.length > 0) {
+        setAllLessons(apiLessons);
         const savedActive = getActiveDate();
         const target = apiLessons.find((l) => l.date === savedActive) || apiLessons[0];
         saveLesson(target);
@@ -97,7 +111,13 @@ export function App() {
     loadBackendLessons();
   }, [isAuthenticated]);
 
+  // Tính toán các từ cần ôn tập theo thuật toán Spaced Repetition (SRS)
+  const dueSrsWords = useMemo(() => {
+    return getDueSrsWords(allLessons);
+  }, [allLessons, srsVersion]);
+
   const handleLessonImported = (lesson: DailyLesson) => {
+    setAllLessons((prev) => [lesson, ...prev.filter((l) => l.date !== lesson.date)]);
     saveLesson(lesson);
     setActiveDateState(lesson.date);
     setCurrentLesson(lesson);
@@ -143,6 +163,8 @@ export function App() {
         onToggleDarkMode={() => setIsDarkMode((prev) => !prev)}
         currentDate={activeDate}
         onLogout={handleLogout}
+        srsDueCount={dueSrsWords.length}
+        onOpenSrsReview={() => setIsSrsOpen(true)}
       />
 
       {/* Main Content Viewport */}
@@ -157,6 +179,7 @@ export function App() {
               setCurrentTab('overview');
             }}
             onLessonsChanged={(remaining) => {
+              setAllLessons(remaining);
               const updatedStats = syncStreakFromLessons(remaining);
               setUserStats(updatedStats);
             }}
@@ -172,6 +195,8 @@ export function App() {
                   }
                   setCurrentTab(tab);
                 }}
+                dueSrsWords={dueSrsWords}
+                onOpenSrsReview={() => setIsSrsOpen(true)}
               />
             )}
 
@@ -188,6 +213,7 @@ export function App() {
                 lesson={currentLesson}
                 onUpdateLesson={handleUpdateLesson}
                 onOpenHandbook={() => setIsHandbookOpen(true)}
+                allLessons={allLessons}
               />
             )}
           </>
@@ -209,10 +235,22 @@ export function App() {
         )}
       </main>
 
-      {/* Floating Tense Handbook Button (Góc dưới bên phải) */}
+      {/* Floating Action Buttons (Góc dưới bên phải) */}
+      <SavedWordsButton
+        onClick={() => setIsSavedWordsOpen(true)}
+        isOpen={isSavedWordsOpen}
+      />
+
       <TenseHandbookButton
         onClick={() => setIsHandbookOpen(true)}
         isOpen={isHandbookOpen}
+      />
+
+      {/* Sổ tay từ vựng Modal */}
+      <SavedWordsModal
+        isOpen={isSavedWordsOpen}
+        onClose={() => setIsSavedWordsOpen(false)}
+        currentDate={activeDate}
       />
 
       {/* Tense Handbook Modal */}
@@ -221,11 +259,25 @@ export function App() {
         onClose={() => setIsHandbookOpen(false)}
       />
 
+      {/* Text Selection Quick Lookup & Save Popover */}
+      <SelectionWordPopover
+        currentDate={activeDate}
+        onOpenNotebook={() => setIsSavedWordsOpen(true)}
+      />
+
       {/* Import Modal */}
       <ImportModal
         isOpen={isImportOpen}
         onClose={() => setIsImportOpen(false)}
         onLessonImported={handleLessonImported}
+      />
+
+      {/* Spaced Repetition (SRS) Review Modal */}
+      <SrsReviewModal
+        isOpen={isSrsOpen}
+        onClose={() => setIsSrsOpen(false)}
+        dueWords={dueSrsWords}
+        onReviewCompleted={() => setSrsVersion((v) => v + 1)}
       />
     </div>
   );

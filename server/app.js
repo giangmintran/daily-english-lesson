@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import lessonsRouter from './routes/lessons.js';
+import savedWordsRouter from './routes/savedWords.js';
 import authRouter, { requireAuth } from './routes/auth.js';
 import { checkSupabaseConnection, isSupabaseConfigured } from './supabase.js';
 import { generalApiLimiter } from './utils/rateLimiter.js';
@@ -96,6 +97,7 @@ apiRouter.use(generalApiLimiter.middleware());
 apiRouter.get('/health', healthHandler);
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/lessons', requireAuth, lessonsRouter);
+apiRouter.use('/saved-words', requireAuth, savedWordsRouter);
 
 // Support both local/proxy (/api/...) and Vercel serverless (direct mount)
 app.use('/api', apiRouter);

@@ -1,0 +1,1118 @@
+{
+  "date": "2026-11-03",
+  "topic": "Travel, Accommodation & Getting Around",
+  "vocabulary": [
+    {
+      "id": "v1",
+      "word": "itinerary",
+      "phonetic": "/aɪˈtɪn.ə.rer.i/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Lịch trình chuyến đi, gồm các điểm đến và hoạt động dự kiến.",
+      "usage": "Dùng khi nói về kế hoạch chi tiết cho chuyến du lịch hoặc công tác.",
+      "purpose": "Lên kế hoạch và trao đổi với bạn đồng hành.",
+      "structures": [
+        "a travel itinerary — lịch trình du lịch",
+        "plan an itinerary — lên lịch trình",
+        "follow an itinerary — làm theo lịch trình"
+      ],
+      "commonMistakes": "Itinerary là danh từ, không phải động từ; phân biệt với destination (điểm đến).",
+      "examples": [
+        {
+          "en": "I sent the travel itinerary to everyone in the group.",
+          "vi": "Tôi đã gửi lịch trình du lịch cho mọi người trong nhóm."
+        },
+        {
+          "en": "Our itinerary includes two days in the mountains.",
+          "vi": "Lịch trình của chúng tôi bao gồm hai ngày ở vùng núi."
+        }
+      ]
+    },
+    {
+      "id": "v2",
+      "word": "reservation",
+      "phonetic": "/ˌrez.ɚˈveɪ.ʃən/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Việc đặt trước chỗ, phòng hoặc dịch vụ.",
+      "usage": "Dùng khi xác nhận chỗ ở, bàn ăn, vé hoặc dịch vụ đã đặt.",
+      "purpose": "Đảm bảo có chỗ vào ngày và giờ mong muốn.",
+      "structures": [
+        "make a reservation — đặt chỗ",
+        "confirm a reservation — xác nhận đặt chỗ",
+        "a reservation for two — đặt chỗ cho hai người"
+      ],
+      "commonMistakes": "Thường nói make a reservation, không nói do a reservation.",
+      "examples": [
+        {
+          "en": "I'd like to confirm my hotel reservation for Friday.",
+          "vi": "Tôi muốn xác nhận đặt phòng khách sạn vào thứ Sáu."
+        },
+        {
+          "en": "We made a reservation for dinner at seven.",
+          "vi": "Chúng tôi đã đặt bàn ăn tối lúc bảy giờ."
+        }
+      ]
+    },
+    {
+      "id": "v3",
+      "word": "vacancy",
+      "phonetic": "/ˈveɪ.kən.si/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Chỗ còn trống, đặc biệt là phòng khách sạn hoặc vị trí còn tuyển.",
+      "usage": "Trong du lịch, thường thấy trên biển hiệu khách sạn để báo còn phòng.",
+      "purpose": "Hỏi hoặc thông báo tình trạng phòng còn trống.",
+      "structures": [
+        "no vacancy — hết phòng",
+        "a vacancy available — còn chỗ trống",
+        "check for vacancies — kiểm tra chỗ còn trống"
+      ],
+      "commonMistakes": "Vacancy là danh từ; vacant là tính từ.",
+      "examples": [
+        {
+          "en": "The small hotel had no vacancies during the festival.",
+          "vi": "Khách sạn nhỏ đã hết phòng trong thời gian diễn ra lễ hội."
+        },
+        {
+          "en": "Could you check whether there is a vacancy for tonight?",
+          "vi": "Bạn có thể kiểm tra xem tối nay còn phòng trống không?"
+        }
+      ]
+    },
+    {
+      "id": "v4",
+      "word": "accommodation",
+      "phonetic": "/əˌkɑː.məˈdeɪ.ʃən/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Chỗ ở hoặc nơi lưu trú.",
+      "usage": "Dùng để nói chung về khách sạn, nhà nghỉ, căn hộ hoặc nơi ở trong chuyến đi.",
+      "purpose": "Tìm kiếm và mô tả nơi lưu trú.",
+      "structures": [
+        "book accommodation — đặt chỗ ở",
+        "accommodation near the station — chỗ ở gần nhà ga",
+        "self-catering accommodation — chỗ ở có bếp tự phục vụ"
+      ],
+      "commonMistakes": "Accommodation thường không đếm được khi nói chung về chỗ ở; tránh an accommodation.",
+      "examples": [
+        {
+          "en": "We found affordable accommodation near the old town.",
+          "vi": "Chúng tôi tìm được chỗ ở giá phải chăng gần khu phố cổ."
+        },
+        {
+          "en": "Accommodation is included in the tour price.",
+          "vi": "Chỗ lưu trú đã được bao gồm trong giá tour."
+        }
+      ]
+    },
+    {
+      "id": "v5",
+      "word": "amenities",
+      "phonetic": "/əˈmen.ə.tiz/",
+      "partOfSpeech": "Danh từ số nhiều",
+      "meaning": "Các tiện nghi hoặc dịch vụ giúp nơi ở thoải mái hơn.",
+      "usage": "Dùng khi mô tả Wi-Fi, hồ bơi, phòng tập hoặc bãi đỗ xe.",
+      "purpose": "So sánh khách sạn và chọn nơi lưu trú phù hợp.",
+      "structures": [
+        "hotel amenities — tiện nghi khách sạn",
+        "modern amenities — tiện nghi hiện đại",
+        "amenities include... — tiện nghi bao gồm..."
+      ],
+      "commonMistakes": "Amenities thường dùng ở dạng số nhiều; phân biệt với facilities (cơ sở vật chất).",
+      "examples": [
+        {
+          "en": "The resort offers excellent amenities for families.",
+          "vi": "Khu nghỉ dưỡng cung cấp tiện nghi tuyệt vời cho các gia đình."
+        },
+        {
+          "en": "Free Wi-Fi is one of the most useful amenities.",
+          "vi": "Wi-Fi miễn phí là một trong những tiện nghi hữu ích nhất."
+        }
+      ]
+    },
+    {
+      "id": "v6",
+      "word": "landmark",
+      "phonetic": "/ˈlænd.mɑːrk/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Địa danh hoặc công trình nổi bật, dễ nhận biết.",
+      "usage": "Dùng khi chỉ địa điểm nổi tiếng giúp khách du lịch định hướng hoặc tham quan.",
+      "purpose": "Mô tả điểm tham quan và hướng dẫn đường đi.",
+      "structures": [
+        "a famous landmark — địa danh nổi tiếng",
+        "historic landmark — công trình lịch sử",
+        "near the landmark — gần địa danh đó"
+      ],
+      "commonMistakes": "Landmark có thể là cây cầu, tượng đài hoặc địa điểm tự nhiên, không chỉ là tòa nhà.",
+      "examples": [
+        {
+          "en": "The clock tower is the city's most recognizable landmark.",
+          "vi": "Tháp đồng hồ là địa danh dễ nhận biết nhất của thành phố."
+        },
+        {
+          "en": "The hotel is within walking distance of several landmarks.",
+          "vi": "Khách sạn cách một số địa danh nổi tiếng một quãng đi bộ."
+        }
+      ]
+    },
+    {
+      "id": "v7",
+      "word": "departure",
+      "phonetic": "/dɪˈpɑːr.tʃɚ/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Sự khởi hành hoặc thời điểm rời đi.",
+      "usage": "Dùng khi nói về giờ tàu, xe hoặc máy bay rời khỏi một địa điểm.",
+      "purpose": "Kiểm tra thời gian di chuyển và sắp xếp việc đến nhà ga hoặc sân bay.",
+      "structures": [
+        "departure time — giờ khởi hành",
+        "departure gate — cửa khởi hành",
+        "scheduled departure — giờ khởi hành theo lịch"
+      ],
+      "commonMistakes": "Departure là danh từ; depart là động từ. Không nhầm departure time với arrival time.",
+      "examples": [
+        {
+          "en": "Please arrive at the airport two hours before departure.",
+          "vi": "Vui lòng đến sân bay trước giờ khởi hành hai tiếng."
+        },
+        {
+          "en": "The departure was delayed because of heavy rain.",
+          "vi": "Chuyến khởi hành bị trì hoãn do mưa lớn."
+        }
+      ]
+    },
+    {
+      "id": "v8",
+      "word": "arrival",
+      "phonetic": "/əˈraɪ.vəl/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Sự đến nơi hoặc thời điểm đến.",
+      "usage": "Dùng để nói về thời gian một người hoặc phương tiện đến địa điểm.",
+      "purpose": "Trao đổi giờ đón, nhận phòng hoặc kế hoạch sau khi đến.",
+      "structures": [
+        "arrival time — giờ đến",
+        "on arrival — khi đến nơi",
+        "shortly after arrival — ngay sau khi đến"
+      ],
+      "commonMistakes": "Arrival là danh từ; arrive là động từ, thường đi với at cho địa điểm cụ thể và in cho thành phố/quốc gia.",
+      "examples": [
+        {
+          "en": "Our estimated arrival time is 9:30 p.m.",
+          "vi": "Thời gian đến dự kiến của chúng tôi là 9 giờ 30 tối."
+        },
+        {
+          "en": "Please contact the host on arrival.",
+          "vi": "Vui lòng liên hệ chủ nhà khi bạn đến nơi."
+        }
+      ]
+    },
+    {
+      "id": "v9",
+      "word": "layover",
+      "phonetic": "/ˈleɪˌoʊ.vɚ/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Khoảng thời gian chờ giữa hai chặng bay hoặc hành trình.",
+      "usage": "Dùng khi chuyến đi có điểm dừng trung gian trước khi đến điểm cuối.",
+      "purpose": "Đánh giá thời gian nối chuyến và lên kế hoạch trong lúc chờ.",
+      "structures": [
+        "a short layover — thời gian quá cảnh ngắn",
+        "a layover in Singapore — quá cảnh ở Singapore",
+        "a six-hour layover — quá cảnh sáu tiếng"
+      ],
+      "commonMistakes": "Layover là khoảng chờ giữa các chặng, không phải toàn bộ chuyến đi.",
+      "examples": [
+        {
+          "en": "We have a three-hour layover in Doha.",
+          "vi": "Chúng tôi có ba tiếng quá cảnh ở Doha."
+        },
+        {
+          "en": "A long layover can make the journey tiring.",
+          "vi": "Thời gian quá cảnh dài có thể khiến hành trình trở nên mệt mỏi."
+        }
+      ]
+    },
+    {
+      "id": "v10",
+      "word": "baggage allowance",
+      "phonetic": "/ˈbæɡ.ɪdʒ əˌlaʊ.əns/",
+      "partOfSpeech": "Cụm danh từ",
+      "meaning": "Hạn mức hành lý được phép mang theo theo quy định của hãng vận chuyển.",
+      "usage": "Dùng khi kiểm tra số kiện hoặc trọng lượng hành lý được miễn phí.",
+      "purpose": "Tránh phí hành lý quá cân hoặc vượt số lượng cho phép.",
+      "structures": [
+        "checked baggage allowance — hạn mức hành lý ký gửi",
+        "hand baggage allowance — hạn mức hành lý xách tay",
+        "exceed the baggage allowance — vượt hạn mức hành lý"
+      ],
+      "commonMistakes": "Allowance là mức được phép, không phải trọng lượng hành lý thực tế; quy định tùy hãng và hạng vé.",
+      "examples": [
+        {
+          "en": "The baggage allowance is twenty kilograms per passenger.",
+          "vi": "Hạn mức hành lý là hai mươi ki-lô-gam cho mỗi hành khách."
+        },
+        {
+          "en": "Check your baggage allowance before packing.",
+          "vi": "Hãy kiểm tra hạn mức hành lý trước khi đóng gói."
+        }
+      ]
+    },
+    {
+      "id": "v11",
+      "word": "boarding pass",
+      "phonetic": "/ˈbɔːr.dɪŋ ˌpæs/",
+      "partOfSpeech": "Cụm danh từ",
+      "meaning": "Thẻ lên máy bay, xác nhận hành khách được phép lên chuyến bay.",
+      "usage": "Dùng khi làm thủ tục bay và đi qua cửa kiểm tra trước khi lên máy bay.",
+      "purpose": "Hoàn tất thủ tục và xác định cửa lên máy bay, số ghế.",
+      "structures": [
+        "get a boarding pass — nhận thẻ lên máy bay",
+        "show your boarding pass — xuất trình thẻ lên máy bay",
+        "mobile boarding pass — thẻ lên máy bay điện tử"
+      ],
+      "commonMistakes": "Boarding pass khác ticket: vé xác nhận việc mua chuyến đi, còn boarding pass được cấp sau khi làm thủ tục.",
+      "examples": [
+        {
+          "en": "I downloaded my boarding pass to my phone.",
+          "vi": "Tôi đã tải thẻ lên máy bay về điện thoại."
+        },
+        {
+          "en": "You must show your boarding pass at the gate.",
+          "vi": "Bạn phải xuất trình thẻ lên máy bay tại cửa khởi hành."
+        }
+      ]
+    },
+    {
+      "id": "v12",
+      "word": "fare",
+      "phonetic": "/fer/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Giá vé cho một chuyến đi bằng phương tiện công cộng hoặc vận tải.",
+      "usage": "Dùng khi hỏi hoặc so sánh chi phí xe buýt, tàu, taxi hoặc máy bay.",
+      "purpose": "Tính toán chi phí đi lại và chọn phương tiện.",
+      "structures": [
+        "bus fare — giá vé xe buýt",
+        "one-way fare — giá vé một chiều",
+        "fare increase — việc tăng giá vé"
+      ],
+      "commonMistakes": "Fare là tiền vé di chuyển; fee thường là phí dịch vụ. Không nhầm fare với fair.",
+      "examples": [
+        {
+          "en": "The train fare is cheaper if you book online.",
+          "vi": "Giá vé tàu rẻ hơn nếu bạn đặt trực tuyến."
+        },
+        {
+          "en": "Children under five travel without paying a fare.",
+          "vi": "Trẻ em dưới năm tuổi được đi mà không phải trả tiền vé."
+        }
+      ]
+    },
+    {
+      "id": "v13",
+      "word": "refund",
+      "phonetic": "/ˈriː.fʌnd/ (danh từ), /rɪˈfʌnd/ (động từ)",
+      "partOfSpeech": "Danh từ / Động từ",
+      "meaning": "Khoản tiền được hoàn lại; hoàn tiền cho khách hàng.",
+      "usage": "Dùng khi dịch vụ bị hủy, sản phẩm không phù hợp hoặc khách đủ điều kiện nhận lại tiền.",
+      "purpose": "Yêu cầu hoặc xử lý việc hoàn tiền.",
+      "structures": [
+        "request a refund — yêu cầu hoàn tiền",
+        "get a full refund — nhận hoàn tiền toàn bộ",
+        "refund the payment — hoàn lại khoản thanh toán"
+      ],
+      "commonMistakes": "Refund có thể là danh từ hoặc động từ; khi là động từ, trọng âm thường ở âm tiết thứ hai.",
+      "examples": [
+        {
+          "en": "The airline offered a full refund after the cancellation.",
+          "vi": "Hãng hàng không đề nghị hoàn tiền toàn bộ sau khi chuyến bay bị hủy."
+        },
+        {
+          "en": "You can request a refund within seven days.",
+          "vi": "Bạn có thể yêu cầu hoàn tiền trong vòng bảy ngày."
+        }
+      ]
+    },
+    {
+      "id": "v14",
+      "word": "cancellation",
+      "phonetic": "/ˌkæn.səˈleɪ.ʃən/",
+      "partOfSpeech": "Danh từ",
+      "meaning": "Việc hủy bỏ một chuyến đi, đặt chỗ hoặc dịch vụ.",
+      "usage": "Dùng khi kế hoạch hoặc dịch vụ đã đặt trước không còn diễn ra.",
+      "purpose": "Thông báo việc hủy và tìm hiểu điều kiện đổi hoặc hoàn tiền.",
+      "structures": [
+        "flight cancellation — việc hủy chuyến bay",
+        "cancellation policy — chính sách hủy",
+        "notice of cancellation — thông báo hủy"
+      ],
+      "commonMistakes": "Cách viết chuẩn là cancellation; phân biệt với cancel là động từ.",
+      "examples": [
+        {
+          "en": "The cancellation policy allows free changes up to 24 hours before check-in.",
+          "vi": "Chính sách hủy cho phép thay đổi miễn phí trước giờ nhận phòng tối đa 24 tiếng."
+        },
+        {
+          "en": "We received a message about the cancellation of our tour.",
+          "vi": "Chúng tôi nhận được tin nhắn về việc hủy chuyến tham quan."
+        }
+      ]
+    },
+    {
+      "id": "v15",
+      "word": "reschedule",
+      "phonetic": "/ˌriːˈskedʒ.uːl/",
+      "partOfSpeech": "Động từ",
+      "meaning": "Sắp xếp lại thời gian; đổi lịch đã lên kế hoạch.",
+      "usage": "Dùng khi chuyển cuộc hẹn, chuyến đi hoặc hoạt động sang thời điểm khác.",
+      "purpose": "Thay đổi lịch trình khi thời gian ban đầu không còn phù hợp.",
+      "structures": [
+        "reschedule a flight — đổi lịch chuyến bay",
+        "reschedule for Monday — chuyển sang thứ Hai",
+        "reschedule an appointment — đổi lịch cuộc hẹn"
+      ],
+      "commonMistakes": "Thường dùng reschedule + tân ngữ + for + thời điểm mới.",
+      "examples": [
+        {
+          "en": "Could we reschedule the airport transfer for tomorrow?",
+          "vi": "Chúng ta có thể đổi lịch xe đưa đón sân bay sang ngày mai không?"
+        },
+        {
+          "en": "The tour was rescheduled because of the storm.",
+          "vi": "Chuyến tham quan đã được đổi lịch vì cơn bão."
+        }
+      ]
+    },
+    {
+      "id": "v16",
+      "word": "accessible",
+      "phonetic": "/əkˈses.ə.bəl/",
+      "partOfSpeech": "Tính từ",
+      "meaning": "Dễ tiếp cận hoặc được thiết kế để người có nhu cầu khác nhau có thể sử dụng.",
+      "usage": "Dùng để mô tả địa điểm có lối đi thuận tiện, phương tiện hỗ trợ hoặc thông tin dễ tiếp cận.",
+      "purpose": "Chọn nơi phù hợp với người dùng xe lăn, người lớn tuổi hoặc người cần hỗ trợ.",
+      "structures": [
+        "wheelchair accessible — có lối tiếp cận cho xe lăn",
+        "easily accessible — dễ tiếp cận",
+        "accessible by public transport — có thể đến bằng phương tiện công cộng"
+      ],
+      "commonMistakes": "Accessible nhấn mạnh khả năng tiếp cận; không viết nhầm thành accessable.",
+      "examples": [
+        {
+          "en": "The museum is accessible by bus and train.",
+          "vi": "Bảo tàng có thể đến được bằng xe buýt và tàu."
+        },
+        {
+          "en": "Please confirm whether the room is wheelchair accessible.",
+          "vi": "Vui lòng xác nhận phòng có lối tiếp cận phù hợp cho xe lăn hay không."
+        }
+      ]
+    },
+    {
+      "id": "v17",
+      "word": "convenient",
+      "phonetic": "/kənˈviː.ni.ənt/",
+      "partOfSpeech": "Tính từ",
+      "meaning": "Thuận tiện, phù hợp và không gây nhiều bất tiện.",
+      "usage": "Dùng để mô tả thời gian, địa điểm hoặc cách thức giúp việc gì dễ dàng hơn.",
+      "purpose": "Đánh giá vị trí lưu trú, phương tiện hoặc thời gian hẹn.",
+      "structures": [
+        "a convenient location — vị trí thuận tiện",
+        "convenient for someone — thuận tiện cho ai",
+        "at your convenience — khi nào thuận tiện cho bạn"
+      ],
+      "commonMistakes": "Convenient thường đi với for khi nói thuận tiện cho ai; phân biệt với comfortable (thoải mái).",
+      "examples": [
+        {
+          "en": "The apartment is in a convenient location near the metro.",
+          "vi": "Căn hộ nằm ở vị trí thuận tiện gần tàu điện ngầm."
+        },
+        {
+          "en": "Please choose a time that is convenient for you.",
+          "vi": "Vui lòng chọn thời gian thuận tiện cho bạn."
+        }
+      ]
+    },
+    {
+      "id": "v18",
+      "word": "local cuisine",
+      "phonetic": "/ˌloʊ.kəl kwɪˈziːn/",
+      "partOfSpeech": "Cụm danh từ",
+      "meaning": "Ẩm thực địa phương, các món ăn đặc trưng của một vùng.",
+      "usage": "Dùng khi nói về món ăn truyền thống hoặc đặc sản tại nơi đang ghé thăm.",
+      "purpose": "Trao đổi về trải nghiệm ăn uống và tìm hiểu văn hóa địa phương.",
+      "structures": [
+        "try the local cuisine — thử ẩm thực địa phương",
+        "traditional local cuisine — ẩm thực truyền thống địa phương",
+        "local cuisine specialties — đặc sản địa phương"
+      ],
+      "commonMistakes": "Cuisine chỉ phong cách hoặc nền ẩm thực; dish là một món ăn cụ thể.",
+      "examples": [
+        {
+          "en": "We want to try the local cuisine rather than eat at international chains.",
+          "vi": "Chúng tôi muốn thử ẩm thực địa phương thay vì ăn tại các chuỗi nhà hàng quốc tế."
+        },
+        {
+          "en": "The guide recommended a restaurant known for its local cuisine.",
+          "vi": "Hướng dẫn viên giới thiệu một nhà hàng nổi tiếng với ẩm thực địa phương."
+        }
+      ]
+    },
+    {
+      "id": "v19",
+      "word": "currency exchange",
+      "phonetic": "/ˈkɝː.ən.si ɪksˌtʃeɪndʒ/",
+      "partOfSpeech": "Cụm danh từ",
+      "meaning": "Việc đổi tiền từ đồng tiền này sang đồng tiền khác; nơi cung cấp dịch vụ đổi tiền.",
+      "usage": "Dùng khi chuẩn bị tiền mặt hoặc hỏi nơi đổi ngoại tệ khi đi nước ngoài.",
+      "purpose": "Chuẩn bị phương tiện thanh toán và so sánh tỷ giá.",
+      "structures": [
+        "currency exchange counter — quầy đổi ngoại tệ",
+        "currency exchange rate — tỷ giá hối đoái",
+        "exchange currency — đổi tiền"
+      ],
+      "commonMistakes": "Currency exchange là dịch vụ/hoạt động đổi tiền; exchange rate là tỷ giá.",
+      "examples": [
+        {
+          "en": "There is a currency exchange counter beside the arrivals hall.",
+          "vi": "Có một quầy đổi ngoại tệ bên cạnh sảnh đến."
+        },
+        {
+          "en": "Compare the currency exchange rates before changing your money.",
+          "vi": "Hãy so sánh tỷ giá trước khi đổi tiền."
+        }
+      ]
+    },
+    {
+      "id": "v20",
+      "word": "travel insurance",
+      "phonetic": "/ˈtræv.əl ɪnˌʃʊr.əns/",
+      "partOfSpeech": "Cụm danh từ",
+      "meaning": "Bảo hiểm du lịch, giúp chi trả một số rủi ro theo điều khoản hợp đồng.",
+      "usage": "Dùng khi nói về việc mua bảo hiểm trước chuyến đi để được hỗ trợ trong tình huống được bảo hiểm.",
+      "purpose": "Giảm rủi ro tài chính liên quan đến sự cố, y tế hoặc gián đoạn chuyến đi.",
+      "structures": [
+        "buy travel insurance — mua bảo hiểm du lịch",
+        "travel insurance policy — hợp đồng bảo hiểm du lịch",
+        "be covered by travel insurance — được bảo hiểm du lịch chi trả"
+      ],
+      "commonMistakes": "Travel insurance thường không đếm được; quyền lợi phụ thuộc điều khoản và trường hợp loại trừ.",
+      "examples": [
+        {
+          "en": "We bought travel insurance before leaving the country.",
+          "vi": "Chúng tôi đã mua bảo hiểm du lịch trước khi rời khỏi đất nước."
+        },
+        {
+          "en": "Check whether your travel insurance covers lost luggage.",
+          "vi": "Hãy kiểm tra xem bảo hiểm du lịch có chi trả trường hợp thất lạc hành lý không."
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "Before the trip, Mia prepared an _______ showing each city and activity.",
+      "options": [
+        "itinerary",
+        "amenities",
+        "fare",
+        "refund"
+      ],
+      "answer": "itinerary",
+      "explanation": "'Itinerary' là lịch trình liệt kê các điểm đến và hoạt động."
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "question": "I'd like to make a _______ for a double room from 12 to 15 June.",
+      "options": [
+        "reservation",
+        "departure",
+        "landmark",
+        "layover"
+      ],
+      "answer": "reservation",
+      "explanation": "'Make a reservation' nghĩa là đặt trước phòng hoặc dịch vụ."
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "The sign outside the hotel says 'No _______', so every room is occupied.",
+      "options": [
+        "vacancy",
+        "arrival",
+        "cuisine",
+        "allowance"
+      ],
+      "answer": "vacancy",
+      "explanation": "'No vacancy' là biển báo cho biết không còn phòng trống."
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "The price includes _______ for five nights near the beach.",
+      "options": [
+        "accommodation",
+        "cancellation",
+        "currency exchange",
+        "boarding pass"
+      ],
+      "answer": "accommodation",
+      "explanation": "'Accommodation' nghĩa là chỗ ở hoặc nơi lưu trú."
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "question": "The hotel has useful _______ such as a gym, a pool, and free Wi-Fi.",
+      "options": [
+        "amenities",
+        "landmarks",
+        "fares",
+        "itineraries"
+      ],
+      "answer": "amenities",
+      "explanation": "'Amenities' là các tiện nghi được cung cấp tại nơi lưu trú."
+    },
+    {
+      "id": 6,
+      "type": "multiple_choice",
+      "question": "The ancient bridge is a famous _______ that attracts thousands of visitors.",
+      "options": [
+        "landmark",
+        "layover",
+        "refund",
+        "reservation"
+      ],
+      "answer": "landmark",
+      "explanation": "'Landmark' là địa danh hoặc công trình nổi bật."
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "question": "Passengers should be at the gate 30 minutes before _______.",
+      "options": [
+        "departure",
+        "arrival",
+        "cancellation",
+        "currency exchange"
+      ],
+      "answer": "departure",
+      "explanation": "'Departure' là sự khởi hành; câu nói về thời điểm rời đi."
+    },
+    {
+      "id": 8,
+      "type": "multiple_choice",
+      "question": "Please tell the driver your expected time of _______.",
+      "options": [
+        "arrival",
+        "departure",
+        "fare",
+        "vacancy"
+      ],
+      "answer": "arrival",
+      "explanation": "'Arrival' là thời điểm đến nơi."
+    },
+    {
+      "id": 9,
+      "type": "multiple_choice",
+      "question": "We have a five-hour _______ in Seoul before our connecting flight.",
+      "options": [
+        "layover",
+        "landmark",
+        "refund",
+        "amenity"
+      ],
+      "answer": "layover",
+      "explanation": "'Layover' là khoảng thời gian chờ giữa hai chặng bay."
+    },
+    {
+      "id": 10,
+      "type": "multiple_choice",
+      "question": "The airline's _______ is 23 kg for checked luggage.",
+      "options": [
+        "baggage allowance",
+        "boarding pass",
+        "travel insurance",
+        "local cuisine"
+      ],
+      "answer": "baggage allowance",
+      "explanation": "'Baggage allowance' là hạn mức hành lý được phép mang theo."
+    },
+    {
+      "id": 11,
+      "type": "multiple_choice",
+      "question": "You need a _______ to enter the aircraft after checking in.",
+      "options": [
+        "boarding pass",
+        "reservation",
+        "refund",
+        "itinerary"
+      ],
+      "answer": "boarding pass",
+      "explanation": "'Boarding pass' là thẻ lên máy bay được cấp sau khi làm thủ tục."
+    },
+    {
+      "id": 12,
+      "type": "multiple_choice",
+      "question": "The bus _______ is lower when you use a travel card.",
+      "options": [
+        "fare",
+        "vacancy",
+        "amenity",
+        "arrival"
+      ],
+      "answer": "fare",
+      "explanation": "'Fare' là giá vé cho chuyến đi bằng phương tiện vận tải."
+    },
+    {
+      "id": 13,
+      "type": "multiple_choice",
+      "question": "If the hotel cannot provide the room, you can ask for a full _______.",
+      "options": [
+        "refund",
+        "landmark",
+        "layover",
+        "departure"
+      ],
+      "answer": "refund",
+      "explanation": "'Refund' là khoản tiền được hoàn lại."
+    },
+    {
+      "id": 14,
+      "type": "multiple_choice",
+      "question": "The airline announced the _______ of several flights due to thick fog.",
+      "options": [
+        "cancellation",
+        "reservation",
+        "arrival",
+        "itinerary"
+      ],
+      "answer": "cancellation",
+      "explanation": "'Cancellation' là việc hủy bỏ chuyến bay hoặc dịch vụ."
+    },
+    {
+      "id": 15,
+      "type": "multiple_choice",
+      "question": "Could you _______ my booking for the following weekend?",
+      "options": [
+        "reschedule",
+        "refund",
+        "depart",
+        "arrive"
+      ],
+      "answer": "reschedule",
+      "explanation": "'Reschedule' nghĩa là sắp xếp lại thời gian hoặc đổi lịch."
+    },
+    {
+      "id": 16,
+      "type": "multiple_choice",
+      "question": "The tour operator confirmed that the museum is wheelchair _______.",
+      "options": [
+        "accessible",
+        "convenient",
+        "vacant",
+        "local"
+      ],
+      "answer": "accessible",
+      "explanation": "'Accessible' mô tả nơi có thể tiếp cận và sử dụng được."
+    },
+    {
+      "id": 17,
+      "type": "multiple_choice",
+      "question": "A hotel next to the metro is more _______ for visitors without a car.",
+      "options": [
+        "convenient",
+        "accessible",
+        "historic",
+        "cancelled"
+      ],
+      "answer": "convenient",
+      "explanation": "'Convenient' nghĩa là thuận tiện, phù hợp và ít gây bất tiện."
+    },
+    {
+      "id": 18,
+      "type": "multiple_choice",
+      "question": "We asked the guide where we could sample traditional _______.",
+      "options": [
+        "local cuisine",
+        "currency exchange",
+        "travel insurance",
+        "baggage allowance"
+      ],
+      "answer": "local cuisine",
+      "explanation": "'Local cuisine' là ẩm thực đặc trưng của địa phương."
+    },
+    {
+      "id": 19,
+      "type": "multiple_choice",
+      "question": "I need to find a _______ counter to change dollars into yen.",
+      "options": [
+        "currency exchange",
+        "boarding pass",
+        "departure gate",
+        "hotel amenity"
+      ],
+      "answer": "currency exchange",
+      "explanation": "'Currency exchange' là dịch vụ hoặc nơi đổi ngoại tệ."
+    },
+    {
+      "id": 20,
+      "type": "multiple_choice",
+      "question": "It is sensible to buy _______ in case an unexpected problem affects your trip.",
+      "options": [
+        "travel insurance",
+        "local cuisine",
+        "baggage allowance",
+        "bus fare"
+      ],
+      "answer": "travel insurance",
+      "explanation": "'Travel insurance' là bảo hiểm du lịch; quyền lợi tùy thuộc hợp đồng."
+    },
+    {
+      "id": 21,
+      "type": "fill_in_blank",
+      "question": "Please email me the complete _______ so I can check the stops and dates. (lịch trình)",
+      "answer": "itinerary",
+      "explanation": "'Itinerary' là danh từ chỉ bản lịch trình chuyến đi."
+    },
+    {
+      "id": 22,
+      "type": "fill_in_blank",
+      "question": "We should _______ a table before the popular restaurant gets busy. (đặt trước)",
+      "answer": "make a reservation",
+      "explanation": "Cụm đúng là 'make a reservation' khi đặt trước bàn hoặc chỗ."
+    },
+    {
+      "id": 23,
+      "type": "fill_in_blank",
+      "question": "The receptionist checked the system to see if there was any _______. (chỗ trống)",
+      "answer": "vacancy",
+      "explanation": "'Vacancy' là danh từ chỉ chỗ còn trống."
+    },
+    {
+      "id": 24,
+      "type": "fill_in_blank",
+      "question": "They provide affordable _______ for students who visit the city. (chỗ ở)",
+      "answer": "accommodation",
+      "explanation": "'Accommodation' là danh từ không đếm được khi nói chung về chỗ ở."
+    },
+    {
+      "id": 25,
+      "type": "fill_in_blank",
+      "question": "The website lists all the hotel's _______ and services. (tiện nghi)",
+      "answer": "amenities",
+      "explanation": "'Amenities' thường dùng ở dạng số nhiều để nói về các tiện nghi."
+    },
+    {
+      "id": 26,
+      "type": "fill_in_blank",
+      "question": "The guide used the cathedral as a _______ when giving us directions. (địa danh nổi bật)",
+      "answer": "landmark",
+      "explanation": "'Landmark' là địa điểm nổi bật giúp nhận biết hoặc định hướng."
+    },
+    {
+      "id": 27,
+      "type": "fill_in_blank",
+      "question": "Our scheduled _______ is at 6:45 a.m., so we should leave early. (giờ khởi hành)",
+      "answer": "departure",
+      "explanation": "'Departure' là danh từ chỉ sự khởi hành hoặc thời điểm rời đi."
+    },
+    {
+      "id": 28,
+      "type": "fill_in_blank",
+      "question": "The driver will wait for us in the _______ area outside the terminal. (khu vực đến)",
+      "answer": "arrival",
+      "explanation": "'Arrival area' là khu vực dành cho hành khách đến nơi."
+    },
+    {
+      "id": 29,
+      "type": "fill_in_blank",
+      "question": "A short _______ gives us enough time to catch the next flight. (thời gian quá cảnh)",
+      "answer": "layover",
+      "explanation": "'Layover' chỉ khoảng chờ giữa hai chặng bay."
+    },
+    {
+      "id": 30,
+      "type": "fill_in_blank",
+      "question": "Our ticket includes a checked _______ of up to 20 kilograms. (hạn mức hành lý)",
+      "answer": "baggage allowance",
+      "explanation": "'Baggage allowance' chỉ hạn mức hành lý theo quy định."
+    },
+    {
+      "id": 31,
+      "type": "fill_in_blank",
+      "question": "Keep your _______ ready when the staff call your group. (thẻ lên máy bay)",
+      "answer": "boarding pass",
+      "explanation": "'Boarding pass' là giấy tờ hoặc mã điện tử dùng để lên máy bay."
+    },
+    {
+      "id": 32,
+      "type": "fill_in_blank",
+      "question": "The taxi _______ from the airport is fixed at this time of day. (giá cước)",
+      "answer": "fare",
+      "explanation": "'Fare' dùng để chỉ giá vé hoặc cước di chuyển."
+    },
+    {
+      "id": 33,
+      "type": "fill_in_blank",
+      "question": "I contacted the company to request a _______ for the unused ticket. (hoàn tiền)",
+      "answer": "refund",
+      "explanation": "'Request a refund' nghĩa là yêu cầu hoàn lại tiền."
+    },
+    {
+      "id": 34,
+      "type": "fill_in_blank",
+      "question": "The hotel sent an email explaining its _______ policy. (chính sách hủy)",
+      "answer": "cancellation",
+      "explanation": "'Cancellation policy' là chính sách quy định điều kiện hủy."
+    },
+    {
+      "id": 35,
+      "type": "fill_in_blank",
+      "question": "Could you _______ the tour for a date after the public holiday? (đổi lịch)",
+      "answer": "reschedule",
+      "explanation": "Sau 'could you' dùng động từ nguyên mẫu 'reschedule'."
+    },
+    {
+      "id": 36,
+      "type": "fill_in_blank",
+      "question": "Please ask whether the entrance is _______ to visitors using wheelchairs. (dễ tiếp cận)",
+      "answer": "accessible",
+      "explanation": "Sau 'is' cần tính từ 'accessible' để mô tả khả năng tiếp cận."
+    },
+    {
+      "id": 37,
+      "type": "fill_in_blank",
+      "question": "The location is especially _______ for travelers who rely on public transport. (thuận tiện)",
+      "answer": "convenient",
+      "explanation": "'Convenient' là tính từ mô tả sự thuận tiện của vị trí."
+    },
+    {
+      "id": 38,
+      "type": "fill_in_blank",
+      "question": "Trying _______ is one of the best ways to learn about a region. (ẩm thực địa phương)",
+      "answer": "local cuisine",
+      "explanation": "'Local cuisine' là cụm danh từ chỉ ẩm thực của một địa phương."
+    },
+    {
+      "id": 39,
+      "type": "fill_in_blank",
+      "question": "The airport has a _______ desk near the baggage claim area. (quầy đổi ngoại tệ)",
+      "answer": "currency exchange",
+      "explanation": "'Currency exchange desk' là quầy cung cấp dịch vụ đổi tiền."
+    },
+    {
+      "id": 40,
+      "type": "fill_in_blank",
+      "question": "Check whether your _______ covers medical treatment abroad. (bảo hiểm du lịch)",
+      "answer": "travel insurance",
+      "explanation": "'Travel insurance' là cụm danh từ chỉ bảo hiểm dành cho chuyến đi."
+    },
+    {
+      "id": 41,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Lịch trình của chúng tôi có một ngày tham quan bảo tàng.",
+      "answer": "Our itinerary includes a day at the museum.",
+      "explanation": "Dùng 'itinerary' để nói về lịch trình; 'includes' diễn tả hoạt động có trong kế hoạch."
+    },
+    {
+      "id": 42,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi muốn xác nhận đặt phòng cho tối thứ Bảy.",
+      "answer": "I'd like to confirm my reservation for Saturday night.",
+      "explanation": "'Confirm my reservation' dùng để xác nhận việc đặt trước."
+    },
+    {
+      "id": 43,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Khách sạn này không còn phòng trống vào cuối tuần.",
+      "answer": "This hotel has no vacancies at the weekend.",
+      "explanation": "'No vacancies' là cách thông báo khách sạn đã hết phòng."
+    },
+    {
+      "id": 44,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Chỗ ở đã được bao gồm trong giá tour.",
+      "answer": "Accommodation is included in the tour price.",
+      "explanation": "'Accommodation' thường là danh từ không đếm được, không dùng 'a' khi nói chung."
+    },
+    {
+      "id": 45,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Các tiện nghi của khách sạn bao gồm hồ bơi và phòng tập.",
+      "answer": "The hotel's amenities include a swimming pool and a gym.",
+      "explanation": "'Amenities' là danh từ số nhiều; dùng 'include' để liệt kê."
+    },
+    {
+      "id": 46,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Cây cầu này là một địa danh nổi tiếng của thành phố.",
+      "answer": "This bridge is a famous landmark in the city.",
+      "explanation": "'Landmark' chỉ địa danh hoặc công trình dễ nhận biết."
+    },
+    {
+      "id": 47,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Giờ khởi hành dự kiến là 8 giờ sáng.",
+      "answer": "The scheduled departure time is 8 a.m.",
+      "explanation": "'Scheduled departure time' là giờ khởi hành theo lịch."
+    },
+    {
+      "id": 48,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Vui lòng báo cho tôi thời gian bạn đến nơi.",
+      "answer": "Please let me know your arrival time.",
+      "explanation": "'Arrival time' là thời gian đến nơi; 'let me know' là cho tôi biết."
+    },
+    {
+      "id": 49,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Chúng tôi có hai tiếng quá cảnh ở Bangkok.",
+      "answer": "We have a two-hour layover in Bangkok.",
+      "explanation": "Dùng số lượng + 'layover' để nói khoảng thời gian quá cảnh."
+    },
+    {
+      "id": 50,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Hãy kiểm tra hạn mức hành lý trước khi ra sân bay.",
+      "answer": "Check your baggage allowance before going to the airport.",
+      "explanation": "'Baggage allowance' là hạn mức hành lý; sau 'before' có thể dùng V-ing."
+    },
+    {
+      "id": 51,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Bạn có thể xuất trình thẻ lên máy bay trên điện thoại.",
+      "answer": "You can show your boarding pass on your phone.",
+      "explanation": "'Show your boarding pass' nghĩa là xuất trình thẻ lên máy bay."
+    },
+    {
+      "id": 52,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Giá vé tàu đã tăng trong tháng này.",
+      "answer": "The train fare has increased this month.",
+      "explanation": "'Fare' là giá vé; hiện tại hoàn thành diễn tả thay đổi có liên quan đến hiện tại."
+    },
+    {
+      "id": 53,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Tôi muốn yêu cầu hoàn tiền vì chuyến đi đã bị hủy.",
+      "answer": "I'd like to request a refund because the trip was cancelled.",
+      "explanation": "'Request a refund' là yêu cầu hoàn tiền; 'was cancelled' là bị động."
+    },
+    {
+      "id": 54,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Chúng tôi cần đổi lịch chuyến tham quan sang thứ Hai.",
+      "answer": "We need to reschedule the tour for Monday.",
+      "explanation": "Cấu trúc 'reschedule something for + thời gian' diễn tả việc đổi lịch."
+    },
+    {
+      "id": 55,
+      "type": "translation",
+      "question": "Dịch sang tiếng Anh: Hãy thử ẩm thực địa phương và mua bảo hiểm du lịch trước chuyến đi.",
+      "answer": "Try the local cuisine and buy travel insurance before the trip.",
+      "explanation": "'Local cuisine' và 'travel insurance' là hai cụm danh từ phù hợp với ngữ cảnh."
+    },
+    {
+      "id": 56,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: I made a reservation on a table for four.",
+      "answer": "I made a reservation for a table for four.",
+      "explanation": "Dùng 'make a reservation for a table' để nói đặt bàn; không dùng 'on a table'."
+    },
+    {
+      "id": 57,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: The hotel has many modern amenity.",
+      "answer": "The hotel has many modern amenities.",
+      "explanation": "Sau 'many' cần danh từ số nhiều 'amenities'."
+    },
+    {
+      "id": 58,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: We arrived to the airport two hours early.",
+      "answer": "We arrived at the airport two hours early.",
+      "explanation": "Dùng 'arrive at' với địa điểm cụ thể như sân bay."
+    },
+    {
+      "id": 59,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: Our departure are scheduled for 7:15.",
+      "answer": "Our departure is scheduled for 7:15.",
+      "explanation": "'Departure' là danh từ số ít nên dùng động từ 'is'."
+    },
+    {
+      "id": 60,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: There are no vacancy at this guesthouse.",
+      "answer": "There are no vacancies at this guesthouse.",
+      "explanation": "Sau 'no' trong câu này dùng danh từ số nhiều 'vacancies'."
+    },
+    {
+      "id": 61,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: We booked an accommodation near the station.",
+      "answer": "We booked accommodation near the station.",
+      "explanation": "'Accommodation' thường là danh từ không đếm được khi nói chung về chỗ ở."
+    },
+    {
+      "id": 62,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: My layover lasts during three hours.",
+      "answer": "My layover lasts for three hours.",
+      "explanation": "Dùng 'for + khoảng thời gian' để diễn tả một hoạt động kéo dài bao lâu."
+    },
+    {
+      "id": 63,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: The airline allow 20 kilograms of checked baggage.",
+      "answer": "The airline allows 20 kilograms of checked baggage.",
+      "explanation": "Chủ ngữ số ít 'the airline' cần động từ chia 'allows'."
+    },
+    {
+      "id": 64,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: I showed my boarding pass for the gate.",
+      "answer": "I showed my boarding pass at the gate.",
+      "explanation": "Dùng giới từ 'at' để chỉ địa điểm xuất trình thẻ lên máy bay."
+    },
+    {
+      "id": 65,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: The bus fee is only two dollars each way.",
+      "answer": "The bus fare is only two dollars each way.",
+      "explanation": "Trong ngữ cảnh tiền vé phương tiện công cộng, dùng 'fare' thay vì 'fee'."
+    },
+    {
+      "id": 66,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: The airline refunded to me the ticket price.",
+      "answer": "The airline refunded me the ticket price.",
+      "explanation": "Động từ 'refund' có thể nhận tân ngữ chỉ người và khoản tiền; không cần 'to'."
+    },
+    {
+      "id": 67,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: We received a cancelation notice yesterday.",
+      "answer": "We received a cancellation notice yesterday.",
+      "explanation": "Cách viết chuẩn trong bộ từ vựng này là 'cancellation'."
+    },
+    {
+      "id": 68,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: Is it possible to reschedule the booking to Friday?",
+      "answer": "Is it possible to reschedule the booking for Friday?",
+      "explanation": "Dùng 'reschedule something for + thời điểm mới'."
+    },
+    {
+      "id": 69,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: This hotel is convenience to the train station.",
+      "answer": "This hotel is convenient to the train station.",
+      "explanation": "Sau 'is' cần tính từ 'convenient', không phải danh từ 'convenience'."
+    },
+    {
+      "id": 70,
+      "type": "sentence_correction",
+      "question": "Find and correct the mistake: We exchanged our moneys at the airport counter.",
+      "answer": "We exchanged our money at the airport counter.",
+      "explanation": "'Money' là danh từ không đếm được khi nói chung về tiền; không thêm 's'."
+    }
+  ]
+}

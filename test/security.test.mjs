@@ -1,7 +1,7 @@
 import http from 'http';
 import app from '../server/app.js';
 import { generateSignedToken, verifySignedToken } from '../server/routes/auth.js';
-import { validateProgressPayload } from '../server/utils/validation.js';
+import { validateProgressPayload, validateSavedWordPayload, validateBatchSavedWords } from '../server/utils/validation.js';
 
 let server;
 const PORT = 5099;
@@ -282,6 +282,30 @@ async function runTests() {
     assert(unique[0].word === 'clarify' && unique[1].word === 'prioritize', 'Filtered words match expected');
     assert(skipped.length === 2, 'Deduplication correctly skips existing database word and duplicate in input');
     assert(skipped[0].word.trim().toLowerCase() === 'wake up', 'Existing word Wake Up was caught');
+  }
+
+  // TEST 13: Saved words security and validation
+  {
+    // Unauthenticated request is rejected
+    const unauth = await api('/api/saved-words');
+    assert(unauth.status === 401, 'F-01: GET /api/saved-words requires auth and returns 401');
+
+    // Validation for single saved word
+    const invalidWord = validateSavedWordPayload({});
+    assert(!invalidWord.valid, 'validateSavedWordPayload rejects empty payload');
+
+    const missingMeaning = validateSavedWordPayload({ word: 'serendipity' });
+    assert(!missingMeaning.valid, 'validateSavedWordPayload rejects missing meaning');
+
+    const validWord = validateSavedWordPayload({ word: 'serendipity', meaning: 'sự may mắn tình cờ' });
+    assert(validWord.valid && validWord.word.word === 'serendipity', 'validateSavedWordPayload accepts valid word');
+
+    // Validation for batch saved words
+    const batchEmpty = validateBatchSavedWords([]);
+    assert(batchEmpty.valid && batchEmpty.words.length === 0, 'validateBatchSavedWords accepts empty array');
+
+    const batchInvalid = validateBatchSavedWords([{ word: 'test' }]);
+    assert(!batchInvalid.valid, 'validateBatchSavedWords rejects items missing required fields');
   }
 
   console.log(`\n========================================`);
